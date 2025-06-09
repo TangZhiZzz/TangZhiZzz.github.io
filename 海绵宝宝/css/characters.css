@@ -1,0 +1,350 @@
+/* 角色介绍页面专属样式 */
+
+/* 页面头部样式 */
+.page-header {
+    text-align: center;
+    padding: 40px 0;
+    background: linear-gradient(135deg, rgba(255,215,0,0.1) 0%, rgba(255,107,53,0.1) 100%);
+    border-radius: 20px;
+    margin-bottom: 40px;
+}
+
+.page-subtitle {
+    font-size: 1.2em;
+    color: #666;
+    margin-top: 10px;
+    font-weight: 400;
+}
+
+/* 主要角色样式 */
+.main-characters {
+    margin-bottom: 60px;
+}
+
+.characters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.character-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 3px solid #FFD700;
+    position: relative;
+}
+
+.character-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(255,215,0,0.3);
+    border-color: #FF6B35;
+}
+
+.character-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #FFD700, #FF6B35, #87CEEB, #98FB98);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.character-card:hover::before {
+    opacity: 1;
+}
+
+.character-image {
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(135,206,235,0.1));
+}
+
+.character-image .placeholder {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 4px solid #FFD700;
+    transition: all 0.3s ease;
+}
+
+.character-card:hover .character-image .placeholder {
+    transform: scale(1.1) rotate(5deg);
+    border-color: #FF6B35;
+}
+
+.character-info {
+    padding: 25px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.character-info h3 {
+    color: #FF6B35;
+    margin-bottom: 8px;
+    font-size: 1.4em;
+}
+
+.character-role {
+    color: #888;
+    font-weight: 600;
+    margin-bottom: 15px;
+    font-size: 0.95em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.character-description {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+.character-traits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.trait {
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    color: #2c3e50;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.85em;
+    font-weight: 600;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.character-btn {
+    align-self: flex-start;
+    margin-top: auto;
+}
+
+/* 配角样式 */
+.supporting-characters {
+    margin-bottom: 60px;
+}
+
+.supporting-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.supporting-card {
+    text-align: center;
+    padding: 20px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.supporting-card:hover {
+    border-color: #FFD700;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(255,215,0,0.2);
+}
+
+.supporting-card .placeholder {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin: 0 auto 15px;
+    border: 3px solid #87CEEB;
+}
+
+.supporting-card h4 {
+    color: #FF6B35;
+    margin-bottom: 8px;
+    font-size: 1.1em;
+}
+
+.supporting-card p {
+    color: #666;
+    font-size: 0.9em;
+    line-height: 1.4;
+}
+
+/* 角色关系图样式 */
+.character-relationships {
+    margin-bottom: 60px;
+}
+
+.relationship-chart {
+    text-align: center;
+    padding: 40px;
+}
+
+.chart-container .placeholder {
+    width: 100%;
+    max-width: 600px;
+    height: 300px;
+    margin: 0 auto 20px;
+}
+
+.chart-container p {
+    color: #666;
+    font-size: 1.1em;
+}
+
+/* 角色测试样式 */
+.character-quiz {
+    margin-bottom: 40px;
+}
+
+.quiz-container {
+    text-align: center;
+    padding: 40px;
+    background: linear-gradient(135deg, rgba(135,206,235,0.1), rgba(152,251,152,0.1));
+}
+
+.quiz-container p {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+/* 角色模态框专属样式 */
+
+#modal-body {
+    padding: 30px;
+}
+
+.modal-character-info {
+    text-align: center;
+}
+
+.modal-character-info h3 {
+    color: #FF6B35;
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.modal-character-info .character-role {
+    font-size: 1.1em;
+    margin-bottom: 20px;
+}
+
+.modal-character-info .placeholder {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    margin: 20px auto;
+    border: 5px solid #FFD700;
+}
+
+.character-details {
+    margin-top: 25px;
+    text-align: left;
+}
+
+.character-details h4 {
+    color: #FF6B35;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+.character-details p {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.character-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.stat-item {
+    background: rgba(255,215,0,0.1);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    border: 2px solid #FFD700;
+}
+
+.stat-label {
+    font-weight: 600;
+    color: #FF6B35;
+    margin-bottom: 5px;
+}
+
+.stat-value {
+    color: #2c3e50;
+    font-size: 1.1em;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .characters-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .character-card {
+        flex-direction: row;
+    }
+    
+    .character-image {
+        flex: 0 0 120px;
+        padding: 15px;
+    }
+    
+    .character-image .placeholder {
+        width: 90px;
+        height: 90px;
+    }
+    
+    .character-info {
+        padding: 15px;
+    }
+    
+    .supporting-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+    }
+    
+    .character-stats {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .character-card {
+        flex-direction: column;
+    }
+    
+    .character-image {
+        flex: none;
+    }
+    
+    .page-header {
+        padding: 30px 20px;
+    }
+    
+    .supporting-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .modal-character-info .placeholder {
+        width: 150px;
+        height: 150px;
+    }
+}

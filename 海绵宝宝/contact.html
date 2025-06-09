@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>联系我们 - 海绵宝宝的世界</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/contact.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">🧽 海绵宝宝的世界</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="characters.html">角色介绍</a></li>
+                <li><a href="episodes.html">精彩剧集</a></li>
+                <li><a href="games.html">趣味游戏</a></li>
+                <li><a href="contact.html">联系我们</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main class="main-content">
+        <div class="container">
+            <!-- 页面标题 -->
+            <section class="page-header">
+                <h1>联系比奇堡</h1>
+                <p class="page-subtitle">有任何问题或建议？我们很乐意听到您的声音！</p>
+            </section>
+
+            <!-- 联系方式 -->
+            <section class="contact-info">
+                <div class="contact-grid">
+                    <div class="contact-card card">
+                        <div class="contact-icon">📧</div>
+                        <h3>电子邮箱</h3>
+                        <p>spongebob@bikini-bottom.com</p>
+                        <p class="contact-desc">我们会在24小时内回复您的邮件</p>
+                    </div>
+                    
+                    <div class="contact-card card">
+                        <div class="contact-icon">📞</div>
+                        <h3>联系电话</h3>
+                        <p>+1-800-KRABBY</p>
+                        <p class="contact-desc">工作时间：周一至周五 9:00-18:00</p>
+                    </div>
+                    
+                    <div class="contact-card card">
+                        <div class="contact-icon">📍</div>
+                        <h3>地址</h3>
+                        <p>比奇堡海底124号</p>
+                        <p class="contact-desc">菠萝屋旁边的蟹堡王餐厅</p>
+                    </div>
+                    
+                    <div class="contact-card card">
+                        <div class="contact-icon">💬</div>
+                        <h3>在线客服</h3>
+                        <p>24/7 在线支持</p>
+                        <p class="contact-desc">点击右下角聊天图标开始对话</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 联系表单 -->
+            <section class="contact-form-section">
+                <div class="form-container">
+                    <div class="form-header">
+                        <h2>发送消息</h2>
+                        <p>填写下面的表单，我们会尽快回复您</p>
+                    </div>
+                    
+                    <form id="contact-form" class="contact-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">姓名 *</label>
+                                <input type="text" id="name" name="name" required>
+                                <span class="form-icon">👤</span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">邮箱 *</label>
+                                <input type="email" id="email" name="email" required>
+                                <span class="form-icon">📧</span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="phone">电话</label>
+                                <input type="tel" id="phone" name="phone">
+                                <span class="form-icon">📞</span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="subject">主题 *</label>
+                                <select id="subject" name="subject" required>
+                                    <option value="">请选择主题</option>
+                                    <option value="general">一般咨询</option>
+                                    <option value="feedback">意见反馈</option>
+                                    <option value="bug">问题报告</option>
+                                    <option value="suggestion">功能建议</option>
+                                    <option value="partnership">合作洽谈</option>
+                                    <option value="other">其他</option>
+                                </select>
+                                <span class="form-icon">📋</span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">消息内容 *</label>
+                            <textarea id="message" name="message" rows="6" placeholder="请详细描述您的问题或建议..." required></textarea>
+                            <span class="form-icon message-icon">💭</span>
+                        </div>
+                        
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="newsletter" name="newsletter">
+                                <span class="checkmark"></span>
+                                订阅我们的新闻通讯，获取最新的海绵宝宝资讯
+                            </label>
+                        </div>
+                        
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="privacy" name="privacy" required>
+                                <span class="checkmark"></span>
+                                我同意 <a href="#" class="privacy-link">隐私政策</a> 和 <a href="#" class="terms-link">服务条款</a>
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">
+                            <span class="btn-text">发送消息</span>
+                            <span class="btn-icon">🚀</span>
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- 侧边信息 -->
+                <div class="contact-sidebar">
+                    <div class="sidebar-card card">
+                        <h3>🌊 比奇堡小贴士</h3>
+                        <ul class="tips-list">
+                            <li>📝 详细描述问题有助于我们更好地帮助您</li>
+                            <li>⚡ 紧急问题请直接拨打客服电话</li>
+                            <li>📱 关注我们的社交媒体获取最新动态</li>
+                            <li>🎮 游戏相关问题请提供具体的错误信息</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sidebar-card card">
+                        <h3>🕒 工作时间</h3>
+                        <div class="working-hours">
+                            <div class="time-item">
+                                <span class="day">周一 - 周五</span>
+                                <span class="time">9:00 - 18:00</span>
+                            </div>
+                            <div class="time-item">
+                                <span class="day">周六</span>
+                                <span class="time">10:00 - 16:00</span>
+                            </div>
+                            <div class="time-item">
+                                <span class="day">周日</span>
+                                <span class="time">休息</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="sidebar-card card">
+                        <h3>🌐 社交媒体</h3>
+                        <div class="social-links">
+                            <a href="#" class="social-link" data-platform="facebook">
+                                <span class="social-icon">📘</span>
+                                <span>Facebook</span>
+                            </a>
+                            <a href="#" class="social-link" data-platform="twitter">
+                                <span class="social-icon">🐦</span>
+                                <span>Twitter</span>
+                            </a>
+                            <a href="#" class="social-link" data-platform="instagram">
+                                <span class="social-icon">📷</span>
+                                <span>Instagram</span>
+                            </a>
+                            <a href="#" class="social-link" data-platform="youtube">
+                                <span class="social-icon">📺</span>
+                                <span>YouTube</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 常见问题 -->
+            <section class="faq-section">
+                <h2>常见问题</h2>
+                <div class="faq-container">
+                    <div class="faq-item card">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h4>如何观看海绵宝宝剧集？</h4>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>您可以在我们的"精彩剧集"页面观看所有海绵宝宝的经典剧集。我们提供高清画质和多种语言字幕选择。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item card">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h4>游戏无法正常运行怎么办？</h4>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>请确保您的浏览器是最新版本，并启用了JavaScript。如果问题仍然存在，请清除浏览器缓存或尝试使用其他浏览器。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item card">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h4>如何重置游戏进度？</h4>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>在游戏页面的设置中，您可以找到"重置进度"选项。请注意，此操作将清除所有游戏数据且无法恢复。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item card">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h4>网站支持移动设备吗？</h4>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>是的！我们的网站采用响应式设计，完美支持手机、平板和桌面设备。您可以在任何设备上享受海绵宝宝的世界。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item card">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h4>如何获取最新更新？</h4>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>您可以订阅我们的新闻通讯，关注我们的社交媒体账号，或定期访问网站查看最新内容和功能更新。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 地图区域 -->
+            <section class="map-section">
+                <h2>找到我们</h2>
+                <div class="map-container card">
+                    <div class="map-placeholder">
+                        <img src="img/6f69e3ca0275ce384930cc77a13e5b4e.jpg" alt="比奇堡地图" class="placeholder">
+                        <div class="map-overlay">
+                            <div class="map-info">
+                                <h3>🏠 比奇堡海底124号</h3>
+                                <p>📍 菠萝屋旁边的蟹堡王餐厅</p>
+                                <p>🚗 提供免费停车位</p>
+                                <p>🚌 可乘坐海底巴士直达</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 浮动客服按钮 -->
+    <div class="floating-chat" onclick="openChat()">
+        <div class="chat-icon">💬</div>
+        <div class="chat-tooltip">在线客服</div>
+    </div>
+
+    <!-- 版权栏 -->
+    <div class="footer">
+        © 2025 tangzhizzz 所有
+    </div>
+
+    <!-- 脚本文件 -->
+    <script src="js/common.js"></script>
+    <script src="js/contact.js"></script>
+</body>
+</html>

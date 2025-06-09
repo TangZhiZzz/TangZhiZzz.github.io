@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>角色介绍 - 海绵宝宝的世界</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/characters.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">🧽 海绵宝宝的世界</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="characters.html">角色介绍</a></li>
+                <li><a href="episodes.html">精彩剧集</a></li>
+                <li><a href="games.html">趣味游戏</a></li>
+                <li><a href="contact.html">联系我们</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main class="main-content">
+        <div class="container">
+            <!-- 页面标题 -->
+            <section class="page-header">
+                <h1>认识比奇堡的朋友们</h1>
+                <p class="page-subtitle">探索海绵宝宝世界中每个角色的独特魅力</p>
+            </section>
+
+            <!-- 主要角色 -->
+            <section class="main-characters">
+                <h2>主要角色</h2>
+                <div class="characters-grid">
+                    <!-- 海绵宝宝 -->
+                    <div class="character-card card" data-character="spongebob">
+                        <div class="character-image">
+                            <img src="img/754c1cf49e6ad2f3623fec585993def3.jpg" alt="海绵宝宝" class="placeholder">
+                        </div>
+                        <div class="character-info">
+                            <h3>海绵宝宝 SpongeBob</h3>
+                            <p class="character-role">蟹堡王厨师</p>
+                            <p class="character-description">
+                                乐观开朗的海绵，住在菠萝屋里。他是蟹堡王餐厅的首席厨师，
+                                制作世界上最美味的蟹黄堡。总是充满活力和热情！
+                            </p>
+                            <div class="character-traits">
+                                <span class="trait">乐观</span>
+                                <span class="trait">勤奋</span>
+                                <span class="trait">友善</span>
+                            </div>
+                            <button class="btn character-btn" onclick="showCharacterDetails('spongebob')">了解更多</button>
+                        </div>
+                    </div>
+
+                    <!-- 派大星 -->
+                    <div class="character-card card" data-character="patrick">
+                        <div class="character-image">
+                            <img src="img/208e3b34e0ddef78105f2de2f48c5cf6.jpeg" alt="派大星" class="placeholder">
+                        </div>
+                        <div class="character-info">
+                            <h3>派大星 Patrick</h3>
+                            <p class="character-role">海绵宝宝的好朋友</p>
+                            <p class="character-description">
+                                粉红色的海星，住在石头下面。虽然有时候显得有点迟钝，
+                                但他是海绵宝宝最忠实的朋友，总是陪伴在身边。
+                            </p>
+                            <div class="character-traits">
+                                <span class="trait">忠诚</span>
+                                <span class="trait">单纯</span>
+                                <span class="trait">幽默</span>
+                            </div>
+                            <button class="btn character-btn" onclick="showCharacterDetails('patrick')">了解更多</button>
+                        </div>
+                    </div>
+
+                    <!-- 章鱼哥 -->
+                    <div class="character-card card" data-character="squidward">
+                        <div class="character-image">
+                            <img src="img/1f02d07e8d88153ee3a468df51444c27.jpg" alt="章鱼哥" class="placeholder">
+                        </div>
+                        <div class="character-info">
+                            <h3>章鱼哥 Squidward</h3>
+                            <p class="character-role">蟹堡王收银员</p>
+                            <p class="character-description">
+                                蓝色的章鱼，住在复活节岛雕像形状的房子里。他是蟹堡王的收银员，
+                                喜欢艺术和音乐，但经常被海绵宝宝的热情所困扰。
+                            </p>
+                            <div class="character-traits">
+                                <span class="trait">艺术家</span>
+                                <span class="trait">严肃</span>
+                                <span class="trait">音乐爱好者</span>
+                            </div>
+                            <button class="btn character-btn" onclick="showCharacterDetails('squidward')">了解更多</button>
+                        </div>
+                    </div>
+
+                    <!-- 蟹老板 -->
+                    <div class="character-card card" data-character="krabs">
+                        <div class="character-image">
+                            <img src="img/ac3d0f31b9706a1d3e06145b0e4b7a89.jpeg" alt="蟹老板" class="placeholder">
+                        </div>
+                        <div class="character-info">
+                            <h3>蟹老板 Mr. Krabs</h3>
+                            <p class="character-role">蟹堡王老板</p>
+                            <p class="character-description">
+                                红色的螃蟹，蟹堡王餐厅的老板。他非常爱钱，但也很关心员工。
+                                有一个女儿叫珍珍，是一只鲸鱼。
+                            </p>
+                            <div class="character-traits">
+                                <span class="trait">商人</span>
+                                <span class="trait">精明</span>
+                                <span class="trait">父亲</span>
+                            </div>
+                            <button class="btn character-btn" onclick="showCharacterDetails('krabs')">了解更多</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 配角 -->
+            <section class="supporting-characters">
+                <h2>其他角色</h2>
+                <div class="supporting-grid">
+                    <div class="supporting-card card">
+                        <img src="img/49c91bf899b0161562c1ec204a468352.jpeg" alt="珊迪" class="placeholder">
+                        <h4>珊迪 Sandy</h4>
+                        <p>来自德克萨斯州的松鼠科学家</p>
+                    </div>
+                    
+                    <div class="supporting-card card">
+                        <img src="img/bc4a8ad721f79fd7dfb4ed0cfbaff319.jpeg" alt="痞老板" class="placeholder">
+                        <h4>痞老板 Plankton</h4>
+                        <p>海之霸餐厅老板，蟹老板的竞争对手</p>
+                    </div>
+                    
+                    <div class="supporting-card card">
+                        <img src="img/3be12984937c20f6e9f82a5e807bf851.jpeg" alt="珍珍" class="placeholder">
+                        <h4>珍珍 Pearl</h4>
+                        <p>蟹老板的女儿，一只年轻的鲸鱼</p>
+                    </div>
+                    
+                    <div class="supporting-card card">
+                        <img src="img/aaadee9c483f7eb2bf51ef0458c9b840.jpeg" alt="小蜗" class="placeholder">
+                        <h4>小蜗 Gary</h4>
+                        <p>海绵宝宝的宠物蜗牛</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 角色关系图 -->
+            <section class="character-relationships">
+                <h2>角色关系</h2>
+                <div class="relationship-chart card">
+                    <div class="chart-container">
+                        <img src="img/315d304785557fa4e328b6e47000794f.jpg" alt="角色关系图" class="placeholder">
+                        <p>探索比奇堡居民之间的有趣关系网络</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 角色测试 -->
+            <section class="character-quiz">
+                <h2>你最像哪个角色？</h2>
+                <div class="quiz-container card">
+                    <p>通过我们的趣味测试，发现你的性格最接近哪个比奇堡居民！</p>
+                    <button class="btn btn-primary" onclick="startQuiz()">开始测试</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 角色详情模态框 -->
+    <div id="character-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modal-body">
+                <!-- 动态内容将在这里显示 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 版权栏 -->
+    <div class="footer">
+        © 2025 tangzhizzz 所有
+    </div>
+
+    <!-- 脚本文件 -->
+    <script src="js/common.js"></script>
+    <script src="js/characters.js"></script>
+</body>
+</html>

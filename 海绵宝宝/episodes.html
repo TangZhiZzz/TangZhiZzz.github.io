@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>精彩剧集 - 海绵宝宝的世界</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/episodes.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">🧽 海绵宝宝的世界</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="characters.html">角色介绍</a></li>
+                <li><a href="episodes.html">精彩剧集</a></li>
+                <li><a href="games.html">趣味游戏</a></li>
+                <li><a href="contact.html">联系我们</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main class="main-content">
+        <div class="container">
+            <!-- 页面标题 -->
+            <section class="page-header">
+                <h1>精彩剧集回顾</h1>
+                <p class="page-subtitle">重温海绵宝宝的经典冒险时光</p>
+            </section>
+
+            <!-- 搜索和筛选 -->
+            <section class="episode-filters">
+                <div class="filter-container card">
+                    <div class="search-box">
+                        <input type="text" id="episode-search" placeholder="搜索剧集名称..." onkeyup="filterEpisodes()">
+                        <button class="search-btn" onclick="filterEpisodes()">🔍</button>
+                    </div>
+                    <div class="filter-options">
+                        <select id="season-filter" onchange="filterEpisodes()">
+                            <option value="all">所有季度</option>
+                            <option value="1">第一季</option>
+                            <option value="2">第二季</option>
+                            <option value="3">第三季</option>
+                            <option value="4">第四季</option>
+                        </select>
+                        <select id="type-filter" onchange="filterEpisodes()">
+                            <option value="all">所有类型</option>
+                            <option value="comedy">喜剧</option>
+                            <option value="adventure">冒险</option>
+                            <option value="friendship">友情</option>
+                            <option value="work">工作</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 推荐剧集 -->
+            <section class="featured-episodes">
+                <h2>编辑推荐</h2>
+                <div class="featured-grid">
+                    <div class="featured-episode card">
+                        <div class="episode-thumbnail">
+                            <img src="img/f49cbbe6a55693bff12d3532d45c3071.jpg" alt="帮助通缉犯" class="placeholder">
+                            <div class="play-button" onclick="playEpisode('help-wanted')">▶</div>
+                        </div>
+                        <div class="episode-info">
+                            <h3>帮助通缉犯</h3>
+                            <p class="episode-meta">第1季 第1集 • 喜剧</p>
+                            <p class="episode-description">
+                                海绵宝宝第一次来到蟹堡王餐厅应聘厨师工作，开始了他在比奇堡的全新生活。
+                            </p>
+                            <div class="episode-rating">
+                                <span class="stars">⭐⭐⭐⭐⭐</span>
+                                <span class="rating-text">9.5/10</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="featured-episode card">
+                        <div class="episode-thumbnail">
+                            <img src="img/11a655e7f466423c7741d82445e7f554.jpg" alt="乐队极客" class="placeholder">
+                            <div class="play-button" onclick="playEpisode('band-geeks')">▶</div>
+                        </div>
+                        <div class="episode-info">
+                            <h3>乐队极客</h3>
+                            <p class="episode-meta">第2季 第15集 • 音乐</p>
+                            <p class="episode-description">
+                                章鱼哥组建乐队参加超级碗中场表演，海绵宝宝和朋友们加入其中。
+                            </p>
+                            <div class="episode-rating">
+                                <span class="stars">⭐⭐⭐⭐⭐</span>
+                                <span class="rating-text">9.8/10</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 剧集列表 -->
+            <section class="episodes-list">
+                <h2>所有剧集</h2>
+                <div class="episodes-grid" id="episodes-container">
+                    <!-- 剧集卡片将通过JavaScript动态生成 -->
+                </div>
+                <div class="load-more">
+                    <button class="btn" onclick="loadMoreEpisodes()">加载更多剧集</button>
+                </div>
+            </section>
+
+            <!-- 季度统计 -->
+            <section class="season-stats">
+                <h2>季度统计</h2>
+                <div class="stats-grid">
+                    <div class="stat-card card">
+                        <div class="stat-icon">📺</div>
+                        <h3>第一季</h3>
+                        <p class="stat-number">20集</p>
+                        <p class="stat-description">经典开篇，建立角色关系</p>
+                    </div>
+                    
+                    <div class="stat-card card">
+                        <div class="stat-icon">🎭</div>
+                        <h3>第二季</h3>
+                        <p class="stat-number">20集</p>
+                        <p class="stat-description">深入角色发展，经典剧集</p>
+                    </div>
+                    
+                    <div class="stat-card card">
+                        <div class="stat-icon">🌊</div>
+                        <h3>第三季</h3>
+                        <p class="stat-number">20集</p>
+                        <p class="stat-description">冒险升级，友情深化</p>
+                    </div>
+                    
+                    <div class="stat-card card">
+                        <div class="stat-icon">🎪</div>
+                        <h3>第四季</h3>
+                        <p class="stat-number">20集</p>
+                        <p class="stat-description">创意巅峰，笑料不断</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 观看历史 -->
+            <section class="watch-history">
+                <h2>最近观看</h2>
+                <div class="history-list card">
+                    <div class="history-item">
+                        <img src="img/f49cbbe6a55693bff12d3532d45c3071.jpg" alt="剧集缩略图" class="history-thumbnail">
+                        <div class="history-info">
+                            <h4>帮助通缉犯</h4>
+                            <p>观看时间：2025-01-15 14:30</p>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 75%"></div>
+                            </div>
+                            <p class="progress-text">已观看 75%</p>
+                        </div>
+                        <button class="btn continue-btn" onclick="continueWatching('help-wanted')">继续观看</button>
+                    </div>
+                    
+                    <div class="history-item">
+                        <img src="img/f49cbbe6a55693bff12d3532d45c3071.jpg" alt="剧集缩略图" class="history-thumbnail">
+                        <div class="history-info">
+                            <h4>乐队极客</h4>
+                            <p>观看时间：2025-01-14 20:15</p>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 100%"></div>
+                            </div>
+                            <p class="progress-text">已完成</p>
+                        </div>
+                        <button class="btn replay-btn" onclick="replayEpisode('band-geeks')">重新观看</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 收藏夹 -->
+            <section class="favorites">
+                <h2>我的收藏</h2>
+                <div class="favorites-grid">
+                    <div class="favorite-item card">
+                        <img src="img/fa6b9ad699a0857a47f97fed4038791e.jpg" alt="收藏剧集" class="placeholder">
+                        <h4>乐队极客</h4>
+                        <p>经典音乐剧集</p>
+                        <button class="btn" onclick="removeFavorite('band-geeks')">移除收藏</button>
+                    </div>
+                    
+                    <div class="favorite-item card">
+                        <img src="img/fa6b9ad699a0857a47f97fed4038791e.jpg" alt="收藏剧集" class="placeholder">
+                        <h4>巧克力女士</h4>
+                        <p>搞笑经典</p>
+                        <button class="btn" onclick="removeFavorite('chocolate-lady')">移除收藏</button>
+                    </div>
+                    
+                    <div class="add-favorite card">
+                        <div class="add-icon">+</div>
+                        <p>添加更多收藏</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 播放器模态框 -->
+    <div id="player-modal" class="modal">
+        <div class="modal-content player-content">
+            <span class="close" onclick="closePlayer()">&times;</span>
+            <div id="player-body">
+                <!-- 播放器内容将在这里显示 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 版权栏 -->
+    <div class="footer">
+        © 2025 tangzhizzz 所有
+    </div>
+
+    <!-- 脚本文件 -->
+    <script src="js/common.js"></script>
+    <script src="js/episodes.js"></script>
+</body>
+</html>

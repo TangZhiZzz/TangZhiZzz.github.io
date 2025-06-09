@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>趣味游戏 - 海绵宝宝的世界</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/games.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">🧽 海绵宝宝的世界</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="characters.html">角色介绍</a></li>
+                <li><a href="episodes.html">精彩剧集</a></li>
+                <li><a href="games.html">趣味游戏</a></li>
+                <li><a href="contact.html">联系我们</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main class="main-content">
+        <div class="container">
+            <!-- 页面标题 -->
+            <section class="page-header">
+                <h1>比奇堡游戏中心</h1>
+                <p class="page-subtitle">和海绵宝宝一起享受欢乐游戏时光</p>
+            </section>
+
+            <!-- 游戏统计 -->
+            <section class="game-stats">
+                <div class="stats-container card">
+                    <div class="stat-item">
+                        <div class="stat-icon">🎮</div>
+                        <div class="stat-info">
+                            <h3 id="games-played">0</h3>
+                            <p>游戏次数</p>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">🏆</div>
+                        <div class="stat-info">
+                            <h3 id="high-score">0</h3>
+                            <p>最高分数</p>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">⭐</div>
+                        <div class="stat-info">
+                            <h3 id="achievements">0</h3>
+                            <p>成就数量</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 游戏列表 -->
+            <section class="games-section">
+                <h2>精选游戏</h2>
+                <div class="games-grid">
+                    <!-- 蟹黄堡制作游戏 -->
+                    <div class="game-card card" data-game="burger-maker">
+                        <div class="game-image">
+                            <img src="img/754c1cf49e6ad2f3623fec585993def3.jpg" alt="蟹黄堡制作" class="placeholder">
+                            <div class="play-overlay">
+                                <button class="play-btn" onclick="startGame('burger-maker')">开始游戏</button>
+                            </div>
+                        </div>
+                        <div class="game-info">
+                            <h3>蟹黄堡制作大师</h3>
+                            <p class="game-category">🍔 料理游戏</p>
+                            <p class="game-description">
+                                帮助海绵宝宝制作完美的蟹黄堡！按照顾客要求添加正确的配料，成为蟹堡王的明星厨师。
+                            </p>
+                            <div class="game-rating">
+                                <span class="stars">⭐⭐⭐⭐⭐</span>
+                                <span class="difficulty">难度: 简单</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 水母抓捕游戏 -->
+                    <div class="game-card card" data-game="jellyfish-catch">
+                        <div class="game-image">
+                            <img src="img/78a69c814f730bfeb6c9058a958fb5bd.jpeg" alt="水母抓捕" class="placeholder">
+                            <div class="play-overlay">
+                                <button class="play-btn" onclick="startGame('jellyfish-catch')">开始游戏</button>
+                            </div>
+                        </div>
+                        <div class="game-info">
+                            <h3>水母抓捕大冒险</h3>
+                            <p class="game-category">🎯 动作游戏</p>
+                            <p class="game-description">
+                                和海绵宝宝一起在水母田里抓水母！小心避开蜇人的水母，收集更多的果冻。
+                            </p>
+                            <div class="game-rating">
+                                <span class="stars">⭐⭐⭐⭐</span>
+                                <span class="difficulty">难度: 中等</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 记忆配对游戏 -->
+                    <div class="game-card card" data-game="memory-match">
+                        <div class="game-image">
+                            <img src="img/aaadee9c483f7eb2bf51ef0458c9b840.jpeg" alt="记忆配对" class="placeholder">
+                            <div class="play-overlay">
+                                <button class="play-btn" onclick="startGame('memory-match')">开始游戏</button>
+                            </div>
+                        </div>
+                        <div class="game-info">
+                            <h3>比奇堡记忆配对</h3>
+                            <p class="game-category">🧠 益智游戏</p>
+                            <p class="game-description">
+                                翻开卡片找到相同的角色配对！锻炼你的记忆力，挑战更高难度。
+                            </p>
+                            <div class="game-rating">
+                                <span class="stars">⭐⭐⭐⭐</span>
+                                <span class="difficulty">难度: 简单</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 泡泡射击游戏 -->
+                    <div class="game-card card" data-game="bubble-shooter">
+                        <div class="game-image">
+                            <img src="img/ac3d0f31b9706a1d3e06145b0e4b7a89.jpeg" alt="泡泡射击" class="placeholder">
+                            <div class="play-overlay">
+                                <button class="play-btn" onclick="startGame('bubble-shooter')">开始游戏</button>
+                            </div>
+                        </div>
+                        <div class="game-info">
+                            <h3>海底泡泡射击</h3>
+                            <p class="game-category">🎯 射击游戏</p>
+                            <p class="game-description">
+                                射击相同颜色的泡泡来消除它们！帮助海绵宝宝清理海底的彩色泡泡。
+                            </p>
+                            <div class="game-rating">
+                                <span class="stars">⭐⭐⭐⭐⭐</span>
+                                <span class="difficulty">难度: 中等</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 拼图游戏 -->
+                    <div class="game-card card" data-game="jigsaw-puzzle">
+                        <div class="game-image">
+                            <img src="img/bc4a8ad721f79fd7dfb4ed0cfbaff319.jpeg" alt="拼图游戏" class="placeholder">
+                            <div class="play-overlay">
+                                <button class="play-btn" onclick="startGame('jigsaw-puzzle')">开始游戏</button>
+                            </div>
+                        </div>
+                        <div class="game-info">
+                            <h3>海绵宝宝拼图</h3>
+                            <p class="game-category">🧩 拼图游戏</p>
+                            <p class="game-description">
+                                拼出完整的海绵宝宝图片！多种难度等级，从简单到专家级挑战。
+                            </p>
+                            <div class="game-rating">
+                                <span class="stars">⭐⭐⭐</span>
+                                <span class="difficulty">难度: 简单</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 音乐节拍游戏 -->
+                    <div class="game-card card" data-game="music-rhythm">
+                        <div class="game-image">
+                            <img src="img/c14c866dcc77fee5ab54288dc4b73af1.jpeg" alt="音乐节拍" class="placeholder">
+                            <div class="play-overlay">
+                                <button class="play-btn" onclick="startGame('music-rhythm')">开始游戏</button>
+                            </div>
+                        </div>
+                        <div class="game-info">
+                            <h3>比奇堡音乐节拍</h3>
+                            <p class="game-category">🎵 音乐游戏</p>
+                            <p class="game-description">
+                                跟着海绵宝宝主题曲的节拍点击！测试你的音乐感和反应速度。
+                            </p>
+                            <div class="game-rating">
+                                <span class="stars">⭐⭐⭐⭐</span>
+                                <span class="difficulty">难度: 困难</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 排行榜 -->
+            <section class="leaderboard">
+                <h2>游戏排行榜</h2>
+                <div class="leaderboard-container card">
+                    <div class="leaderboard-tabs">
+                        <button class="tab-btn active" onclick="showLeaderboard('overall')">总排行</button>
+                        <button class="tab-btn" onclick="showLeaderboard('weekly')">本周</button>
+                        <button class="tab-btn" onclick="showLeaderboard('daily')">今日</button>
+                    </div>
+                    <div class="leaderboard-content" id="leaderboard-content">
+                        <!-- 排行榜内容将通过JavaScript动态生成 -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- 成就系统 -->
+            <section class="achievements">
+                <h2>成就徽章</h2>
+                <div class="achievements-grid">
+                    <div class="achievement-item card unlocked">
+                        <div class="achievement-icon">🏆</div>
+                        <h4>初来乍到</h4>
+                        <p>完成第一个游戏</p>
+                        <span class="achievement-status">已解锁</span>
+                    </div>
+                    
+                    <div class="achievement-item card locked">
+                        <div class="achievement-icon">🍔</div>
+                        <h4>蟹黄堡大师</h4>
+                        <p>在蟹黄堡制作游戏中获得满分</p>
+                        <span class="achievement-status">未解锁</span>
+                    </div>
+                    
+                    <div class="achievement-item card locked">
+                        <div class="achievement-icon">🎯</div>
+                        <h4>水母猎手</h4>
+                        <p>在水母抓捕游戏中抓到100只水母</p>
+                        <span class="achievement-status">未解锁</span>
+                    </div>
+                    
+                    <div class="achievement-item card locked">
+                        <div class="achievement-icon">🧠</div>
+                        <h4>记忆大师</h4>
+                        <p>在记忆配对游戏中连续完成10关</p>
+                        <span class="achievement-status">未解锁</span>
+                    </div>
+                    
+                    <div class="achievement-item card locked">
+                        <div class="achievement-icon">🎵</div>
+                        <h4>节拍达人</h4>
+                        <p>在音乐节拍游戏中获得完美评分</p>
+                        <span class="achievement-status">未解锁</span>
+                    </div>
+                    
+                    <div class="achievement-item card locked">
+                        <div class="achievement-icon">⭐</div>
+                        <h4>全能玩家</h4>
+                        <p>解锁所有其他成就</p>
+                        <span class="achievement-status">未解锁</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 游戏模态框 -->
+    <div id="game-modal" class="modal">
+        <div class="modal-content game-content">
+            <span class="close" onclick="closeGame()">&times;</span>
+            <div id="game-container">
+                <!-- 游戏内容将在这里显示 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 版权栏 -->
+    <div class="footer">
+        © 2025 tangzhizzz 所有
+    </div>
+
+    <!-- 脚本文件 -->
+    <script src="js/common.js"></script>
+    <script src="js/games.js"></script>
+</body>
+</html>

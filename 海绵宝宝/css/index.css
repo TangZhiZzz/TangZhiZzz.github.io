@@ -1,0 +1,270 @@
+/* 首页专属样式 */
+
+/* 欢迎横幅样式 */
+.hero-section {
+    text-align: center;
+    padding: 60px 0;
+    background: linear-gradient(135deg, rgba(255,215,0,0.1) 0%, rgba(135,206,235,0.1) 100%);
+    border-radius: 30px;
+    margin-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
+    animation: float 6s ease-in-out infinite;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-subtitle {
+    font-size: 1.3em;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    font-weight: 500;
+}
+
+.hero-image {
+    margin: 30px 0;
+}
+
+.hero-image .placeholder {
+    max-width: 400px;
+    height: 250px;
+    border: none;
+    background: transparent;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, #FF6B35, #F7931E);
+}
+
+.btn-secondary {
+    background: linear-gradient(45deg, #87CEEB, #4682B4);
+}
+
+/* 特色内容样式 */
+.features-section {
+    margin: 60px 0;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.feature-card {
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+.feature-icon {
+    font-size: 3em;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.feature-card h3 {
+    color: #FF6B35;
+    margin-bottom: 15px;
+}
+
+.feature-card p {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* 最新动态样式 */
+.news-section {
+    margin: 60px 0;
+}
+
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.news-item {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.news-item .placeholder {
+    width: 100%;
+    height: 200px;
+    margin: 0;
+    border-radius: 15px 15px 0 0;
+}
+
+.news-content {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.news-content h3 {
+    margin-bottom: 10px;
+    color: #FF6B35;
+}
+
+.news-date {
+    color: #888;
+    font-size: 0.9em;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.news-content p {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+.news-content .btn {
+    align-self: flex-start;
+    margin-top: auto;
+}
+
+/* 快速链接样式 */
+.quick-links {
+    margin: 60px 0;
+}
+
+.links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-top: 40px;
+}
+
+.quick-link {
+    text-decoration: none;
+    color: inherit;
+    text-align: center;
+    padding: 30px 20px;
+    transition: all 0.3s ease;
+    border: 3px solid transparent;
+}
+
+.quick-link:hover {
+    border-color: #FFD700;
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(255,215,0,0.3);
+}
+
+.link-icon {
+    font-size: 2.5em;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.quick-link h3 {
+    color: #FF6B35;
+    margin-bottom: 10px;
+    font-size: 1.3em;
+}
+
+.quick-link p {
+    color: #666;
+    font-size: 0.95em;
+    line-height: 1.5;
+}
+
+/* 动画效果 */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-20px) rotate(5deg);
+    }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 40px 20px;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1em;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .news-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .links-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+    }
+    
+    .quick-link {
+        padding: 20px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-section {
+        padding: 30px 15px;
+    }
+    
+    .hero-image .placeholder {
+        max-width: 280px;
+        height: 180px;
+    }
+    
+    .feature-icon {
+        font-size: 2.5em;
+    }
+    
+    .link-icon {
+        font-size: 2em;
+    }
+    
+    .links-grid {
+        grid-template-columns: 1fr;
+    }
+}
