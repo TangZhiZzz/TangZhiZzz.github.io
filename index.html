@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>汤俊飞 | 个人主页</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- 背景装饰 -->
+  <div class="bg-decoration">
+    <div class="bg-circle bg-circle-1"></div>
+    <div class="bg-circle bg-circle-2"></div>
+    <div class="bg-circle bg-circle-3"></div>
+  </div>
+
+  <!-- 导航栏 -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-logo">TJF</a>
+      <div class="nav-links">
+        <a href="#about" class="nav-link">关于</a>
+        <a href="#skills" class="nav-link">技能</a>
+        <a href="#contact" class="nav-link">联系</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="菜单">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- 移动端菜单 -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about" class="mobile-link">关于</a>
+    <a href="#skills" class="mobile-link">技能</a>
+    <a href="#contact" class="mobile-link">联系</a>
+  </div>
+
+  <!-- 主内容 -->
+  <main>
+    <!-- Hero 区域 -->
+    <section class="hero" id="hero">
+      <div class="hero-content">
+        <div class="avatar-container">
+          <div class="avatar-ring"></div>
+          <div class="avatar-ring avatar-ring-2"></div>
+          <img src="https://avatars.githubusercontent.com/u/你的GitHubUID" alt="汤俊飞" class="avatar" id="avatar">
+          <div class="avatar-placeholder" id="avatarPlaceholder">
+            <span>TJF</span>
+          </div>
+        </div>
+        <h1 class="hero-name fade-in">汤俊飞</h1>
+        <p class="hero-tagline fade-in">开发者 · 创造者 · 终身学习者</p>
+        <div class="hero-bio fade-in">
+          热爱技术，专注于全栈开发。<br>
+          喜欢用代码创造优雅的解决方案。
+        </div>
+        <div class="hero-cta fade-in">
+          <a href="#contact" class="btn btn-primary">联系我</a>
+          <a href="#about" class="btn btn-secondary">了解更多</a>
+        </div>
+        <div class="scroll-indicator fade-in">
+          <span>向下滚动</span>
+          <div class="scroll-arrow"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 关于区域 -->
+    <section class="section about" id="about">
+      <div class="section-container">
+        <h2 class="section-title reveal">关于我</h2>
+        <div class="about-content">
+          <div class="about-text reveal">
+            <p>你好！我是汤俊飞，一名对技术充满热情的开发者。</p>
+            <p>我热爱编程，享受用代码解决实际问题的过程。在工作中，我追求简洁、高效、可维护的代码风格。</p>
+            <p>工作之余，我喜欢研究新技术、写博客分享经验，也喜欢听听音乐、打打球来放松身心。</p>
+          </div>
+          <div class="about-stats reveal">
+            <div class="stat-item">
+              <span class="stat-number" data-target="3">0</span>
+              <span class="stat-label">年开发经验</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number" data-target="20">0</span>
+              <span class="stat-label">个项目参与</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number" data-target="100">0</span>
+              <span class="stat-label">次代码提交</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 技能区域 -->
+    <section class="section skills" id="skills">
+      <div class="section-container">
+        <h2 class="section-title reveal">技能专长</h2>
+        <div class="skills-grid">
+          <div class="skill-card reveal">
+            <div class="skill-icon">💻</div>
+            <h3 class="skill-name">前端开发</h3>
+            <p class="skill-desc">HTML5, CSS3, JavaScript, Vue.js, React</p>
+            <div class="skill-bar">
+              <div class="skill-progress" data-progress="85"></div>
+            </div>
+          </div>
+          <div class="skill-card reveal">
+            <div class="skill-icon">⚙️</div>
+            <h3 class="skill-name">后端开发</h3>
+            <p class="skill-desc">Node.js, Python, Java, 数据库设计</p>
+            <div class="skill-bar">
+              <div class="skill-progress" data-progress="80"></div>
+            </div>
+          </div>
+          <div class="skill-card reveal">
+            <div class="skill-icon">☁️</div>
+            <h3 class="skill-name">DevOps & 云</h3>
+            <p class="skill-desc">Docker, CI/CD, AWS, Linux</p>
+            <div class="skill-bar">
+              <div class="skill-progress" data-progress="70"></div>
+            </div>
+          </div>
+          <div class="skill-card reveal">
+            <div class="skill-icon">🎨</div>
+            <h3 class="skill-name">设计工具</h3>
+            <p class="skill-desc">Figma, Photoshop, 界面设计</p>
+            <div class="skill-bar">
+              <div class="skill-progress" data-progress="65"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 联系区域 -->
+    <section class="section contact" id="contact">
+      <div class="section-container">
+        <h2 class="section-title reveal">联系我</h2>
+        <p class="contact-intro reveal">有想法或项目合作？欢迎联系我！</p>
+        <div class="social-links reveal">
+          <a href="https://github.com/TangZhiZzz" class="social-link" target="_blank" rel="noopener">
+            <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+            </svg>
+            <span>GitHub</span>
+          </a>
+          <a href="mailto:tangjunfei@example.com" class="social-link">
+            <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+            <span>邮箱</span>
+          </a>
+          <a href="#" class="social-link">
+            <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+            <span>X</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <p>© 2026 汤俊飞. 用 ❤️ 和代码构建</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
