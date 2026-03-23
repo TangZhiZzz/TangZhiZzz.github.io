@@ -2,7 +2,7 @@
 
 我的个人主页 | My Personal Portfolio
 
-🔗 访问地址: https://tangzhiizz.github.io
+🔗 访问地址: https://TangZhiZzz.github.io
 
 ## 👋 你好
 
