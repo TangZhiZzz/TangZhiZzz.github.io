@@ -4,18 +4,27 @@
 
 🔗 访问地址: https://tangzhiizz.github.io
 
-## 技术栈
+## 👋 你好
+
+我是 TangZhiZzz，一个热爱技术的学生。这个网站是我的个人主页，用来展示我的技能和项目。
+
+## 🛠 技术栈
 
 - HTML5
 - CSS3
 - Vanilla JavaScript
 
-## 特点
+## ✨ 特点
 
-- ✨ 响应式设计，支持移动端
+- 📱 响应式设计，支持移动端
 - 🎨 渐变背景和动画效果
 - 🌙 深色主题
-- 📱 移动端优化的导航菜单
+- 🔄 平滑滚动和交互动画
+
+## 📬 联系
+
+- GitHub: https://github.com/TangZhiZzz
+- Email: tjfzeishuai@163.com
 
 ## 本地运行
 
