@@ -3,23 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>汤俊飞 | 个人主页</title>
+  <title>汤俊飞 | .NET 开发工程师</title>
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
 </head>
 <body>
   <!-- 导航栏 -->
   <nav class="navbar">
     <div class="nav-container">
-      <a href="#" class="nav-logo">TJF</a>
+      <a href="#" class="nav-logo">TJF<span class="logo-dot">.</span></a>
       <div class="nav-links">
         <a href="#about" class="nav-link">关于</a>
+        <a href="#experience" class="nav-link">经历</a>
         <a href="#skills" class="nav-link">技能</a>
+        <a href="#projects" class="nav-link">项目</a>
         <a href="#contact" class="nav-link">联系</a>
       </div>
+      <div class="nav-theme-toggle">
+        <button id="themeToggle" aria-label="切换主题">
+          <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+          </svg>
+          <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
+      </div>
       <button class="nav-toggle" id="navToggle" aria-label="菜单">
+        <span></span>
         <span></span>
         <span></span>
       </button>
@@ -29,23 +45,56 @@
   <!-- 移动端菜单 -->
   <div class="mobile-menu" id="mobileMenu">
     <a href="#about" class="mobile-link">关于</a>
+    <a href="#experience" class="mobile-link">经历</a>
     <a href="#skills" class="mobile-link">技能</a>
+    <a href="#projects" class="mobile-link">项目</a>
     <a href="#contact" class="mobile-link">联系</a>
   </div>
 
   <main>
-    <!-- Hero 区域 - 苹果风格超大标题 -->
+    <!-- Hero 区域 -->
     <section class="hero" id="hero">
+      <div class="hero-bg-grid"></div>
+      <div class="hero-bg-glow"></div>
       <div class="hero-content">
-        <p class="hero-eyebrow">开发者 · 创造者</p>
-        <h1 class="hero-title">汤俊飞</h1>
-        <p class="hero-subtitle">用代码构建优雅的数字体验</p>
-        <div class="hero-cta">
-          <a href="#contact" class="btn btn-primary">联系我</a>
-          <a href="#about" class="btn btn-ghost">了解更多</a>
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          5 年开发经验 · 中级/高级 .NET 工程师
+        </div>
+        <h1 class="hero-title">
+          <span class="title-line" id="nameLine">汤俊飞</span>
+        </h1>
+        <p class="hero-subtitle" id="subtitleLine">用代码构建高效、稳定的金融级系统</p>
+        <p class="hero-desc" id="descLine">
+          专注于 .NET 技术栈，主导过日均处理万级申请的助贷系统开发。<br>
+          擅长系统架构设计与性能优化，追求工程化与可维护性。
+        </p>
+        <div class="hero-cta" id="ctaLine">
+          <a href="#contact" class="btn btn-primary">
+            <span>获取简历</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#experience" class="btn btn-ghost">查看经历</a>
+        </div>
+        <div class="hero-stats" id="statsLine">
+          <div class="stat-item">
+            <span class="stat-number">5</span>
+            <span class="stat-label">年开发经验</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-number">50%</span>
+            <span class="stat-label">审核效率提升</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-number">99.9%</span>
+            <span class="stat-label">系统稳定性</span>
+          </div>
         </div>
       </div>
       <div class="scroll-indicator">
+        <div class="scroll-text">Scroll</div>
         <div class="scroll-arrow"></div>
       </div>
     </section>
@@ -53,23 +102,163 @@
     <!-- 关于区域 -->
     <section class="section about" id="about">
       <div class="section-container">
-        <p class="section-eyebrow">关于我</p>
-        <h2 class="section-title">热爱技术<br>追求卓越</h2>
+        <div class="section-header">
+          <span class="section-tag">01</span>
+          <h2 class="section-title">关于我</h2>
+        </div>
         <div class="about-grid">
-          <div class="about-card">
-            <span class="about-number">01</span>
-            <h3>全栈开发</h3>
-            <p>从前端到后端，从移动端到云端，打造完整的数字化解决方案。</p>
+          <div class="about-left">
+            <h3 class="about-heading">从学生信息管理系统到金融级系统</h3>
+            <p class="about-text">
+              2017 年还在读书时，用 WinForm 做了个学生信息管理系统，被 3 个实训班级采纳使用。
+              那时候就知道，写代码的乐趣在于解决真实问题。
+            </p>
+            <p class="about-text">
+              2019 年进入职场，从进销存系统到助贷业务全链路，逐步积累了架构设计与性能优化经验。
+              现在专注于 .NET Core 技术栈，主导过贷款审核效率提升 50%、催收响应时效提升 60% 的项目。
+            </p>
+            <div class="about-highlights">
+              <div class="highlight-item">
+                <span class="highlight-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                </span>
+                <div>
+                  <h4>技术负责人</h4>
+                  <p>主导过 3-5 人团队完成项目交付</p>
+                </div>
+              </div>
+              <div class="highlight-item">
+                <span class="highlight-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                </span>
+                <div>
+                  <h4>全栈能力</h4>
+                  <p>桌面应用 + Web API + 数据库架构</p>
+                </div>
+              </div>
+              <div class="highlight-item">
+                <span class="highlight-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                </span>
+                <div>
+                  <h4>性能优化</h4>
+                  <p>SQL Server 读写分离 + Redis 缓存</p>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="about-card">
-            <span class="about-number">02</span>
-            <h3>持续学习</h3>
-            <p>技术日新月异，保持好奇心，不断探索新知识和新领域。</p>
+          <div class="about-right">
+            <div class="education-card">
+              <span class="edu-badge">教育背景</span>
+              <h4>唐山职业技术学院</h4>
+              <p class="edu-major">计算机应用技术 · 大专</p>
+              <p class="edu-time">2017.09 - 2020.06</p>
+              <ul class="edu-list">
+                <li>专业排名前 5%，核心课程平均分 88+</li>
+                <li>蓝桥杯 C# 组省赛二等奖</li>
+                <li>国家励志奖学金（全校 15%）</li>
+              </ul>
+            </div>
           </div>
-          <div class="about-card">
-            <span class="about-number">03</span>
-            <h3>用户至上</h3>
-            <p>关注用户体验，用技术解决真实问题，创造实际价值。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 经历区域 -->
+    <section class="section experience" id="experience">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="section-tag">02</span>
+          <h2 class="section-title">工作经历</h2>
+        </div>
+        <div class="timeline">
+          <div class="timeline-item" data-company="current">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <div class="timeline-header">
+                <div>
+                  <h3 class="timeline-title">北京厚泽金融信息服务有限公司</h3>
+                  <p class="timeline-role">.NET 开发工程师</p>
+                </div>
+                <span class="timeline-period">2021.10 - 至今</span>
+              </div>
+              <p class="timeline-company-desc">
+                国内知名助贷服务企业，专注于为金融机构与个人用户提供专业助贷解决方案
+              </p>
+              <div class="timeline-achievements">
+                <div class="achievement-item">
+                  <span class="achievement-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                  </span>
+                  <div>
+                    <h4>审核效率提升 50%</h4>
+                    <p>贷款申请用户等待时间从 3 分钟缩短至 30 秒内</p>
+                  </div>
+                </div>
+                <div class="achievement-item">
+                  <span class="achievement-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                  </span>
+                  <div>
+                    <h4>内部 APP 核房下户效率提升 55%</h4>
+                    <p>流程耗时缩短 60%，有效减少内部沟通成本</p>
+                  </div>
+                </div>
+                <div class="achievement-item">
+                  <span class="achievement-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  </span>
+                  <div>
+                    <h4>贷后催收系统上线</h4>
+                    <p>催收响应时效提升 60%，逾期回款率提升 25%</p>
+                  </div>
+                </div>
+                <div class="achievement-item">
+                  <span class="achievement-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  </span>
+                  <div>
+                    <h4>团队开发效率提升 40%</h4>
+                    <p>建立 .NET Core 开发规范与代码审查机制，团队获得"年度优秀交付团队"</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item" data-company="previous">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <div class="timeline-header">
+                <div>
+                  <h3 class="timeline-title">北京助力软件有限公司</h3>
+                  <p class="timeline-role">中级 .NET 开发工程师</p>
+                </div>
+                <span class="timeline-period">2019.07 - 2021.07</span>
+              </div>
+              <p class="timeline-company-desc">
+                专注于快消品行业信息化解决方案，核心业务涵盖进销存一体化系统、控价管理系统
+              </p>
+              <div class="timeline-achievements">
+                <div class="achievement-item">
+                  <span class="achievement-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                  </span>
+                  <div>
+                    <h4>进销存系统核心开发</h4>
+                    <p>覆盖生产、工厂、经销商、门店、会员、积分全链条业务</p>
+                  </div>
+                </div>
+                <div class="achievement-item">
+                  <span class="achievement-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                  </span>
+                  <div>
+                    <h4>控价管理系统</h4>
+                    <p>全网电商平台价格监控，违规自动预警</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -78,40 +267,176 @@
     <!-- 技能区域 -->
     <section class="section skills" id="skills">
       <div class="section-container">
-        <p class="section-eyebrow">技能专长</p>
-        <h2 class="section-title">技术栈</h2>
+        <div class="section-header">
+          <span class="section-tag">03</span>
+          <h2 class="section-title">专业技能</h2>
+        </div>
         <div class="skills-grid">
-          <div class="skill-item">
-            <div class="skill-header">
-              <h3>前端开发</h3>
-              <span class="skill-level">精通</span>
+          <div class="skill-category">
+            <div class="skill-category-header">
+              <span class="skill-category-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>
+              </span>
+              <h3>编程语言与框架</h3>
             </div>
-            <p class="skill-desc">React, Vue, TypeScript, CSS3</p>
-            <div class="skill-bar"><div class="skill-progress" data-progress="90"></div></div>
+            <div class="skill-tags">
+              <span class="skill-tag">C#</span>
+              <span class="skill-tag">.NET Core 6.0</span>
+              <span class="skill-tag">.NET Framework</span>
+              <span class="skill-tag">ASP.NET Core</span>
+              <span class="skill-tag">WinForm</span>
+              <span class="skill-tag">Web API</span>
+              <span class="skill-tag">LINQ</span>
+              <span class="skill-tag">Async/Await</span>
+            </div>
           </div>
-          <div class="skill-item">
-            <div class="skill-header">
-              <h3>后端开发</h3>
-              <span class="skill-level">熟练</span>
+          <div class="skill-category">
+            <div class="skill-category-header">
+              <span class="skill-category-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+              </span>
+              <h3>数据库与缓存</h3>
             </div>
-            <p class="skill-desc">Node.js, Python, Go, PostgreSQL</p>
-            <div class="skill-bar"><div class="skill-progress" data-progress="85"></div></div>
+            <div class="skill-tags">
+              <span class="skill-tag">SQL Server</span>
+              <span class="skill-tag">MySQL</span>
+              <span class="skill-tag">Redis</span>
+              <span class="skill-tag">读写分离</span>
+              <span class="skill-tag">查询优化</span>
+              <span class="skill-tag">分库分表</span>
+            </div>
           </div>
-          <div class="skill-item">
-            <div class="skill-header">
-              <h3>云 & DevOps</h3>
-              <span class="skill-level">熟练</span>
+          <div class="skill-category">
+            <div class="skill-category-header">
+              <span class="skill-category-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              </span>
+              <h3>开发工具</h3>
             </div>
-            <p class="skill-desc">AWS, Docker, Kubernetes, CI/CD</p>
-            <div class="skill-bar"><div class="skill-progress" data-progress="75"></div></div>
+            <div class="skill-tags">
+              <span class="skill-tag">Visual Studio 2022</span>
+              <span class="skill-tag">Postman</span>
+              <span class="skill-tag">Git</span>
+              <span class="skill-tag">SVN</span>
+              <span class="skill-tag">Swagger</span>
+            </div>
           </div>
-          <div class="skill-item">
-            <div class="skill-header">
-              <h3>移动开发</h3>
-              <span class="skill-level">掌握</span>
+          <div class="skill-category">
+            <div class="skill-category-header">
+              <span class="skill-category-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </span>
+              <h3>其他能力</h3>
             </div>
-            <p class="skill-desc">React Native, Flutter, iOS</p>
-            <div class="skill-bar"><div class="skill-progress" data-progress="70"></div></div>
+            <div class="skill-tags">
+              <span class="skill-tag">RESTful API</span>
+              <span class="skill-tag">RabbitMQ</span>
+              <span class="skill-tag">团队管理</span>
+              <span class="skill-tag">代码审查</span>
+              <span class="skill-tag">需求分析</span>
+            </div>
+          </div>
+        </div>
+        <div class="skills-chart">
+          <div class="chart-item">
+            <div class="chart-header">
+              <span class="chart-label">C# / .NET</span>
+              <span class="chart-value">95%</span>
+            </div>
+            <div class="chart-bar"><div class="chart-fill" data-width="95"></div></div>
+          </div>
+          <div class="chart-item">
+            <div class="chart-header">
+              <span class="chart-label">SQL Server / MySQL</span>
+              <span class="chart-value">90%</span>
+            </div>
+            <div class="chart-bar"><div class="chart-fill" data-width="90"></div></div>
+          </div>
+          <div class="chart-item">
+            <div class="chart-header">
+              <span class="chart-label">Redis / RabbitMQ</span>
+              <span class="chart-value">80%</span>
+            </div>
+            <div class="chart-bar"><div class="chart-fill" data-width="80"></div></div>
+          </div>
+          <div class="chart-item">
+            <div class="chart-header">
+              <span class="chart-label">系统架构设计</span>
+              <span class="chart-value">85%</span>
+            </div>
+            <div class="chart-bar"><div class="chart-fill" data-width="85"></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 项目区域 -->
+    <section class="section projects" id="projects">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="section-tag">04</span>
+          <h2 class="section-title">核心项目</h2>
+        </div>
+        <div class="projects-grid">
+          <div class="project-card">
+            <div class="project-header">
+              <span class="project-tag">金融系统</span>
+              <span class="project-year">2022 - 至今</span>
+            </div>
+            <h3 class="project-title">助贷业务全链路系统</h3>
+            <p class="project-desc">
+              统筹综合业务系统迭代、内部核房下户 APP 开发及贷后催收系统全流程开发，
+              构建覆盖贷款申请、资质审核、核房下户、流程审批、贷后催收的全链路信息化体系。
+            </p>
+            <div class="project-tech">
+              <span>C#</span>
+              <span>.NET Core 6.0</span>
+              <span>Web API</span>
+              <span>SQL Server</span>
+              <span>Redis</span>
+              <span>RabbitMQ</span>
+            </div>
+            <div class="project-results">
+              <div class="result-item">
+                <span class="result-arrow">→</span>
+                <span>审核效率提升 <strong>50%</strong></span>
+              </div>
+              <div class="result-item">
+                <span class="result-arrow">→</span>
+                <span>系统稳定性达 <strong>99.9%</strong></span>
+              </div>
+              <div class="result-item">
+                <span class="result-arrow">→</span>
+                <span>逾期回款率提升 <strong>25%</strong></span>
+              </div>
+            </div>
+          </div>
+          <div class="project-card">
+            <div class="project-header">
+              <span class="project-tag">企业级系统</span>
+              <span class="project-year">2019 - 2020</span>
+            </div>
+            <h3 class="project-title">快消品进销存综合营销一体化系统</h3>
+            <p class="project-desc">
+              为大型快消品生产企业定制开发的全链路信息化管理系统，覆盖生产计划、工厂仓储、
+              经销商配送、门店销售、会员管理、积分运营等核心环节。
+            </p>
+            <div class="project-tech">
+              <span>.NET Framework 4.8</span>
+              <span>WinForm</span>
+              <span>Web API</span>
+              <span>SQL Server</span>
+            </div>
+            <div class="project-results">
+              <div class="result-item">
+                <span class="result-arrow">→</span>
+                <span>全链路数据实时联动</span>
+              </div>
+              <div class="result-item">
+                <span class="result-arrow">→</span>
+                <span>多角色数据交互优化</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -120,24 +445,59 @@
     <!-- 联系区域 -->
     <section class="section contact" id="contact">
       <div class="section-container">
-        <h2 class="section-title">开始合作</h2>
-        <p class="contact-intro">有想法或项目？欢迎联系我</p>
-        <div class="contact-links">
-          <a href="https://github.com/TangZhiZzz" class="contact-btn" target="_blank">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-            GitHub
-          </a>
-          <a href="mailto:tjfzeishuai@163.com" class="contact-btn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            邮箱
-          </a>
+        <div class="contact-wrapper">
+          <div class="contact-left">
+            <span class="section-tag">05</span>
+            <h2 class="contact-title">开始合作</h2>
+            <p class="contact-desc">
+              正在寻找 .NET 开发工程师机会，欢迎联系。
+              5 年金融系统开发经验，主导过日均万级申请的助贷系统。
+            </p>
+            <div class="contact-info">
+              <a href="tel:17631393397" class="contact-info-item">
+                <span class="contact-info-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </span>
+                <span>17631393397</span>
+              </a>
+              <a href="mailto:tjfzeishuai@163.com" class="contact-info-item">
+                <span class="contact-info-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                </span>
+                <span>tjfzeishuai@163.com</span>
+              </a>
+            </div>
+            <div class="contact-links">
+              <a href="https://github.com/TangZhiZzz" class="contact-btn" target="_blank">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                GitHub
+              </a>
+            </div>
+          </div>
+          <div class="contact-right">
+            <div class="resume-card">
+              <div class="resume-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+              </div>
+              <h4>简历</h4>
+              <p>汤俊飞</p>
+              <p class="resume-subtitle">.NET 开发工程师 · 5 年经验</p>
+              <a href="mailto:tjfzeishuai@163.com?subject=简历请求" class="btn btn-primary btn-block">
+                <span>发送简历</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <p>© 2026 汤俊飞. All rights reserved.</p>
+    <div class="footer-container">
+      <p>© 2026 汤俊飞. All rights reserved.</p>
+      <p class="footer-credit">Built with .NET & ❤️</p>
+    </div>
   </footer>
 
   <script src="script.js"></script>
