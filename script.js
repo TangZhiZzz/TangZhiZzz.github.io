@@ -429,8 +429,81 @@ window.addEventListener('resize', () => {
 });
 
 // ========================================
+// Footer Canvas - 汤俊飞
+// ========================================
+function initFooterCanvas() {
+    const canvas = document.getElementById('footerCanvas');
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    
+    // Set canvas size
+    function resizeCanvas() {
+        canvas.width = Math.min(800, window.innerWidth - 40);
+        canvas.height = 120;
+        drawName();
+    }
+    
+    let time = 0;
+    
+    function drawName() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        const name = '汤俊飞';
+        const fontSize = Math.min(72, canvas.width / name.length);
+        
+        ctx.font = `bold ${fontSize}px 'JetBrains Mono', 'Fira Code', monospace`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        
+        // Glow layers
+        for (let i = 3; i >= 0; i--) {
+            const alpha = 0.15 - i * 0.03;
+            const blur = i * 8;
+            ctx.shadowColor = `rgba(0, 255, 0, ${alpha + 0.1})`;
+            ctx.shadowBlur = blur;
+            ctx.fillStyle = `rgba(0, 255, 0, ${0.3 + Math.sin(time * 0.05 + i) * 0.1})`;
+            ctx.fillText(name, centerX, centerY);
+        }
+        
+        // Main text with glitch effect
+        const glitchOffset = Math.random() > 0.98 ? Math.random() * 6 - 3 : 0;
+        
+        // Cyan layer (offset)
+        ctx.shadowBlur = 0;
+        ctx.fillStyle = 'rgba(0, 255, 255, 0.8)';
+        ctx.fillText(name, centerX + glitchOffset, centerY - 1);
+        
+        // Green layer (main)
+        ctx.fillStyle = '#00ff00';
+        ctx.fillText(name, centerX, centerY);
+        
+        // Red layer (offset)
+        ctx.fillStyle = 'rgba(255, 0, 100, 0.5)';
+        ctx.fillText(name, centerX - glitchOffset, centerY + 1);
+        
+        // Scanline effect
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.03)';
+        for (let y = 0; y < canvas.height; y += 3) {
+            ctx.fillRect(0, y, canvas.width, 1);
+        }
+        
+        time++;
+        requestAnimationFrame(drawName);
+    }
+    
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+}
+
+// ========================================
 // Initial Setup Complete
 // ========================================
+initFooterCanvas();
+
 console.log('%c✅ Matrix Rain Initialized', 'color: #00ff00');
 console.log('%c✅ GSAP ScrollTrigger Registered', 'color: #00ff00');
 console.log('%c✅ All Systems Operational', 'color: #00ff00');
