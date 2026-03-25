@@ -789,6 +789,22 @@ body {
     .scroll-hint {
         display: none;
     }
+    
+    .footer {
+        padding: 2rem 1rem;
+    }
+    
+    .footer-terminal {
+        max-width: 100%;
+    }
+    
+    .footer-terminal .window-content {
+        padding: 1rem;
+    }
+    
+    .footer-terminal .terminal-line {
+        font-size: 0.75rem;
+    }
 }
 
 /* ========================================
