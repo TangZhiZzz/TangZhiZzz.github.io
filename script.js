@@ -1,14 +1,12 @@
-// Fade-in on scroll
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      observer.unobserve(entry.target);
+// Minimal JS — smooth scroll fallback + mobile nav if needed
+// No animation libraries, no canvas, no particles
+
+document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+  anchor.addEventListener('click', function(e) {
+    var target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   });
-}, { threshold: 0.1 });
-
-document.querySelectorAll('.section-title, .card, .skill-tag').forEach(el => {
-  el.classList.add('fade-in');
-  observer.observe(el);
 });

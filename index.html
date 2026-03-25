@@ -9,130 +9,132 @@
 <body>
 
   <!-- Hero -->
-  <section class="hero" id="hero">
+  <header class="hero" id="hero">
     <div class="container">
-      <h1>汤俊飞</h1>
-      <p class="subtitle">中级 / 高级 .NET 开发工程师</p>
-      <p class="meta">5年开发经验 · 期望薪资 15-20K</p>
-      <a href="#contact" class="btn">联系我</a>
+      <h1 class="hero-name">汤俊飞</h1>
+      <p class="hero-title">中级 / 高级 .NET 开发工程师</p>
+      <div class="hero-tags">
+        <span>5年经验</span>
+        <span>期望薪资 15-20K</span>
+      </div>
     </div>
-  </section>
+  </header>
 
-  <!-- 关于我 -->
-  <section class="section" id="about">
-    <div class="container">
+  <main class="container">
+
+    <!-- 关于我 -->
+    <section class="section" id="about">
       <h2 class="section-title">关于我</h2>
       <div class="card">
-        <p>唐山职业技术学院，计算机应用技术专业，2017-2020。</p>
-        <p>专业排名前<span class="highlight">5%</span>，核心课程平均分<span class="highlight">88+</span>。</p>
-        <div class="honors">
-          <h3>荣誉</h3>
-          <ul>
-            <li>蓝桥杯 Java 组省赛二等奖</li>
-            <li>国家励志奖学金</li>
-          </ul>
+        <h3 class="card-heading">教育背景</h3>
+        <p class="card-text">唐山职业技术学院 · 计算机应用技术 · 2017 – 2020</p>
+        <p class="card-sub">专业排名前 5%</p>
+      </div>
+      <div class="card">
+        <h3 class="card-heading">荣誉</h3>
+        <ul class="list">
+          <li>蓝桥杯 Java 组省赛二等奖</li>
+          <li>国家励志奖学金</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 技能栈 -->
+    <section class="section" id="skills">
+      <h2 class="section-title">技能栈</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3 class="card-heading">后端</h3>
+          <p class="tags"><span>C#</span><span>.NET Core</span><span>.NET 5+</span><span>ASP.NET</span><span>WinForm</span><span>Web API</span><span>LINQ</span></p>
+        </div>
+        <div class="card">
+          <h3 class="card-heading">数据库 / 缓存</h3>
+          <p class="tags"><span>SQL Server</span><span>MySQL</span><span>Redis</span></p>
+        </div>
+        <div class="card">
+          <h3 class="card-heading">中间件</h3>
+          <p class="tags"><span>RabbitMQ</span></p>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- 技能栈 -->
-  <section class="section" id="skills">
-    <div class="container">
-      <h2 class="section-title">技能栈</h2>
-      <div class="skills-grid">
-        <span class="skill-tag">C#</span>
-        <span class="skill-tag">.NET Core</span>
-        <span class="skill-tag">.NET 5+</span>
-        <span class="skill-tag">ASP.NET</span>
-        <span class="skill-tag">WinForm</span>
-        <span class="skill-tag">Web API</span>
-        <span class="skill-tag">SQL Server</span>
-        <span class="skill-tag">MySQL</span>
-        <span class="skill-tag">Redis</span>
-        <span class="skill-tag">RabbitMQ</span>
-        <span class="skill-tag">LINQ</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- 项目经验 -->
-  <section class="section" id="projects">
-    <div class="container">
+    <!-- 项目经验 -->
+    <section class="section" id="projects">
       <h2 class="section-title">项目经验</h2>
-      <div class="card project-card">
-        <h3>助贷业务全链路系统</h3>
-        <p class="project-period">2022.01 – 至今</p>
-        <p class="project-tech">.NET Core 6.0 · SQL Server · Redis · RabbitMQ</p>
-        <p class="project-role">技术负责人</p>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-body card">
+            <div class="card-header">
+              <h3 class="card-heading">助贷业务全链路系统</h3>
+              <span class="card-period">2022.01 – 至今</span>
+            </div>
+            <p class="card-company">厚泽金融 · 技术负责人</p>
+            <p class="card-text">基于 .NET Core 6.0 构建的助贷业务全链路系统，覆盖进件、审核、风控、放款全流程。</p>
+            <p class="tags"><span>.NET Core 6.0</span><span>SQL Server</span><span>Redis</span><span>RabbitMQ</span></p>
+            <ul class="list">
+              <li>审核效率提升 50%</li>
+              <li>系统稳定性达 99.9%</li>
+            </ul>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-body card">
+            <div class="card-header">
+              <h3 class="card-heading">快消品进销存系统</h3>
+              <span class="card-period">2019.07 – 2020.11</span>
+            </div>
+            <p class="card-company">助力软件 · 核心开发</p>
+            <p class="card-text">面向快消品行业的进销存管理系统，支持采购、销售、库存、财务等核心模块。</p>
+            <p class="tags"><span>.NET Framework 4.8</span><span>WinForm</span><span>Web API</span></p>
+          </div>
+        </div>
       </div>
-      <div class="card project-card">
-        <h3>快消品进销存系统</h3>
-        <p class="project-period">2019.07 – 2020.11</p>
-        <p class="project-tech">.NET Framework 4.8 · WinForm · Web API</p>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- 工作经历 -->
-  <section class="section" id="experience">
-    <div class="container">
+    <!-- 工作经历 -->
+    <section class="section" id="experience">
       <h2 class="section-title">工作经历</h2>
       <div class="timeline">
         <div class="timeline-item">
           <div class="timeline-dot"></div>
-          <div class="timeline-content card">
-            <h3>北京厚泽金融信息服务有限公司</h3>
-            <p class="exp-role">.NET 开发工程师 · 2021.10 – 至今</p>
-            <ul>
-              <li>助贷业务全链路系统</li>
-              <li>审核效率提升 50%</li>
-              <li>系统稳定性 99.9%</li>
-            </ul>
+          <div class="timeline-body card">
+            <div class="card-header">
+              <h3 class="card-heading">厚泽金融</h3>
+              <span class="card-period">2021.10 – 至今</span>
+            </div>
+            <p class="card-sub">.NET 开发工程师</p>
           </div>
         </div>
         <div class="timeline-item">
           <div class="timeline-dot"></div>
-          <div class="timeline-content card">
-            <h3>北京助力软件有限公司</h3>
-            <p class="exp-role">中级 .NET 开发工程师 · 2019.07 – 2021.07</p>
-            <ul>
-              <li>快消品进销存系统</li>
-              <li>控价管理系统</li>
-            </ul>
+          <div class="timeline-body card">
+            <div class="card-header">
+              <h3 class="card-heading">助力软件</h3>
+              <span class="card-period">2019.07 – 2021.07</span>
+            </div>
+            <p class="card-sub">中级 .NET 开发工程师</p>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- 联系方式 -->
-  <section class="section" id="contact">
-    <div class="container">
+    <!-- 联系方式 -->
+    <section class="section" id="contact">
       <h2 class="section-title">联系方式</h2>
-      <div class="contact-grid card">
-        <div class="contact-item">
-          <span class="contact-label">电话</span>
-          <a href="tel:17631393397">17631393397</a>
-        </div>
-        <div class="contact-item">
-          <span class="contact-label">邮箱</span>
-          <a href="mailto:tjfzeishuai@163.com">tjfzeishuai@163.com</a>
-        </div>
-        <div class="contact-item">
-          <span class="contact-label">GitHub</span>
-          <a href="https://github.com/TangZhiZzz" target="_blank">TangZhiZzz</a>
-        </div>
+      <div class="card contact-card">
+        <a href="tel:17631393397" class="contact-item">📞 17631393397</a>
+        <a href="mailto:tjfzeishuai@163.com" class="contact-item">✉️ tjfzeishuai@163.com</a>
+        <a href="https://github.com/TangZhiZzz" target="_blank" class="contact-item">💻 github.com/TangZhiZzz</a>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <footer>
-    <div class="container">
-      <p>&copy; 2024 汤俊飞. All rights reserved.</p>
-    </div>
+  </main>
+
+  <footer class="footer">
+    <p>© 2024 汤俊飞 · 简洁实用风格</p>
   </footer>
 
-  <script src="script.js"></script>
 </body>
 </html>
