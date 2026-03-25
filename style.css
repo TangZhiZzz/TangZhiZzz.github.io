@@ -859,3 +859,17 @@ body {
         display: none;
     }
 }
+
+/* ========================================
+   Project Highlight (achievement numbers)
+======================================== */
+.highlight {
+    color: #00ff00;
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+}
+
+.contact-value.keyword {
+    color: #00ff00;
+    font-weight: bold;
+}

@@ -119,13 +119,17 @@ const infoJsonEl = document.getElementById('infoJson');
 
 const infoJson = `{
   "name": "汤俊飞",
-  "role": ".NET 开发工程师",
+  "role": "中级/高级 .NET 开发工程师",
   "experience": "5年+",
+  "expected_salary": "15-20K",
+  "education": "唐山职业技术学院 | 计算机应用技术 | 2017-2020",
+  "awards": ["蓝桥杯 C# 组省赛二等奖", "国家励志奖学金"],
   "skills": [
-    "C#", ".NET Core", "SQL Server",
-    "Redis", "RabbitMQ", "WinForm"
+    "C#", ".NET Core", ".NET 5+", "ASP.NET",
+    "WinForm", "Web API", "LINQ", "Async/Await",
+    "SQL Server", "MySQL", "Redis", "RabbitMQ"
   ],
-  "status": "<span class="keyword">online</span>"
+  "status": "<span class=\"keyword\">open_to_work</span>"
 }`;
 
 function typeWriter(element, text, speed = 30, callback) {
@@ -392,13 +396,15 @@ randomGlitch();
 // ========================================
 // Console Easter Egg
 // ========================================
-console.log('%c╔══════════════════════════════════════╗', 'color: #00ff00');
-console.log('%c║  🖥️  Matrix Portfolio v1.0           ║', 'color: #00ff00');
-console.log('%c║  汤俊飞 | .NET 开发工程师              ║', 'color: #00ff00');
-console.log('%c║  5年+ 开发经验                        ║', 'color: #00ff00');
-console.log('%c╚══════════════════════════════════════╝', 'color: #00ff00');
-console.log('%c📧 Contact: tjfzeishuai@163.com', 'color: #00cc00');
-console.log('%c🐙 GitHub: github.com/TangZhiZzz', 'color: #00cc00');
+console.log('%c╔══════════════════════════════════════════════╗', 'color: #00ff00');
+console.log('%c║  Matrix Portfolio v1.0                       ║', 'color: #00ff00');
+console.log('%c║  汤俊飞 | 中级/高级 .NET 开发工程师            ║', 'color: #00ff00');
+console.log('%c║  5年+ 开发经验 | 期望薪资 15-20K              ║', 'color: #00ff00');
+console.log('%c║  唐山职业技术学院 | 蓝桥杯C#组省赛二等奖       ║', 'color: #00cc00');
+console.log('%c╚══════════════════════════════════════════════╝', 'color: #00ff00');
+console.log('%c[Phone]  17631393397', 'color: #00cc00');
+console.log('%c[Email]   tjfzeishuai@163.com', 'color: #00cc00');
+console.log('%c[GitHub]  github.com/TangZhiZzz', 'color: #00cc00');
 
 // ========================================
 // Mobile Detection - Reduce Effects
