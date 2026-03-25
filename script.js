@@ -1,12 +1,1 @@
-// Minimal JS — smooth scroll fallback + mobile nav if needed
-// No animation libraries, no canvas, no particles
-
-document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
-  anchor.addEventListener('click', function(e) {
-    var target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      e.preventDefault();
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  });
-});
+// 简洁风格，无需复杂脚本

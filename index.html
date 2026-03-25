@@ -9,131 +9,181 @@
 <body>
 
   <!-- Hero -->
-  <header class="hero" id="hero">
+  <header class="hero">
     <div class="container">
       <h1 class="hero-name">汤俊飞</h1>
-      <p class="hero-title">中级 / 高级 .NET 开发工程师</p>
+      <p class="hero-title">中级 / 高级 .NET 开发工程师（C#方向）</p>
       <div class="hero-tags">
         <span>5年经验</span>
         <span>期望薪资 15-20K</span>
+      </div>
+      <div class="hero-contact">
+        <a href="tel:17631393397">📞 17631393397</a>
+        <a href="mailto:tjfzeishuai@163.com">✉️ tjfzeishuai@163.com</a>
+        <a href="https://github.com/TangZhiZzz" target="_blank">💻 github.com/TangZhiZzz</a>
       </div>
     </div>
   </header>
 
   <main class="container">
 
-    <!-- 关于我 -->
-    <section class="section" id="about">
-      <h2 class="section-title">关于我</h2>
+    <!-- 教育背景 -->
+    <section class="section">
+      <h2 class="section-title">教育背景</h2>
       <div class="card">
-        <h3 class="card-heading">教育背景</h3>
-        <p class="card-text">唐山职业技术学院 · 计算机应用技术 · 2017 – 2020</p>
-        <p class="card-sub">专业排名前 5%</p>
-      </div>
-      <div class="card">
-        <h3 class="card-heading">荣誉</h3>
+        <div class="card-header">
+          <h3 class="card-heading">唐山职业技术学院 · 计算机应用技术</h3>
+          <span class="card-period">2017.09 – 2020.06 · 大专</span>
+        </div>
         <ul class="list">
-          <li>蓝桥杯 Java 组省赛二等奖</li>
-          <li>国家励志奖学金</li>
+          <li>核心课程平均分 88+，专业排名前 5%</li>
+          <li>2018年 蓝桥杯全国软件和信息技术专业人才大赛（C#组）省赛二等奖</li>
+          <li>2017-2018学年 国家励志奖学金（全院前 15%）</li>
+          <li>在校成果：主导开发基于 WinForm 的学生信息管理系统（团队3人），获校级"优秀实训项目"</li>
         </ul>
       </div>
     </section>
 
-    <!-- 技能栈 -->
-    <section class="section" id="skills">
-      <h2 class="section-title">技能栈</h2>
-      <div class="grid-3">
-        <div class="card">
-          <h3 class="card-heading">后端</h3>
-          <p class="tags"><span>C#</span><span>.NET Core</span><span>.NET 5+</span><span>ASP.NET</span><span>WinForm</span><span>Web API</span><span>LINQ</span></p>
+    <!-- 专业技能 -->
+    <section class="section">
+      <h2 class="section-title">专业技能</h2>
+
+      <div class="card">
+        <h3 class="card-heading">编程语言与框架</h3>
+        <ul class="list">
+          <li>精通 C# 编程语言（OOP、泛型、委托、事件、LINQ、异步编程 Async/Await）</li>
+          <li>熟练掌握 .NET Framework / .NET Core / .NET 5+ 框架</li>
+          <li>熟悉设计模式（单例、工厂、观察者、策略等）</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3 class="card-heading">开发工具与数据库</h3>
+        <ul class="list">
+          <li>熟练使用 Visual Studio 2019/2022、Postman、Git/SVN</li>
+          <li>精通 SQL Server、MySQL（存储过程、触发器、索引优化、读写分离）</li>
+          <li>熟悉 Redis 分布式缓存、RabbitMQ 消息队列</li>
+          <li>熟练使用 WinForm 常用控件及第三方控件库（AntdUI, HZHcontrol）</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3 class="card-heading">其他能力</h3>
+        <ul class="list">
+          <li>精通 RESTful API 设计规范，Swagger 文档编写</li>
+          <li>具备团队管理与指导经验（带领 3-5 人团队）</li>
+          <li>良好的需求分析与沟通能力</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 工作经历 -->
+    <section class="section">
+      <h2 class="section-title">工作经历</h2>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-body card">
+            <div class="card-header">
+              <h3 class="card-heading">北京厚泽金融信息服务有限公司</h3>
+              <span class="card-period">2021.10 – 至今</span>
+            </div>
+            <p class="card-sub">.NET 开发工程师</p>
+            <p class="card-text">国内知名助贷服务企业，专注于为金融机构与个人用户提供专业助贷解决方案。</p>
+
+            <h4 class="card-subheading">核心职责</h4>
+            <ul class="list">
+              <li>主导公司核心综合业务系统的后续迭代开发，基于 ASP.NET 技术栈优化系统架构</li>
+              <li>负责内部核房下户 APP 的开发与维护，优化内部工作流程</li>
+              <li>主导贷后催收系统全流程开发，对接短信、电话等第三方服务</li>
+              <li>带领 3-5 人开发团队，制定开发计划、开展技术方案评审与代码审查</li>
+              <li>负责金融级数据库架构设计与性能优化，SQL Server 读写分离与 Redis 缓存</li>
+            </ul>
+
+            <h4 class="card-subheading">工作成果</h4>
+            <ul class="list">
+              <li>综合业务系统 3 次重大版本迭代，贷款申请审核效率提升 50%，用户等待时间从 3 分钟缩短至 30 秒内</li>
+              <li>内部 APP 上线后，核房下户流程耗时缩短 60%，业务审核效率提升 55%</li>
+              <li>贷后催收系统上线，催收响应时效提升 60%，逾期回款率提升 25%</li>
+              <li>团队开发效率提升 40%，线上 bug 发生率降低 55%，获得公司"年度优秀交付团队"称号</li>
+            </ul>
+          </div>
         </div>
-        <div class="card">
-          <h3 class="card-heading">数据库 / 缓存</h3>
-          <p class="tags"><span>SQL Server</span><span>MySQL</span><span>Redis</span></p>
-        </div>
-        <div class="card">
-          <h3 class="card-heading">中间件</h3>
-          <p class="tags"><span>RabbitMQ</span></p>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-body card">
+            <div class="card-header">
+              <h3 class="card-heading">北京助力软件有限公司</h3>
+              <span class="card-period">2019.07 – 2021.07</span>
+            </div>
+            <p class="card-sub">中级 .NET 开发工程师</p>
+            <p class="card-text">专注于快消品行业信息化解决方案的科技公司。</p>
+
+            <h4 class="card-subheading">核心职责</h4>
+            <ul class="list">
+              <li>主导进销存综合营销一体化系统的 WinForm 客户端与 Web API 服务端核心开发</li>
+              <li>负责控价管理系统开发，实现违规价格自动预警、数据统计分析及报表生成</li>
+              <li>基于 .NET Framework 4.8 构建系统核心架构，完成与第三方支付、电商平台接口的对接开发</li>
+              <li>负责数据库架构设计与性能优化</li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- 项目经验 -->
-    <section class="section" id="projects">
+    <section class="section">
       <h2 class="section-title">项目经验</h2>
+
       <div class="timeline">
         <div class="timeline-item">
           <div class="timeline-dot"></div>
           <div class="timeline-body card">
             <div class="card-header">
-              <h3 class="card-heading">助贷业务全链路系统</h3>
+              <h3 class="card-heading">助贷业务全链路系统开发与迭代项目</h3>
               <span class="card-period">2022.01 – 至今</span>
             </div>
-            <p class="card-company">厚泽金融 · 技术负责人</p>
-            <p class="card-text">基于 .NET Core 6.0 构建的助贷业务全链路系统，覆盖进件、审核、风控、放款全流程。</p>
-            <p class="tags"><span>.NET Core 6.0</span><span>SQL Server</span><span>Redis</span><span>RabbitMQ</span></p>
+            <p class="card-sub">技术负责人 / 核心开发工程师</p>
+            <p class="card-tags"><span>C#</span><span>.NET Core 6.0</span><span>Web API</span><span>SQL Server</span><span>Redis</span><span>RabbitMQ</span></p>
+
             <ul class="list">
-              <li>审核效率提升 50%</li>
-              <li>系统稳定性达 99.9%</li>
+              <li>统筹项目架构设计，采用分层架构与微服务思想</li>
+              <li>完成 .NET Framework 至 .NET Core 6.0 架构迁移，引入规则引擎，审核效率提升 50%</li>
+              <li>内部核房下户 APP：核房信息采集、任务跟踪、线上审核，支持离线缓存</li>
+              <li>贷后催收系统：智能任务分配算法，对接短信/电话外呼</li>
+              <li>SQL Server 读写分离 + Redis 缓存，运行稳定性达 99.9%</li>
+              <li>带领 3-5 人团队，团队开发效率提升 40%，bug 发生率降低 55%</li>
             </ul>
           </div>
         </div>
+
         <div class="timeline-item">
           <div class="timeline-dot"></div>
           <div class="timeline-body card">
             <div class="card-header">
-              <h3 class="card-heading">快消品进销存系统</h3>
+              <h3 class="card-heading">快消品进销存综合营销一体化系统开发项目</h3>
               <span class="card-period">2019.07 – 2020.11</span>
             </div>
-            <p class="card-company">助力软件 · 核心开发</p>
-            <p class="card-text">面向快消品行业的进销存管理系统，支持采购、销售、库存、财务等核心模块。</p>
-            <p class="tags"><span>.NET Framework 4.8</span><span>WinForm</span><span>Web API</span></p>
-          </div>
-        </div>
-      </div>
-    </section>
+            <p class="card-sub">核心开发工程师</p>
+            <p class="card-tags"><span>.NET Framework 4.8</span><span>WinForm</span><span>Web API</span></p>
 
-    <!-- 工作经历 -->
-    <section class="section" id="experience">
-      <h2 class="section-title">工作经历</h2>
-      <div class="timeline">
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-body card">
-            <div class="card-header">
-              <h3 class="card-heading">厚泽金融</h3>
-              <span class="card-period">2021.10 – 至今</span>
-            </div>
-            <p class="card-sub">.NET 开发工程师</p>
+            <ul class="list">
+              <li>为某大型快消品生产企业定制开发</li>
+              <li>覆盖：生产计划、工厂仓储、经销商配送、门店销售、会员管理、积分运营</li>
+              <li>WinForm 客户端 + Web API 服务端</li>
+              <li>控价管理系统：全网电商品牌价格监控</li>
+            </ul>
           </div>
         </div>
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-body card">
-            <div class="card-header">
-              <h3 class="card-heading">助力软件</h3>
-              <span class="card-period">2019.07 – 2021.07</span>
-            </div>
-            <p class="card-sub">中级 .NET 开发工程师</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 联系方式 -->
-    <section class="section" id="contact">
-      <h2 class="section-title">联系方式</h2>
-      <div class="card contact-card">
-        <a href="tel:17631393397" class="contact-item">📞 17631393397</a>
-        <a href="mailto:tjfzeishuai@163.com" class="contact-item">✉️ tjfzeishuai@163.com</a>
-        <a href="https://github.com/TangZhiZzz" target="_blank" class="contact-item">💻 github.com/TangZhiZzz</a>
       </div>
     </section>
 
   </main>
 
   <footer class="footer">
-    <p>© 2024 汤俊飞 · 简洁实用风格</p>
+    <p>© 2024 汤俊飞 · .NET 开发工程师</p>
   </footer>
 
 </body>
