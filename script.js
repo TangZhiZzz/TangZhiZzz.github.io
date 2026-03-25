@@ -1,814 +1,430 @@
 // ========================================
-// GSAP & ScrollTrigger Setup
+// Matrix Rain + GSAP Animations
 // ========================================
+
 gsap.registerPlugin(ScrollTrigger);
 
-// Mobile Detection
-const isMobile = window.innerWidth <= 1024;
-const isSmallMobile = window.innerWidth <= 640;
-
-// Reduce particle count on mobile
-const PARTICLE_COUNT = isMobile ? 30 : 80;
-
-// Enable ease overrides
-const easeDefaults = {
-    power1: 'power1.out',
-    power2: 'power2.out',
-    power3: 'power3.out',
-    back: 'back.out(1.7)',
-    elastic: 'elastic.out(1, 0.5)',
-    bounce: 'bounce.out',
-    slow: 'slow(0.3, 0.7, false)'
-};
-
 // ========================================
-// Custom Cursor (Desktop Only)
+// Matrix Rain Canvas
 // ========================================
-if (!isMobile) {
-    const cursor = document.getElementById('cursor');
-    const cursorFollower = document.getElementById('cursorFollower');
-
-    let mouseX = 0, mouseY = 0;
-    let cursorX = 0, cursorY = 0;
-    let followerX = 0, followerY = 0;
-
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-    });
-
-    // Smooth cursor animation
-    function animateCursor() {
-        cursorX = mouseX;
-        cursorY = mouseY;
-        cursor.style.left = cursorX + 'px';
-        cursor.style.top = cursorY + 'px';
-
-        followerX += (mouseX - followerX) * 0.1;
-        followerY += (mouseY - followerY) * 0.1;
-        cursorFollower.style.left = followerX + 'px';
-        cursorFollower.style.top = followerY + 'px';
-
-        requestAnimationFrame(animateCursor);
-    }
-    animateCursor();
-
-    document.querySelectorAll('a, button, .btn, .nav-link, .project-card, .skill-tag, .contact-link').forEach(el => {
-        el.addEventListener('mouseenter', () => cursor.classList.add('active'));
-        el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
-    });
-}
-
-// ========================================
-// Ripple Effect
-// ========================================
-const ripple = document.getElementById('ripple');
-
-document.addEventListener('click', (e) => {
-    ripple.style.left = e.clientX + 'px';
-    ripple.style.top = e.clientY + 'px';
-    ripple.style.width = '0';
-    ripple.style.height = '0';
-    ripple.style.opacity = '1';
-
-    gsap.to(ripple, {
-        width: '200px',
-        height: '200px',
-        opacity: 0,
-        duration: 0.8,
-        ease: 'power2.out'
-    });
-});
-
-// ========================================
-// Particles Background
-// ========================================
-const canvas = document.getElementById('particles');
-const ctx = canvas.getContext('2d');
-let particles = [];
-let animationId;
-
-function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
-
-class Particle {
+class MatrixRain {
     constructor() {
-        this.reset();
+        this.canvas = document.getElementById('matrixCanvas');
+        this.ctx = this.canvas.getContext('2d');
+        this.columns = [];
+        this.fontSize = 14;
+        this.columnWidth = this.fontSize;
+        this.init();
+        this.animate();
+        
+        window.addEventListener('resize', () => this.init());
     }
-
-    reset() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2 + 0.5;
-        this.speedX = (Math.random() - 0.5) * 0.5;
-        this.speedY = (Math.random() - 0.5) * 0.5;
-        this.opacity = Math.random() * 0.5 + 0.1;
-        this.color = Math.random() > 0.5 ? '#00f2ff' : '#0066ff';
-    }
-
-    update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-
-        // Parallax effect based on mouse
-        const dx = mouseX - this.x;
-        const dy = mouseY - this.y;
-        this.x -= dx * 0.001;
-        this.y -= dy * 0.001;
-
-        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
-            this.reset();
-        }
-    }
-
-    draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = this.color;
-        ctx.globalAlpha = this.opacity;
-        ctx.fill();
-        ctx.globalAlpha = 1;
-    }
-}
-
-// Create particles
-for (let i = 0; i < PARTICLE_COUNT; i++) {
-    particles.push(new Particle());
-}
-
-function animateParticles() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    particles.forEach(particle => {
-        particle.update();
-        particle.draw();
-    });
-
-    // Draw connections
-    particles.forEach((p1, i) => {
-        particles.slice(i + 1).forEach(p2 => {
-            const dx = p1.x - p2.x;
-            const dy = p1.y - p2.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-
-            if (dist < 150) {
-                ctx.beginPath();
-                ctx.strokeStyle = '#00f2ff';
-                ctx.globalAlpha = 0.1 * (1 - dist / 150);
-                ctx.lineWidth = 0.5;
-                ctx.moveTo(p1.x, p1.y);
-                ctx.lineTo(p2.x, p2.y);
-                ctx.stroke();
-                ctx.globalAlpha = 1;
+    
+    init() {
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+        
+        const columnCount = Math.floor(this.canvas.width / this.columnWidth);
+        this.columns = [];
+        
+        for (let i = 0; i < columnCount; i++) {
+            this.columns[i] = {
+                y: Math.random() * this.canvas.height,
+                speed: Math.random() * 0.5 + 0.5,
+                chars: []
+            };
+            
+            // Initialize with random chars
+            const charCount = Math.floor(Math.random() * 20) + 10;
+            for (let j = 0; j < charCount; j++) {
+                this.columns[i].chars.push(this.getRandomChar());
             }
-        });
-    });
-
-    animationId = requestAnimationFrame(animateParticles);
+        }
+    }
+    
+    getRandomChar() {
+        const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz<>{}[];/.,';
+        return chars[Math.floor(Math.random() * chars.length)];
+    }
+    
+    draw() {
+        // Semi-transparent black to create trail effect
+        this.ctx.fillStyle = 'rgba(10, 10, 10, 0.05)';
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        
+        this.ctx.font = `${this.fontSize}px JetBrains Mono, monospace`;
+        
+        for (let i = 0; i < this.columns.length; i++) {
+            const column = this.columns[i];
+            
+            for (let j = 0; j < column.chars.length; j++) {
+                const charY = column.y - (j * this.fontSize);
+                
+                if (charY > 0 && charY < this.canvas.height) {
+                    // First char is brightest
+                    if (j === 0) {
+                        this.ctx.fillStyle = '#ffffff';
+                    } else if (j < 5) {
+                        this.ctx.fillStyle = 'rgba(0, 255, 0, 0.9)';
+                    } else if (j < 10) {
+                        this.ctx.fillStyle = 'rgba(0, 255, 0, 0.6)';
+                    } else {
+                        this.ctx.fillStyle = 'rgba(0, 255, 0, 0.3)';
+                    }
+                    
+                    this.ctx.fillText(
+                        column.chars[j],
+                        i * this.columnWidth,
+                        charY
+                    );
+                }
+            }
+            
+            // Update position
+            column.y += this.fontSize * column.speed;
+            
+            // Randomly change some characters
+            if (Math.random() < 0.02) {
+                const randomIndex = Math.floor(Math.random() * column.chars.length);
+                column.chars[randomIndex] = this.getRandomChar();
+            }
+            
+            // Reset column if it's off screen
+            if (column.y - (column.chars.length * this.fontSize) > this.canvas.height) {
+                column.y = 0;
+                column.speed = Math.random() * 0.5 + 0.5;
+                const charCount = Math.floor(Math.random() * 20) + 10;
+                column.chars = [];
+                for (let j = 0; j < charCount; j++) {
+                    column.chars.push(this.getRandomChar());
+                }
+            }
+        }
+    }
+    
+    animate() {
+        this.draw();
+        requestAnimationFrame(() => this.animate());
+    }
 }
-animateParticles();
+
+// Initialize Matrix Rain
+const matrixRain = new MatrixRain();
 
 // ========================================
-// Navigation
+// Hero Section - Typewriter Effect
 // ========================================
-const navbar = document.getElementById('navbar');
-const navToggle = document.querySelector('.nav-toggle');
-const mobileMenu = document.getElementById('mobileMenu');
-const mobileLinks = document.querySelectorAll('.mobile-link');
+const heroTerminal = document.getElementById('heroTerminal');
+const infoJsonEl = document.getElementById('infoJson');
 
-// Scroll effect
-ScrollTrigger.create({
-    start: 'top -80',
-    onUpdate: (self) => {
-        if (self.progress > 0) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
+const infoJson = `{
+  "name": "汤俊飞",
+  "role": ".NET 开发工程师",
+  "experience": "5年+",
+  "skills": [
+    "C#", ".NET Core", "SQL Server",
+    "Redis", "RabbitMQ", "WinForm"
+  ],
+  "status": "<span class="keyword">online</span>"
+}`;
+
+function typeWriter(element, text, speed = 30, callback) {
+    let i = 0;
+    element.innerHTML = '';
+    
+    function type() {
+        if (i < text.length) {
+            if (text.substring(i, i + 1) === '<') {
+                // Handle HTML tags
+                const closeTag = text.indexOf('>', i);
+                element.innerHTML += text.substring(i, closeTag + 1);
+                i = closeTag + 1;
+            } else {
+                element.innerHTML += text.charAt(i);
+                i++;
+            }
+            setTimeout(type, speed);
+        } else if (callback) {
+            callback();
         }
     }
-});
+    type();
+}
 
-// Mobile menu toggle
-navToggle.addEventListener('click', () => {
-    mobileMenu.classList.toggle('active');
-    navToggle.classList.toggle('active');
-});
+// Animate hero terminal lines
+const heroLines = heroTerminal.querySelectorAll('.terminal-line');
 
-mobileLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        mobileMenu.classList.remove('active');
-        navToggle.classList.remove('active');
-    });
-});
-
-// Smooth scroll
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            gsap.to(window, {
-                duration: 1,
-                scrollTo: { y: target, offsetY: 80 },
-                ease: 'power3.inOut'
-            });
-        }
-    });
-});
-
-// ========================================
-// Hero Section Animations
-// ========================================
-const heroTl = gsap.timeline({ delay: 0.3 });
-
-// Characters animation
-const chars = document.querySelectorAll('.char');
-chars.forEach((char, i) => {
-    gsap.set(char, { opacity: 0, y: 100, rotateX: -90 });
-});
-
-heroTl.to(chars, {
-    opacity: 1,
-    y: 0,
-    rotateX: 0,
-    duration: 0.8,
-    stagger: 0.1,
-    ease: 'back.out(1.7)'
-});
-
-// Badge
-heroTl.from('.hero-badge', {
-    opacity: 0,
-    y: 20,
-    scale: 0.8,
-    duration: 0.6,
-    ease: 'back.out'
-}, '-=0.4');
-
-// Subtitle with blur
-heroTl.to('.subtitle-line', {
-    opacity: 1,
-    filter: 'blur(0px)',
-    duration: 0.8,
-    ease: 'power2.out'
-}, '-=0.3');
-
-// Description
-heroTl.to('.hero-desc', {
-    opacity: 1,
-    y: 0,
-    duration: 0.6,
-    ease: 'power2.out'
-}, '-=0.4');
-
-// CTA buttons
-heroTl.to('.hero-cta', {
-    opacity: 1,
-    y: 0,
-    duration: 0.6,
-    stagger: 0.1,
-    ease: 'back.out'
-}, '-=0.3');
-
-// Scroll indicator
-heroTl.to('.hero-scroll', {
-    opacity: 1,
-    duration: 0.6,
-    ease: 'power2.out'
-}, '-=0.2');
-
-// Code window
-heroTl.to('.code-window', {
-    opacity: 1,
-    rotateY: 0,
-    duration: 1,
-    ease: 'power3.out'
-}, 0.2);
-
-// ========================================
-// Hero Parallax
-// ========================================
-gsap.to('.hero-bg-grid', {
-    y: 100,
-    ease: 'none',
-    scrollTrigger: {
-        trigger: '.hero',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: 1
-    }
-});
-
-gsap.to('.hero-visual', {
-    y: -50,
-    ease: 'none',
-    scrollTrigger: {
-        trigger: '.hero',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: 1
-    }
-});
-
-// ========================================
-// About Section
-// ========================================
-const aboutTl = gsap.timeline({
-    scrollTrigger: {
-        trigger: '.about',
-        start: 'top 70%',
-        toggleActions: 'play none none reverse'
-    }
-});
-
-aboutTl.from('.about-image', {
-    opacity: 0,
-    scale: 0.8,
-    rotate: -10,
-    duration: 1,
-    ease: 'power3.out'
-});
-
-aboutTl.from('.about-title', {
-    opacity: 0,
-    x: -50,
-    duration: 0.8,
-    ease: 'power2.out'
-}, '-=0.5');
-
-aboutTl.from('.about-desc', {
-    opacity: 0,
-    x: -30,
-    duration: 0.6,
-    stagger: 0.2,
-    ease: 'power2.out'
-}, '-=0.4');
-
-// Stats counter animation
-const statNumbers = document.querySelectorAll('.stat-number');
-statNumbers.forEach(stat => {
-    const target = parseInt(stat.dataset.count);
-
-    gsap.to(stat, {
-        innerText: target,
-        duration: 2,
-        snap: { innerText: 1 },
-        ease: 'power1.out',
-        scrollTrigger: {
-            trigger: stat,
-            start: 'top 80%',
-            toggleActions: 'play none none reverse'
-        },
-        onUpdate: function() {
-            stat.innerText = Math.round(this.targets()[0].innerText);
-        }
-    });
-});
-
-aboutTl.from('.stat-item', {
-    opacity: 0,
-    y: 30,
-    stagger: 0.15,
-    duration: 0.6,
-    ease: 'back.out'
-}, '-=0.3');
-
-// ========================================
-// Skills Section
-// ========================================
-const skillCategories = document.querySelectorAll('.skill-category');
-
-skillCategories.forEach((category, index) => {
-    gsap.to(category, {
-        opacity: 1,
-        x: 0,
-        duration: 0.8,
-        delay: index * 0.2,
-        ease: 'power3.out',
-        scrollTrigger: {
-            trigger: category,
-            start: 'top 80%',
-            toggleActions: 'play none none reverse'
-        }
-    });
-});
-
-// Skill tags stagger animation
-const skillTags = document.querySelectorAll('.skill-tag');
-skillTags.forEach((tag, index) => {
-    gsap.to(tag, {
-        opacity: 1,
-        x: 0,
-        duration: 0.5,
-        ease: 'back.out(2)',
-        scrollTrigger: {
-            trigger: tag,
-            start: 'top 85%',
-            toggleActions: 'play none none reverse'
-        }
-    });
-});
-
-// SVG path draw animation (skip on mobile)
-if (!isMobile) {
-    gsap.to('#skillPath', {
-        strokeDashoffset: 0,
-        duration: 3,
-        ease: 'power2.inOut',
-        scrollTrigger: {
-            trigger: '.skills-grid',
-            start: 'top 70%',
-            toggleActions: 'play none none reverse'
-        }
+function animateHeroTerminal() {
+    heroLines.forEach((line, index) => {
+        setTimeout(() => {
+            line.classList.add('visible');
+            line.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+            line.style.opacity = '1';
+            line.style.transform = 'translateX(0)';
+            
+            // When we reach the infoJson line, trigger typewriter
+            if (line.classList.contains('output-block')) {
+                setTimeout(() => {
+                    typeWriter(infoJsonEl, infoJson, 15);
+                }, 300);
+            }
+        }, index * 400);
     });
 }
 
 // ========================================
-// Projects Section
+// About Section - Code Reveal
+// ========================================
+const aboutSection = document.getElementById('about');
+const aboutLines = aboutSection.querySelectorAll('.code-line');
+
+// ========================================
+// Skills Section - Install Animation
+// ========================================
+const skillsSection = document.getElementById('skills');
+const installLines = skillsSection.querySelectorAll('.installing');
+
+// ========================================
+// Projects - Card Reveal
 // ========================================
 const projectCards = document.querySelectorAll('.project-card');
 
-projectCards.forEach((card, index) => {
-    gsap.to(card, {
-        opacity: 1,
-        y: index === 1 ? 50 : 0,
-        duration: 0.8,
-        delay: index * 0.15,
-        ease: 'power3.out',
-        scrollTrigger: {
-            trigger: card,
-            start: 'top 80%',
-            toggleActions: 'play none none reverse'
-        }
-    });
-});
-
-// Card icon micro-animations
-projectCards.forEach(card => {
-    const icon = card.querySelector('.card-icon');
-
-    card.addEventListener('mouseenter', () => {
-        gsap.to(icon, {
-            scale: 1.1,
-            rotation: 5,
-            duration: 0.3,
-            ease: 'power2.out'
-        });
-    });
-
-    card.addEventListener('mouseleave', () => {
-        gsap.to(icon, {
-            scale: 1,
-            rotation: 0,
-            duration: 0.3,
-            ease: 'power2.out'
-        });
-    });
-});
-
 // ========================================
-// Timeline Section
+// Timeline - Git Log Reveal
 // ========================================
-// SVG line draw animation (skip on mobile)
-if (!isMobile) {
-    gsap.to('.timeline-svg-line', {
-        strokeDashoffset: 0,
-        duration: 2,
-        ease: 'power2.inOut',
-        scrollTrigger: {
-            trigger: '.timeline-wrapper',
-            start: 'top 70%',
-            toggleActions: 'play none none reverse'
-        }
-    });
-}
-
-// Timeline items
 const timelineItems = document.querySelectorAll('.timeline-item');
-const timelineDots = document.querySelectorAll('.timeline-dot');
-
-timelineItems.forEach((item, index) => {
-    gsap.to(item, {
-        opacity: 1,
-        x: index === 1 ? -50 : 50,
-        duration: 0.8,
-        delay: index * 0.3,
-        ease: 'power3.out',
-        scrollTrigger: {
-            trigger: item,
-            start: 'top 75%',
-            toggleActions: 'play none none reverse'
-        }
-    });
-});
-
-// Timeline dots
-timelineDots.forEach((dot, index) => {
-    gsap.to(dot, {
-        scale: 1,
-        duration: 0.4,
-        delay: index * 0.3 + 0.5,
-        ease: 'back.out(3)',
-        scrollTrigger: {
-            trigger: dot,
-            start: 'top 80%',
-            toggleActions: 'play none none reverse'
-        }
-    });
-});
 
 // ========================================
-// Contact Section
+// Contact Form Handler
 // ========================================
-const contactTl = gsap.timeline({
-    scrollTrigger: {
-        trigger: '.contact',
-        start: 'top 70%',
-        toggleActions: 'play none none reverse'
-    }
-});
+const contactForm = document.getElementById('contactForm');
 
-contactTl.from('.contact-title', {
-    opacity: 0,
-    y: 30,
-    duration: 0.6,
-    ease: 'power2.out'
-});
-
-contactTl.from('.contact-desc', {
-    opacity: 0,
-    y: 20,
-    duration: 0.6,
-    ease: 'power2.out'
-}, '-=0.3');
-
-contactTl.from('.contact-link', {
-    opacity: 0,
-    x: -40,
-    stagger: 0.15,
-    duration: 0.6,
-    ease: 'power3.out'
-}, '-=0.3');
-
-contactTl.from('.form-card', {
-    opacity: 0,
-    y: 50,
-    rotateY: -15,
-    duration: 1,
-    ease: 'power3.out'
-}, '-=0.5');
-
-// ========================================
-// Magnetic Effect
-// ========================================
-const magneticElements = document.querySelectorAll('.magnetic');
-
-magneticElements.forEach(el => {
-    el.addEventListener('mousemove', (e) => {
-        const rect = el.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-
-        gsap.to(el, {
-            x: x * 0.3,
-            y: y * 0.3,
-            duration: 0.3,
-            ease: 'power2.out'
-        });
-    });
-
-    el.addEventListener('mouseleave', () => {
-        gsap.to(el, {
-            x: 0,
-            y: 0,
-            duration: 0.5,
-            ease: 'elastic.out(1, 0.5)'
-        });
-    });
-});
-
-// ========================================
-// Section Transitions
-// ========================================
-document.querySelectorAll('.section').forEach(section => {
-    gsap.from(section.querySelector('.section-header'), {
-        opacity: 0,
-        y: 50,
-        duration: 1,
-        ease: 'power3.out',
-        scrollTrigger: {
-            trigger: section,
-            start: 'top 70%',
-            toggleActions: 'play none none reverse'
-        }
-    });
-});
-
-// ========================================
-// Button Hover Effects
-// ========================================
-document.querySelectorAll('.btn').forEach(btn => {
-    btn.addEventListener('mouseenter', () => {
-        gsap.to(btn, {
-            scale: 1.05,
-            boxShadow: '0 10px 40px rgba(0, 242, 255, 0.3)',
-            duration: 0.3,
-            ease: 'power2.out'
-        });
-    });
-
-    btn.addEventListener('mouseleave', () => {
-        gsap.to(btn, {
-            scale: 1,
-            boxShadow: '0 4px 20px rgba(0, 242, 255, 0.1)',
-            duration: 0.3,
-            ease: 'power2.out'
-        });
-    });
-});
-
-// ========================================
-// Form Interactions
-// ========================================
-const formInputs = document.querySelectorAll('.form-group input, .form-group textarea');
-
-formInputs.forEach(input => {
-    input.addEventListener('focus', () => {
-        gsap.to(input, {
-            borderColor: '#00f2ff',
-            boxShadow: '0 0 0 3px rgba(0, 242, 255, 0.1)',
-            duration: 0.2,
-            ease: 'power2.out'
-        });
-    });
-
-    input.addEventListener('blur', () => {
-        gsap.to(input, {
-            borderColor: 'rgba(255, 255, 255, 0.1)',
-            boxShadow: 'none',
-            duration: 0.2,
-            ease: 'power2.out'
-        });
-    });
-});
-
-// Form submission
-document.getElementById('contactForm').addEventListener('submit', (e) => {
+contactForm.addEventListener('submit', (e) => {
     e.preventDefault();
-
-    const btn = e.target.querySelector('.btn-submit');
-    const originalText = btn.innerHTML;
-
-    btn.innerHTML = '<span>发送中...</span>';
+    
+    const btn = contactForm.querySelector('.submit-btn');
+    const originalText = btn.textContent;
+    
+    btn.textContent = '[SENDING...]';
     btn.disabled = true;
-
+    
     // Simulate sending
     setTimeout(() => {
-        btn.innerHTML = '<span>发送成功!</span>';
-
-        gsap.to(btn, {
-            backgroundColor: '#00ff88',
-            duration: 0.3
-        });
-
+        btn.textContent = '[SENT!]';
+        btn.style.borderColor = '#00ff00';
+        btn.style.color = '#00ff00';
+        
         setTimeout(() => {
-            btn.innerHTML = originalText;
+            btn.textContent = originalText;
             btn.disabled = false;
-            gsap.to(btn, {
-                backgroundColor: '',
-                duration: 0.3
-            });
-            e.target.reset();
+            btn.style.borderColor = '';
+            btn.style.color = '';
+            contactForm.reset();
         }, 2000);
     }, 1500);
 });
 
 // ========================================
-// 3D Card Effect
+// Scroll Animations with GSAP
 // ========================================
-projectCards.forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = (y - centerY) / 20;
-        const rotateY = (centerX - x) / 20;
 
-        gsap.to(card, {
-            rotateX: rotateX,
-            rotateY: rotateY,
-            transformPerspective: 1000,
-            duration: 0.3,
-            ease: 'power2.out'
+// Hero terminal animation on load
+window.addEventListener('load', () => {
+    setTimeout(animateHeroTerminal, 500);
+});
+
+// About section code reveal
+ScrollTrigger.create({
+    trigger: '#about',
+    start: 'top 70%',
+    onEnter: () => {
+        aboutLines.forEach((line, index) => {
+            setTimeout(() => {
+                line.classList.add('visible');
+                line.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+                line.style.opacity = '1';
+                line.style.transform = 'translateX(0)';
+            }, index * 50);
         });
-    });
+    },
+    once: true
+});
 
-    card.addEventListener('mouseleave', () => {
-        gsap.to(card, {
-            rotateX: 0,
-            rotateY: 0,
-            duration: 0.5,
-            ease: 'elastic.out(1, 0.5)'
+// Skills install animation
+ScrollTrigger.create({
+    trigger: '#skills',
+    start: 'top 70%',
+    onEnter: () => {
+        installLines.forEach((line, index) => {
+            setTimeout(() => {
+                const text = line.getAttribute('data-text');
+                if (text) {
+                    let i = 0;
+                    line.textContent = '';
+                    line.classList.add('visible');
+                    
+                    function typeChar() {
+                        if (i < text.length) {
+                            line.textContent += text.charAt(i);
+                            i++;
+                            setTimeout(typeChar, 30);
+                        }
+                    }
+                    typeChar();
+                }
+            }, index * 400);
         });
+    },
+    once: true
+});
+
+// Project cards reveal
+ScrollTrigger.create({
+    trigger: '#projects',
+    start: 'top 70%',
+    onEnter: () => {
+        projectCards.forEach((card, index) => {
+            setTimeout(() => {
+                card.classList.add('visible');
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease, border-color 0.3s ease, box-shadow 0.3s ease';
+            }, index * 300);
+        });
+    },
+    once: true
+});
+
+// Timeline items reveal
+ScrollTrigger.create({
+    trigger: '#timeline',
+    start: 'top 70%',
+    onEnter: () => {
+        timelineItems.forEach((item, index) => {
+            setTimeout(() => {
+                item.classList.add('visible');
+                item.style.transition = 'opacity 0.5s ease, transform 0.5s ease, border-color 0.3s ease, box-shadow 0.3s ease';
+            }, index * 400);
+        });
+    },
+    once: true
+});
+
+// ========================================
+// Navigation Highlight on Scroll
+// ========================================
+const sections = document.querySelectorAll('.section');
+const navLinks = document.querySelectorAll('.nav-link');
+
+window.addEventListener('scroll', () => {
+    let current = '';
+    
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        
+        if (pageYOffset >= sectionTop - 200) {
+            current = section.getAttribute('id');
+        }
+    });
+    
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+            link.style.color = '#00ff00';
+            link.style.textShadow = '0 0 10px rgba(0, 255, 0, 0.5)';
+        } else {
+            link.style.color = '';
+            link.style.textShadow = '';
+        }
     });
 });
 
 // ========================================
-// Scroll Progress Indicator
+// Smooth Scroll for Nav Links
 // ========================================
-gsap.to('.scroll-indicator', {
-    scrollTrigger: {
-        trigger: document.body,
-        start: 'top top',
-        end: 'bottom bottom',
-        onUpdate: (self) => {
-            const scrollLine = document.querySelector('.scroll-line');
-            if (scrollLine) {
-                gsap.to(scrollLine, {
-                    scaleY: 0.5 + self.progress * 0.5,
-                    duration: 0.1
-                });
-            }
-        }
-    }
-});
-
-// ========================================
-// Section Background Parallax
-// ========================================
-document.querySelectorAll('.section-bg').forEach(bg => {
-    gsap.to(bg, {
-        y: -50,
-        ease: 'none',
-        scrollTrigger: {
-            trigger: bg.parentElement,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1
+navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
+        
+        if (targetSection) {
+            targetSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
         }
     });
 });
 
 // ========================================
-// Logo Animation
+// Parallax Effect for Terminal Windows
 // ========================================
-gsap.from('.nav-logo', {
-    opacity: 0,
-    scale: 0,
-    rotate: -180,
-    duration: 1,
-    delay: 0.5,
-    ease: 'elastic.out(1, 0.5)'
+window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    
+    document.querySelectorAll('.terminal-window').forEach((terminal, index) => {
+        const speed = 0.05 * (index + 1);
+        const yPos = scrolled * speed;
+        terminal.style.transform = `translateY(${yPos}px)`;
+    });
 });
 
 // ========================================
-// Page Load Animation
+// Random Glitch Effect (Occasional)
 // ========================================
-gsap.from('body', {
-    opacity: 0,
-    duration: 0.5,
-    ease: 'power2.out'
-});
+function randomGlitch() {
+    const terminals = document.querySelectorAll('.terminal-window');
+    
+    setInterval(() => {
+        if (Math.random() < 0.1) { // 10% chance
+            const randomTerminal = terminals[Math.floor(Math.random() * terminals.length)];
+            randomTerminal.style.animation = 'glitch 0.1s ease';
+            
+            setTimeout(() => {
+                randomTerminal.style.animation = '';
+            }, 100);
+        }
+    }, 5000);
+}
+
+randomGlitch();
 
 // ========================================
-// Nav Links Animation
+// Console Easter Egg
 // ========================================
-gsap.from('.nav-links li', {
-    opacity: 0,
-    y: -20,
-    stagger: 0.1,
-    duration: 0.5,
-    delay: 0.8,
-    ease: 'power2.out'
-});
+console.log('%c╔══════════════════════════════════════╗', 'color: #00ff00');
+console.log('%c║  🖥️  Matrix Portfolio v1.0           ║', 'color: #00ff00');
+console.log('%c║  汤俊飞 | .NET 开发工程师              ║', 'color: #00ff00');
+console.log('%c║  5年+ 开发经验                        ║', 'color: #00ff00');
+console.log('%c╚══════════════════════════════════════╝', 'color: #00ff00');
+console.log('%c📧 Contact: tjfzeishuai@163.com', 'color: #00cc00');
+console.log('%c🐙 GitHub: github.com/TangZhiZzz', 'color: #00cc00');
 
 // ========================================
-// Refresh ScrollTrigger on resize
+// Mobile Detection - Reduce Effects
+// ========================================
+const isMobile = window.innerWidth <= 768;
+
+if (isMobile) {
+    matrixRain.canvas.style.opacity = '0.05';
+    document.querySelector('.scanlines').style.opacity = '0.1';
+}
+
+// ========================================
+// Refresh on Resize
 // ========================================
 let resizeTimer;
 window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
         ScrollTrigger.refresh();
+        matrixRain.init();
     }, 250);
 });
 
 // ========================================
-// Cleanup on page unload
+// Initial Setup Complete
 // ========================================
-window.addEventListener('beforeunload', () => {
-    cancelAnimationFrame(animationId);
-    ScrollTrigger.killAll();
-});
-
-// ========================================
-// Console Easter Egg
-// ========================================
-console.log('%c🚀 汤俊飞 - .NET 开发工程师', 'font-size: 24px; font-weight: bold; color: #00f2ff;');
-console.log('%c欢迎来访！联系方式: tjfzeishuai@163.com', 'font-size: 14px; color: #888;');
+console.log('%c✅ Matrix Rain Initialized', 'color: #00ff00');
+console.log('%c✅ GSAP ScrollTrigger Registered', 'color: #00ff00');
+console.log('%c✅ All Systems Operational', 'color: #00ff00');
