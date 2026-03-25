@@ -1,353 +1,138 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>汤俊飞 | .NET 开发工程师</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Fira+Code:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>汤俊飞 | .NET 开发工程师</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Matrix Rain Canvas -->
-    <canvas id="matrixCanvas"></canvas>
-    
-    <!-- Scanline Overlay -->
-    <div class="scanlines"></div>
-    
-    <!-- CRT Vignette -->
-    <div class="crt-vignette"></div>
 
-    <!-- Navigation -->
-    <nav class="terminal-nav" id="navbar">
-        <div class="nav-prompt">
-            <span class="prompt-user">guest</span><span class="prompt-at">@</span><span class="prompt-host">portfolio</span><span class="prompt-sep">:</span><span class="prompt-path">~</span><span class="prompt-symbol">$</span>
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <div class="container">
+      <h1>汤俊飞</h1>
+      <p class="subtitle">中级 / 高级 .NET 开发工程师</p>
+      <p class="meta">5年开发经验 · 期望薪资 15-20K</p>
+      <a href="#contact" class="btn">联系我</a>
+    </div>
+  </section>
+
+  <!-- 关于我 -->
+  <section class="section" id="about">
+    <div class="container">
+      <h2 class="section-title">关于我</h2>
+      <div class="card">
+        <p>唐山职业技术学院，计算机应用技术专业，2017-2020。</p>
+        <p>专业排名前<span class="highlight">5%</span>，核心课程平均分<span class="highlight">88+</span>。</p>
+        <div class="honors">
+          <h3>荣誉</h3>
+          <ul>
+            <li>蓝桥杯 Java 组省赛二等奖</li>
+            <li>国家励志奖学金</li>
+          </ul>
         </div>
-        <div class="nav-links">
-            <a href="#hero" class="nav-link" data-goto="home">[home]</a>
-            <a href="#about" class="nav-link" data-goto="about">[about]</a>
-            <a href="#skills" class="nav-link" data-goto="skills">[skills]</a>
-            <a href="#projects" class="nav-link" data-goto="projects">[projects]</a>
-            <a href="#timeline" class="nav-link" data-goto="timeline">[log]</a>
-            <a href="#contact" class="nav-link" data-goto="contact">[contact]</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 技能栈 -->
+  <section class="section" id="skills">
+    <div class="container">
+      <h2 class="section-title">技能栈</h2>
+      <div class="skills-grid">
+        <span class="skill-tag">C#</span>
+        <span class="skill-tag">.NET Core</span>
+        <span class="skill-tag">.NET 5+</span>
+        <span class="skill-tag">ASP.NET</span>
+        <span class="skill-tag">WinForm</span>
+        <span class="skill-tag">Web API</span>
+        <span class="skill-tag">SQL Server</span>
+        <span class="skill-tag">MySQL</span>
+        <span class="skill-tag">Redis</span>
+        <span class="skill-tag">RabbitMQ</span>
+        <span class="skill-tag">LINQ</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 项目经验 -->
+  <section class="section" id="projects">
+    <div class="container">
+      <h2 class="section-title">项目经验</h2>
+      <div class="card project-card">
+        <h3>助贷业务全链路系统</h3>
+        <p class="project-period">2022.01 – 至今</p>
+        <p class="project-tech">.NET Core 6.0 · SQL Server · Redis · RabbitMQ</p>
+        <p class="project-role">技术负责人</p>
+      </div>
+      <div class="card project-card">
+        <h3>快消品进销存系统</h3>
+        <p class="project-period">2019.07 – 2020.11</p>
+        <p class="project-tech">.NET Framework 4.8 · WinForm · Web API</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 工作经历 -->
+  <section class="section" id="experience">
+    <div class="container">
+      <h2 class="section-title">工作经历</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content card">
+            <h3>北京厚泽金融信息服务有限公司</h3>
+            <p class="exp-role">.NET 开发工程师 · 2021.10 – 至今</p>
+            <ul>
+              <li>助贷业务全链路系统</li>
+              <li>审核效率提升 50%</li>
+              <li>系统稳定性 99.9%</li>
+            </ul>
+          </div>
         </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="section hero" id="hero">
-        <div class="terminal-window hero-terminal">
-            <div class="window-titlebar">
-                <div class="titlebar-dots">
-                    <span class="dot close"></span>
-                    <span class="dot minimize"></span>
-                    <span class="dot maximize"></span>
-                </div>
-                <div class="titlebar-title">root@portfolio:~</div>
-                <div class="titlebar-btns">
-                    <span class="lang">zh-CN</span>
-                </div>
-            </div>
-            <div class="window-content">
-                <div class="terminal-body" id="heroTerminal">
-                    <p class="terminal-line"><span class="comment">// 欢迎访问我的主页</span></p>
-                    <p class="terminal-line"><span class="comment">// 5年+ .NET 全栈开发经验 | 中级/高级工程师</span></p>
-                    <p class="terminal-line"><span class="prompt">$</span> <span class="command">whoami</span></p>
-                    <p class="terminal-line output-line">汤俊飞</p>
-                    <p class="terminal-line"><span class="prompt">$</span> <span class="command">cat info.json</span></p>
-                    <pre class="terminal-line output-block" id="infoJson"></pre>
-                    <p class="terminal-line"><span class="prompt">$</span> <span class="cursor-blink">_</span></p>
-                </div>
-            </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content card">
+            <h3>北京助力软件有限公司</h3>
+            <p class="exp-role">中级 .NET 开发工程师 · 2019.07 – 2021.07</p>
+            <ul>
+              <li>快消品进销存系统</li>
+              <li>控价管理系统</li>
+            </ul>
+          </div>
         </div>
-        <div class="scroll-hint">
-            <span class="scroll-text">// scroll down</span>
-            <span class="scroll-arrow">▼</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 联系方式 -->
+  <section class="section" id="contact">
+    <div class="container">
+      <h2 class="section-title">联系方式</h2>
+      <div class="contact-grid card">
+        <div class="contact-item">
+          <span class="contact-label">电话</span>
+          <a href="tel:17631393397">17631393397</a>
         </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="section about" id="about">
-        <div class="terminal-window">
-            <div class="window-titlebar">
-                <div class="titlebar-dots">
-                    <span class="dot close"></span>
-                    <span class="dot minimize"></span>
-                    <span class="dot maximize"></span>
-                </div>
-                <div class="titlebar-title">about_me.cs</div>
-            </div>
-            <div class="window-content">
-                <div class="code-block">
-                    <p class="code-line"><span class="comment">// =============================================</span></p>
-                    <p class="code-line"><span class="comment">// 关于我 / About Me</span></p>
-                    <p class="code-line"><span class="comment">// =============================================</span></p>
-                    <p class="code-line"></p>
-                    <p class="code-line"><span class="keyword">namespace</span> <span class="class">Portfolio</span></p>
-                    <p class="code-line">{</p>
-                    <p class="code-line"><span class="tab"></span><span class="keyword">public class</span> <span class="class">Developer</span></p>
-                    <p class="code-line"><span class="tab"></span>{</p>
-                    <p class="code-line"><span class="tab"></span><span class="tab"></span><span class="keyword">public string</span> Name { <span class="keyword">get</span>; } = <span class="string">"汤俊飞"</span>;</p>
-                    <p class="code-line"><span class="tab"></span><span class="tab"></span><span class="keyword">public string</span> Gender { <span class="keyword">get</span>; } = <span class="string">"男"</span>;</p>
-                    <p class="code-line"><span class="tab"></span><span class="tab"></span><span class="keyword">public string</span> Role { <span class="keyword">get</span>; } = <span class="string">"中级/高级 .NET 开发工程师"</span>;</p>
-                    <p class="code-line"><span class="tab"></span><span class="tab"></span><span class="keyword">public int</span> Experience { <span class="keyword">get</span>; } = <span class="number">5</span>;</p>
-                    <p class="code-line"><span class="tab"></span><span class="tab"></span><span class="keyword">public string</span> ExpectedSalary { <span class="keyword">get</span>; } = <span class="string">"15-20K"</span>;</p>
-                    <p class="code-line"></p>
-                    <p class="code-line"><span class="tab"></span><span class="tab"></span><span class="comment">// ---------- 教育背景 ----------</span></p>
-                    <p class="code-line"><span class="tab"></span><span class="tab"></span><span class="keyword">public class</span> <span class="class">Education</span></p>
-                    <p class="code-line"><span class="tab"></span><span class="tab"></span>{</p>
-                    <p class="code-line"><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="keyword">public string</span> School { <span class="keyword">get</span>; } = <span class="string">"唐山职业技术学院"</span>;</p>
-                    <p class="code-line"><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="keyword">public string</span> Major { <span class="keyword">get</span>; } = <span class="string">"计算机应用技术"</span>;</p>
-                    <p class="code-line"><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="keyword">public string</span> Period { <span class="keyword">get</span>; } = <span class="string">"2017 - 2020"</span>;</p>
-                    <p class="code-line"><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="keyword">public double</span> Ranking { <span class="keyword">get</span>; } = <span class="number">5</span>; <span class="comment">// 专业排名前5%</span></p>
-                    <p class="code-line"><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="keyword">public double</span> AvgScore { <span class="keyword">get</span>; } = <span class="number">88</span>; <span class="comment">// 核心课程平均分88+</span></p>
-                    <p class="code-line"><span class="tab"></span><span class="tab"></span>}</p>
-                    <p class="code-line"></p>
-                    <p class="code-line"><span class="tab"></span><span class="tab"></span><span class="comment">// ---------- 荣誉奖项 ----------</span></p>
-                    <p class="code-line"><span class="tab"></span><span class="tab"></span><span class="keyword">public string</span>[] Awards { <span class="keyword">get</span>; } = {</p>
-                    <p class="code-line"><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="string">"蓝桥杯 Java 组省赛二等奖"</span>,</p>
-                    <p class="code-line"><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="string">"国家励志奖学金（全院前15%）"</span>,</p>
-                    <p class="code-line"><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="string">"专业排名前5%，核心课程平均分88+"</span></p>
-                    <p class="code-line"><span class="tab"></span><span class="tab"></span>};</p>
-                    <p class="code-line"></p>
-                    <p class="code-line"><span class="tab"></span><span class="tab"></span><span class="comment">// ---------- 技术栈 ----------</span></p>
-                    <p class="code-line"><span class="tab"></span><span class="tab"></span><span class="keyword">public string</span>[] Stack { <span class="keyword">get</span>; } = {</p>
-                    <p class="code-line"><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="string">"C#"</span>, <span class="string">".NET Core"</span>, <span class="string">".NET 5+"</span>, <span class="string">"ASP.NET"</span>,</p>
-                    <p class="code-line"><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="string">"WinForm"</span>, <span class="string">"Web API"</span>, <span class="string">"LINQ"</span>, <span class="string">"Async/Await"</span>,</p>
-                    <p class="code-line"><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="string">"SQL Server"</span>, <span class="string">"MySQL"</span>, <span class="string">"Redis"</span>, <span class="string">"RabbitMQ"</span></p>
-                    <p class="code-line"><span class="tab"></span><span class="tab"></span>};</p>
-                    <p class="code-line"></p>
-                    <p class="code-line"><span class="tab"></span><span class="tab"></span><span class="comment">// ---------- 成长轨迹 ----------</span></p>
-                    <p class="code-line"><span class="tab"></span><span class="tab"></span><span class="comment">// 从学生时代的信息管理系统起步</span></p>
-                    <p class="code-line"><span class="tab"></span><span class="tab"></span><span class="comment">// 到进销存 WinForm 客户端 + Web API 全栈开发</span></p>
-                    <p class="code-line"><span class="tab"></span><span class="tab"></span><span class="comment">// 再到金融级助贷系统，技术深度与业务广度同步进阶</span></p>
-                    <p class="code-line"><span class="tab"></span><span class="tab"></span><span class="comment">// 带队研发、架构设计、性能优化，持续进化中...</span></p>
-                    <p class="code-line">}</p>
-                    <p class="code-line">}</p>
-                </div>
-            </div>
+        <div class="contact-item">
+          <span class="contact-label">邮箱</span>
+          <a href="mailto:tjfzeishuai@163.com">tjfzeishuai@163.com</a>
         </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section class="section skills" id="skills">
-        <div class="terminal-window">
-            <div class="window-titlebar">
-                <div class="titlebar-dots">
-                    <span class="dot close"></span>
-                    <span class="dot minimize"></span>
-                    <span class="dot maximize"></span>
-                </div>
-                <div class="titlebar-title">skills.json</div>
-            </div>
-            <div class="window-content">
-                <div class="terminal-body skill-terminal">
-                    <p class="terminal-line"><span class="comment">// 技能安装中...</span></p>
-                    <p class="terminal-line"><span class="prompt">$</span> <span class="command">npm install --save-dev</span></p>
-                    <p class="terminal-line output-line installing" data-text="✔ Languages: C#, .NET Core, .NET 5+, ASP.NET, WinForm, Web API, LINQ, Async/Await"></p>
-                    <p class="terminal-line output-line installing" data-text="✔ Database: SQL Server, MySQL, Redis, 读写分离, 查询优化"></p>
-                    <p class="terminal-line output-line installing" data-text="✔ Middleware: RabbitMQ, 消息队列, 微服务架构"></p>
-                    <p class="terminal-line output-line installing" data-text="✔ Tools: Visual Studio 2019/2022, Git/SVN, Postman, Swagger"></p>
-                    <p class="terminal-line output-line installing" data-text="✔ Patterns: 单例, 工厂, 观察者, 策略模式"></p>
-                    <p class="terminal-line output-line installing" data-text="✔ Architecture: 分层架构, 微服务, 高并发, 7×24稳定运行"></p>
-                    <p class="terminal-line"><span class="prompt">$</span> <span class="command">git log --oneline --graph</span></p>
-                    <div class="skill-tree">
-                        <p class="terminal-line branch-line"><span class="branch">│</span></p>
-                        <p class="terminal-line branch-line"><span class="branch">├─</span><span class="branch-name">*</span> backend <span class="skill-badge">C#</span><span class="skill-badge">.NET Core</span><span class="skill-badge">.NET 5+</span><span class="skill-badge">ASP.NET</span><span class="skill-badge">WinForm</span><span class="skill-badge">Web API</span></p>
-                        <p class="terminal-line branch-line"><span class="branch">│</span></p>
-                        <p class="terminal-line branch-line"><span class="branch">├─</span><span class="branch-name">*</span> database <span class="skill-badge">SQL Server</span><span class="skill-badge">MySQL</span><span class="skill-badge">Redis</span><span class="skill-badge">读写分离</span></p>
-                        <p class="terminal-line branch-line"><span class="branch">│</span></p>
-                        <p class="terminal-line branch-line"><span class="branch">├─</span><span class="branch-name">*</span> middleware <span class="skill-badge">RabbitMQ</span><span class="skill-badge">消息队列</span></p>
-                        <p class="terminal-line branch-line"><span class="branch">│</span></p>
-                        <p class="terminal-line branch-line"><span class="branch">├─</span><span class="branch-name">*</span> patterns <span class="skill-badge">单例</span><span class="skill-badge">工厂</span><span class="skill-badge">观察者</span><span class="skill-badge">策略</span></p>
-                        <p class="terminal-line branch-line"><span class="branch">│</span></p>
-                        <p class="terminal-line branch-line"><span class="branch">└─</span><span class="branch-name">*</span> devops <span class="skill-badge">VS 2019/2022</span><span class="skill-badge">Git</span><span class="skill-badge">SVN</span><span class="skill-badge">Swagger</span></p>
-                    </div>
-                </div>
-            </div>
+        <div class="contact-item">
+          <span class="contact-label">GitHub</span>
+          <a href="https://github.com/TangZhiZzz" target="_blank">TangZhiZzz</a>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Projects Section -->
-    <section class="section projects" id="projects">
-        <div class="terminal-window">
-            <div class="window-titlebar">
-                <div class="titlebar-dots">
-                    <span class="dot close"></span>
-                    <span class="dot minimize"></span>
-                    <span class="dot maximize"></span>
-                </div>
-                <div class="titlebar-title">~/projects/</div>
-            </div>
-            <div class="window-content">
-                <div class="projects-list">
-                    <div class="project-item">
-                        <p class="terminal-line"><span class="prompt">$</span> <span class="command">ls -la /projects/</span></p>
-                        <p class="terminal-line output-line project-path">drwxr-xr-x  loan-system    <span class="comment">// 助贷业务全链路系统 [2022.01-至今]</span></p>
-                        <p class="terminal-line output-line project-path">drwxr-xr-x  inventory      <span class="comment">// 快消品进销存综合营销系统 [2019.07-2020.11]</span></p>
-                    </div>
-                    
-                    <div class="project-card">
-                        <div class="project-header">
-                            <span class="project-name">助贷业务全链路系统</span>
-                            <span class="project-tag">fintech</span>
-                        </div>
-                        <p class="project-path-line"><span class="comment">// /projects/loan-system/  |  技术负责人/核心开发工程师</span></p>
-                        <div class="project-imports">
-                            <p class="terminal-line"><span class="keyword">using</span> <span class="class">C#</span>;</p>
-                            <p class="terminal-line"><span class="keyword">using</span> <span class="class">.NET.Core</span> <span class="number">6.0</span>;</p>
-                            <p class="terminal-line"><span class="keyword">using</span> <span class="class">WebAPI</span>;</p>
-                            <p class="terminal-line"><span class="keyword">using</span> <span class="class">SQLServer</span>;</p>
-                            <p class="terminal-line"><span class="keyword">using</span> <span class="class">Redis</span>;</p>
-                            <p class="terminal-line"><span class="keyword">using</span> <span class="class">RabbitMQ</span>;</p>
-                        </div>
-                        <p class="project-desc"><span class="comment">/**</span></p>
-                        <p class="project-desc"><span class="comment"> * 金融级助贷业务全流程系统</span></p>
-                        <p class="project-desc"><span class="comment"> * 综合业务系统 .NET Framework → .NET Core 6.0 迁移</span></p>
-                        <p class="project-desc"><span class="comment"> * 引入规则引擎，审核效率提升 <span class="highlight">50%</span></span></p>
-                        <p class="project-desc"><span class="comment"> * 内部核房下户 APP：信息采集/任务跟踪/线上审核/离线缓存</span></p>
-                        <p class="project-desc"><span class="comment"> * 贷后催收系统：智能任务分配/短信外呼/逾期报表</span></p>
-                        <p class="project-desc"><span class="comment"> * SQL Server 读写分离 + Redis 缓存，高并发无忧</span></p>
-                        <p class="project-desc"><span class="comment"> * 系统稳定性 <span class="highlight">99.9%</span>，保障金融 7×24 稳定运行</span></p>
-                        <p class="project-desc"><span class="comment"> *</span></p>
-                        <p class="project-desc"><span class="comment"> * 带队 3-5 人团队，制定开发规范，代码审查</span></p>
-                        <p class="project-desc"><span class="comment"> * 团队效率提升 <span class="highlight">40%</span>，Bug 发生率降低 <span class="highlight">55%</span></span></p>
-                        <p class="project-desc"><span class="comment"> */</span></p>
-                    </div>
+  <footer>
+    <div class="container">
+      <p>&copy; 2024 汤俊飞. All rights reserved.</p>
+    </div>
+  </footer>
 
-                    <div class="project-card">
-                        <div class="project-header">
-                            <span class="project-name">快消品进销存综合营销一体化系统</span>
-                            <span class="project-tag">enterprise</span>
-                        </div>
-                        <p class="project-path-line"><span class="comment">// /projects/inventory/  |  核心开发工程师</span></p>
-                        <div class="project-imports">
-                            <p class="terminal-line"><span class="keyword">using</span> <span class="class">C#</span>;</p>
-                            <p class="terminal-line"><span class="keyword">using</span> <span class="class">.NET.Framework</span> <span class="number">4.8</span>;</p>
-                            <p class="terminal-line"><span class="keyword">using</span> <span class="class">WinForm</span>;</p>
-                            <p class="terminal-line"><span class="keyword">using</span> <span class="class">WebAPI</span>;</p>
-                            <p class="terminal-line"><span class="keyword">using</span> <span class="class">SQLServer</span>;</p>
-                        </div>
-                        <p class="project-desc"><span class="comment">/**</span></p>
-                        <p class="project-desc"><span class="comment"> * 面向快消品行业的全链路信息化系统</span></p>
-                        <p class="project-desc"><span class="comment"> * 覆盖：生产、工厂、经销商、门店、会员、积分</span></p>
-                        <p class="project-desc"><span class="comment"> * WinForm 客户端 + Web API 服务端核心开发</span></p>
-                        <p class="project-desc"><span class="comment"> * 控价管理系统：全网电商品牌价格监控</span></p>
-                        <p class="project-desc"><span class="comment"> * 数据库架构设计与性能优化</span></p>
-                        <p class="project-desc"><span class="comment"> * 参与需求分析、技术方案评审、测试、部署</span></p>
-                        <p class="project-desc"><span class="comment"> */</span></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Timeline Section -->
-    <section class="section timeline" id="timeline">
-        <div class="terminal-window">
-            <div class="window-titlebar">
-                <div class="titlebar-dots">
-                    <span class="dot close"></span>
-                    <span class="dot minimize"></span>
-                    <span class="dot maximize"></span>
-                </div>
-                <div class="titlebar-title">git log --oneline</div>
-            </div>
-            <div class="window-content">
-                <div class="git-log">
-                    <p class="terminal-line"><span class="prompt">$</span> <span class="command">git log --oneline --all</span></p>
-                    
-                    <div class="timeline-item">
-                        <p class="commit-line"><span class="commit-hash">a3f8c12</span> <span class="commit-branch branch-main">main</span></p>
-                        <p class="commit-line"><span class="commit-msg">feat: 加入厚泽金融，主导助贷全链路系统迭代</span></p>
-                        <p class="commit-meta"><span class="commit-date">2021-10-至今</span> <span class="commit-author">TangZhiZzz</span></p>
-                        <div class="commit-details">
-                            <p class="detail-line"><span class="detail-key">Company:</span> <span class="detail-val">北京厚泽金融信息服务有限公司</span></p>
-                            <p class="detail-line"><span class="detail-key">Role:</span> <span class="detail-val">.NET 开发工程师</span></p>
-                            <p class="detail-line"><span class="detail-key">Project:</span> <span class="detail-val">助贷业务全链路系统 / 贷后催收系统</span></p>
-                            <p class="detail-line"><span class="detail-key">Tech:</span> <span class="detail-val">.NET Core 6.0, SQL Server, Redis, RabbitMQ</span></p>
-                            <p class="detail-line"><span class="detail-key">Achievement:</span> <span class="detail-val">审核效率+50% | 催收响应+60% | 逾期回款+25%</span></p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <p class="commit-line"><span class="commit-hash">b7d2e45</span></p>
-                        <p class="commit-line"><span class="commit-msg">feat: 加入助力软件，完成进销存系统核心开发</span></p>
-                        <p class="commit-meta"><span class="commit-date">2019-07 - 2021-07</span> <span class="commit-author">TangZhiZzz</span></p>
-                        <div class="commit-details">
-                            <p class="detail-line"><span class="detail-key">Company:</span> <span class="detail-val">北京助力软件有限公司</span></p>
-                            <p class="detail-line"><span class="detail-key">Role:</span> <span class="detail-val">中级 .NET 开发工程师</span></p>
-                            <p class="detail-line"><span class="detail-key">Project:</span> <span class="detail-val">快消品进销存系统 / 控价管理系统</span></p>
-                            <p class="detail-line"><span class="detail-key">Tech:</span> <span class="detail-val">.NET Framework 4.8, WinForm, Web API, SQL Server</span></p>
-                            <p class="detail-line"><span class="detail-key">Achievement:</span> <span class="detail-val">全链路信息化覆盖 | 多仓库多门店统一管理</span></p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <p class="commit-line"><span class="commit-hash">c1a3d77</span></p>
-                        <p class="commit-line"><span class="commit-msg">grad: 毕业于唐山职业技术学院，计算机应用技术</span></p>
-                        <p class="commit-meta"><span class="commit-date">2020-07</span> <span class="commit-author">TangZhiZzz</span></p>
-                        <div class="commit-details">
-                            <p class="detail-line"><span class="detail-key">School:</span> <span class="detail-val">唐山职业技术学院</span></p>
-                            <p class="detail-line"><span class="detail-key">Major:</span> <span class="detail-val">计算机应用技术</span></p>
-                            <p class="detail-line"><span class="detail-key">Ranking:</span> <span class="detail-val">专业排名前5% | 核心课程平均分88+</span></p>
-                            <p class="detail-line"><span class="detail-key">Awards:</span> <span class="detail-val">蓝桥杯Java组省赛二等奖 | 国家励志奖学金</span></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="section contact" id="contact">
-        <div class="terminal-window contact-terminal">
-            <div class="window-titlebar">
-                <div class="titlebar-dots">
-                    <span class="dot close"></span>
-                    <span class="dot minimize"></span>
-                    <span class="dot maximize"></span>
-                </div>
-                <div class="titlebar-title">contact.json</div>
-            </div>
-            <div class="window-content">
-                <div class="contact-form">
-                    <p class="terminal-line"><span class="comment">// =============================================</span></p>
-                    <p class="terminal-line"><span class="comment">// 联系方式 / Contact Info</span></p>
-                    <p class="terminal-line"><span class="comment">// =============================================</span></p>
-                    <p class="terminal-line"></p>
-                    <p class="contact-info-line"><span class="prompt">></span> name: <span class="contact-value">汤俊飞</span></p>
-                    <p class="contact-info-line"><span class="prompt">></span> phone: <span class="contact-value">17631393397</span></p>
-                    <p class="contact-info-line"><span class="prompt">></span> email: <span class="contact-value">tjfzeishuai@163.com</span></p>
-                    <p class="contact-info-line"><span class="prompt">></span> github: <span class="contact-value">github.com/TangZhiZzz</span></p>
-                    <p class="contact-info-line"><span class="prompt">></span> status: <span class="contact-value keyword">open_to_work</span></p>
-                    <p class="contact-info-line"><span class="prompt">></span> expected_salary: <span class="contact-value">15-20K</span></p>
-                    <p class="terminal-line"></p>
-                    <p class="terminal-line"><span class="comment">// =============================================</span></p>
-                    <p class="terminal-line"><span class="comment">// 发送消息 / Send Message</span></p>
-                    <p class="terminal-line"><span class="comment">// =============================================</span></p>
-                    
-                    <form id="contactForm">
-                        <p class="form-line"><span class="prompt">></span> <span class="form-label">name:</span> <input type="text" id="name" class="form-input" placeholder="输入你的名字" autocomplete="off"></p>
-                        <p class="form-line"><span class="prompt">></span> <span class="form-label">email:</span> <input type="email" id="email" class="form-input" placeholder="输入你的邮箱" autocomplete="off"></p>
-                        <p class="form-line"><span class="prompt">></span> <span class="form-label">message:</span></p>
-                        <textarea id="message" class="form-textarea" placeholder="输入你想说的话..." rows="4"></textarea>
-                        <p class="terminal-line"></p>
-                        <p class="form-line"><span class="prompt">></span> <button type="submit" class="submit-btn">[SUBMIT]</button></p>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <canvas id="footerCanvas"></canvas>
-        <p class="footer-tagline">// 中级/高级 .NET 开发工程师 | 5年+ 经验 | 期望薪资 15-20K</p>
-    </footer>
-
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

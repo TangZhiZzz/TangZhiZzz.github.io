@@ -1,911 +1,334 @@
-/* ========================================
-   Matrix/Cyberpunk Theme - CSS Variables
-======================================== */
+/* ===== Reset ===== */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 :root {
-    --bg-primary: #0a0a0a;
-    --bg-secondary: #0d0d0d;
-    --bg-terminal: #0a0f0a;
-    --bg-card: #0f1a0f;
-    --bg-hover: #152015;
-    
-    --green-primary: #00ff00;
-    --green-secondary: #0f0;
-    --green-dim: #003300;
-    --green-glow: rgba(0, 255, 0, 0.3);
-    --green-light: #33ff33;
-    
-    --cyan-accent: #00ffff;
-    --purple-accent: #bf00ff;
-    --red-accent: #ff3333;
-    --orange-accent: #ff9900;
-    
-    --text-primary: #00ff00;
-    --text-secondary: #00cc00;
-    --text-muted: #006600;
-    --text-comment: #666;
-    --text-string: #ff9900;
-    --text-number: #00ffff;
-    --text-keyword: #ff00ff;
-    --text-class: #00ff99;
-    
-    --border-color: #003300;
-    --border-glow: rgba(0, 255, 0, 0.5);
-    
-    --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', 'Monaco', monospace;
-    
-    --shadow-glow: 0 0 20px rgba(0, 255, 0, 0.3);
-    --shadow-glow-strong: 0 0 40px rgba(0, 255, 0, 0.5);
-}
-
-/* ========================================
-   Reset & Base
-======================================== */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --text: #1e293b;
+  --text-light: #64748b;
+  --border: #e2e8f0;
+  --radius: 8px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.08);
 }
 
 body {
-    font-family: var(--font-mono);
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    line-height: 1.6;
-    overflow-x: hidden;
-    min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* ========================================
-   Matrix Rain Canvas
-======================================== */
-#matrixCanvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    pointer-events: none;
-    opacity: 0.15;
+/* ===== Layout ===== */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
-/* ========================================
-   Scanlines Effect
-======================================== */
-.scanlines {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 9998;
-    pointer-events: none;
-    background: repeating-linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 0.15),
-        rgba(0, 0, 0, 0.15) 1px,
-        transparent 1px,
-        transparent 2px
-    );
-    opacity: 0.3;
-}
-
-/* ========================================
-   CRT Vignette Effect
-======================================== */
-.crt-vignette {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 9997;
-    pointer-events: none;
-    background: radial-gradient(
-        ellipse at center,
-        transparent 0%,
-        transparent 60%,
-        rgba(0, 0, 0, 0.4) 100%
-    );
-}
-
-/* ========================================
-   Navigation
-======================================== */
-.terminal-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    padding: 1rem 2rem;
-    background: rgba(10, 10, 10, 0.9);
-    border-bottom: 1px solid var(--border-color);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    backdrop-filter: blur(10px);
-}
-
-.nav-prompt {
-    font-size: 0.875rem;
-    color: var(--text-secondary);
-}
-
-.prompt-user {
-    color: var(--green-primary);
-}
-
-.prompt-at {
-    color: var(--text-muted);
-}
-
-.prompt-host {
-    color: var(--cyan-accent);
-}
-
-.prompt-sep {
-    color: var(--text-muted);
-}
-
-.prompt-path {
-    color: var(--purple-accent);
-}
-
-.prompt-symbol {
-    color: var(--green-primary);
-    margin-left: 0.5rem;
-}
-
-.nav-links {
-    display: flex;
-    gap: 1.5rem;
-}
-
-.nav-link {
-    color: var(--text-secondary);
-    text-decoration: none;
-    font-size: 0.875rem;
-    transition: all 0.3s ease;
-    padding: 0.25rem 0.5rem;
-}
-
-.nav-link:hover {
-    color: var(--green-primary);
-    text-shadow: var(--shadow-glow);
-}
-
-.nav-link::before {
-    content: '';
-    display: none;
-}
-
-/* ========================================
-   Sections
-======================================== */
 .section {
-    position: relative;
-    min-height: 100vh;
-    padding: 6rem 2rem;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  padding: 64px 0;
 }
 
-/* ========================================
-   Terminal Window Component
-======================================== */
-.terminal-window {
-    width: 100%;
-    max-width: 900px;
-    background: var(--bg-terminal);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    box-shadow: var(--shadow-glow), inset 0 0 50px rgba(0, 255, 0, 0.02);
-    overflow: hidden;
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: var(--text);
+  border-bottom: 2px solid var(--primary);
+  display: inline-block;
+  padding-bottom: 4px;
 }
 
-.window-titlebar {
-    display: flex;
-    align-items: center;
-    padding: 0.75rem 1rem;
-    background: var(--bg-secondary);
-    border-bottom: 1px solid var(--border-color);
+/* ===== Card ===== */
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
 }
 
-.titlebar-dots {
-    display: flex;
-    gap: 8px;
-}
-
-.dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-}
-
-.dot.close {
-    background: var(--red-accent);
-    box-shadow: 0 0 8px var(--red-accent);
-}
-
-.dot.minimize {
-    background: var(--orange-accent);
-    box-shadow: 0 0 8px var(--orange-accent);
-}
-
-.dot.maximize {
-    background: var(--green-primary);
-    box-shadow: 0 0 8px var(--green-primary);
-}
-
-.titlebar-title {
-    flex: 1;
-    text-align: center;
-    font-size: 0.875rem;
-    color: var(--text-muted);
-}
-
-.titlebar-btns {
-    display: flex;
-    gap: 0.5rem;
-}
-
-.lang {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    padding: 0.125rem 0.5rem;
-    border: 1px solid var(--border-color);
-    border-radius: 3px;
-}
-
-.window-content {
-    padding: 1.5rem;
-}
-
-/* ========================================
-   Terminal Body & Lines
-======================================== */
-.terminal-body {
-    font-size: 0.9rem;
-    line-height: 1.8;
-}
-
-.terminal-line {
-    margin-bottom: 0.25rem;
-    opacity: 0;
-    transform: translateX(-20px);
-}
-
-.terminal-line.visible {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-.prompt {
-    color: var(--green-primary);
-    font-weight: bold;
-}
-
-.command {
-    color: var(--cyan-accent);
-}
-
-.comment {
-    color: var(--text-comment);
-}
-
-.output-line {
-    color: var(--text-secondary);
-    padding-left: 1rem;
-}
-
-.output-block {
-    padding-left: 1rem;
-    margin: 0.5rem 0;
-    color: var(--text-string);
-    white-space: pre;
-}
-
-/* Cursor Blink */
-.cursor-blink {
-    animation: blink 1s step-end infinite;
-    color: var(--green-primary);
-}
-
-@keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-}
-
-/* ========================================
-   Code Block Styling
-======================================== */
-.code-block {
-    font-size: 0.875rem;
-    line-height: 1.8;
-}
-
-.code-line {
-    margin-bottom: 0.125rem;
-    opacity: 0;
-    transform: translateX(-10px);
-}
-
-.code-line.visible {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-.tab {
-    display: inline-block;
-    width: 2rem;
-}
-
-.keyword {
-    color: var(--text-keyword);
-}
-
-.class {
-    color: var(--text-class);
-}
-
-.string {
-    color: var(--text-string);
-}
-
-.number {
-    color: var(--text-number);
-}
-
-/* ========================================
-   Hero Section
-======================================== */
+/* ===== Hero ===== */
 .hero {
-    min-height: 100vh;
-    padding-top: 80px;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  padding: 80px 0;
+  text-align: center;
 }
 
-.hero-terminal {
-    max-width: 700px;
-    animation: terminalGlow 3s ease-in-out infinite alternate;
+.hero h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 8px;
 }
 
-@keyframes terminalGlow {
-    0% {
-        box-shadow: 0 0 20px rgba(0, 255, 0, 0.2), inset 0 0 50px rgba(0, 255, 0, 0.02);
-    }
-    100% {
-        box-shadow: 0 0 40px rgba(0, 255, 0, 0.4), inset 0 0 80px rgba(0, 255, 0, 0.05);
-    }
+.hero .subtitle {
+  font-size: 1.25rem;
+  color: var(--primary);
+  font-weight: 600;
+  margin-bottom: 8px;
 }
 
-#infoJson {
-    font-size: 0.85rem;
-    color: var(--text-string);
-    line-height: 1.6;
-    margin: 0.5rem 0;
+.hero .meta {
+  font-size: 1rem;
+  color: var(--text-light);
+  margin-bottom: 28px;
 }
 
-/* Scroll Hint */
-.scroll-hint {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    color: var(--text-muted);
-    font-size: 0.75rem;
+.btn {
+  display: inline-block;
+  background: var(--primary);
+  color: #fff;
+  padding: 10px 28px;
+  border-radius: var(--radius);
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.2s;
 }
 
-.scroll-text {
-    display: block;
-    margin-bottom: 0.5rem;
+.btn:hover {
+  background: var(--primary-dark);
 }
 
-.scroll-arrow {
-    animation: bounce 1.5s infinite;
-    display: block;
+/* ===== About ===== */
+.highlight {
+  color: var(--primary);
+  font-weight: 700;
 }
 
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(8px); }
+.honors {
+  margin-top: 16px;
 }
 
-/* ========================================
-   Skills Section
-======================================== */
-.skill-terminal {
-    min-height: 300px;
+.honors h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text);
 }
 
-.installing {
-    transition: all 0.3s ease;
+.honors ul {
+  list-style: none;
+  padding-left: 0;
 }
 
-.installing:hover {
-    background: var(--bg-hover);
-    padding-left: 1.5rem;
+.honors li {
+  padding: 4px 0;
+  color: var(--text-light);
+  position: relative;
+  padding-left: 20px;
 }
 
-.skill-tree {
-    margin-top: 0.5rem;
+.honors li::before {
+  content: "•";
+  color: var(--primary);
+  position: absolute;
+  left: 0;
+  font-weight: bold;
 }
 
-.branch-line {
-    color: var(--text-secondary);
+/* ===== Skills ===== */
+.skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
-.branch {
-    color: var(--text-muted);
+.skill-tag {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-size: 0.9rem;
+  color: var(--text);
+  font-weight: 500;
+  transition: border-color 0.2s, color 0.2s;
 }
 
-.branch-name {
-    color: var(--green-primary);
+.skill-tag:hover {
+  border-color: var(--primary);
+  color: var(--primary);
 }
 
-.skill-badge {
-    display: inline-block;
-    padding: 0.125rem 0.5rem;
-    margin: 0 0.25rem;
-    background: var(--green-dim);
-    border: 1px solid var(--border-color);
-    border-radius: 3px;
-    font-size: 0.75rem;
-    color: var(--green-primary);
-}
-
-/* ========================================
-   Projects Section
-======================================== */
-.projects-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.project-item {
-    margin-bottom: 1rem;
-}
-
+/* ===== Projects ===== */
 .project-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    padding: 1.25rem;
-    transition: all 0.3s ease;
-    opacity: 0;
-    transform: translateY(20px);
+  margin-bottom: 16px;
 }
 
-.project-card.visible {
-    opacity: 1;
-    transform: translateY(0);
+.project-card:last-child {
+  margin-bottom: 0;
 }
 
-.project-card:hover {
-    border-color: var(--green-primary);
-    box-shadow: var(--shadow-glow);
+.project-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 4px;
 }
 
-.project-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.5rem;
+.project-period {
+  font-size: 0.875rem;
+  color: var(--text-light);
+  margin-bottom: 4px;
 }
 
-.project-name {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: var(--green-primary);
+.project-tech {
+  font-size: 0.875rem;
+  color: var(--primary);
+  font-weight: 500;
+  margin-bottom: 4px;
 }
 
-.project-tag {
-    font-size: 0.75rem;
-    padding: 0.125rem 0.5rem;
-    background: var(--purple-accent);
-    color: white;
-    border-radius: 3px;
-    opacity: 0.8;
+.project-role {
+  font-size: 0.875rem;
+  color: var(--text-light);
 }
 
-.project-path-line {
-    font-size: 0.8rem;
-    color: var(--text-comment);
-    margin-bottom: 0.75rem;
+/* ===== Experience (Timeline) ===== */
+.timeline {
+  position: relative;
+  padding-left: 24px;
 }
 
-.project-imports {
-    margin-bottom: 0.75rem;
-}
-
-.project-imports .code-line {
-    margin-bottom: 0.125rem;
-}
-
-.project-desc {
-    font-size: 0.85rem;
-    color: var(--text-comment);
-    margin-bottom: 0.125rem;
-}
-
-.heart {
-    color: var(--red-accent);
-    animation: heartbeat 1.5s infinite;
-}
-
-@keyframes heartbeat {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.2); }
-}
-
-.code-tag {
-    color: var(--green-primary);
-}
-
-/* ========================================
-   Timeline / Git Log
-======================================== */
-.git-log {
-    font-size: 0.875rem;
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 8px;
+  bottom: 0;
+  width: 2px;
+  background: var(--border);
 }
 
 .timeline-item {
-    padding: 1rem;
-    margin: 1rem 0;
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-left: 3px solid var(--green-primary);
-    opacity: 0;
-    transform: translateX(-30px);
-    transition: all 0.4s ease;
+  position: relative;
+  margin-bottom: 24px;
 }
 
-.timeline-item.visible {
-    opacity: 1;
-    transform: translateX(0);
+.timeline-item:last-child {
+  margin-bottom: 0;
 }
 
-.timeline-item:hover {
-    border-color: var(--green-primary);
-    box-shadow: var(--shadow-glow);
+.timeline-dot {
+  position: absolute;
+  left: -18px;
+  top: 10px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: 2px solid var(--bg);
 }
 
-.commit-line {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 0.25rem;
+.timeline-content h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 4px;
 }
 
-.commit-hash {
-    color: var(--cyan-accent);
-    font-size: 0.8rem;
+.exp-role {
+  font-size: 0.875rem;
+  color: var(--primary);
+  font-weight: 500;
+  margin-bottom: 10px;
 }
 
-.commit-branch {
-    padding: 0.125rem 0.5rem;
-    border-radius: 3px;
-    font-size: 0.7rem;
+.timeline-content ul {
+  list-style: none;
+  padding: 0;
 }
 
-.branch-main {
-    background: var(--green-dim);
-    color: var(--green-primary);
-    border: 1px solid var(--green-primary);
+.timeline-content li {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  padding: 3px 0;
+  position: relative;
+  padding-left: 16px;
 }
 
-.commit-msg {
-    color: var(--text-secondary);
+.timeline-content li::before {
+  content: "–";
+  position: absolute;
+  left: 0;
+  color: var(--text-light);
 }
 
-.commit-meta {
-    font-size: 0.75rem;
-    color: var(--text-comment);
-    margin-bottom: 0.75rem;
+/* ===== Contact ===== */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
 }
 
-.commit-date {
-    margin-right: 1rem;
+.contact-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
-.commit-details {
-    padding: 0.75rem;
-    background: var(--bg-secondary);
-    border-radius: 4px;
+.contact-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
-.detail-line {
-    margin-bottom: 0.25rem;
+.contact-item a {
+  font-size: 1rem;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
 }
 
-.detail-key {
-    color: var(--text-muted);
-    margin-right: 0.5rem;
+.contact-item a:hover {
+  text-decoration: underline;
 }
 
-.detail-val {
-    color: var(--text-string);
+/* ===== Footer ===== */
+footer {
+  background: var(--card);
+  border-top: 1px solid var(--border);
+  padding: 24px 0;
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--text-light);
 }
 
-/* ========================================
-   Contact Section
-======================================== */
-.contact-terminal {
-    max-width: 600px;
+/* ===== Fade-in Animation ===== */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.contact-form {
-    font-size: 0.9rem;
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.contact-info-line {
-    padding-left: 1rem;
-    margin-bottom: 0.25rem;
-}
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+  .hero {
+    padding: 60px 0;
+  }
 
-.contact-value {
-    color: var(--cyan-accent);
-}
+  .hero h1 {
+    font-size: 2rem;
+  }
 
-.form-line {
-    margin-bottom: 0.75rem;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-}
+  .section {
+    padding: 48px 0;
+  }
 
-.form-label {
-    color: var(--text-secondary);
-}
-
-.form-input,
-.form-textarea {
-    flex: 1;
-    min-width: 200px;
-    padding: 0.5rem 0.75rem;
-    background: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    color: var(--green-primary);
-    font-family: var(--font-mono);
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
-}
-
-.form-input:focus,
-.form-textarea:focus {
-    outline: none;
-    border-color: var(--green-primary);
-    box-shadow: 0 0 10px var(--green-glow);
-}
-
-.form-input::placeholder,
-.form-textarea::placeholder {
-    color: var(--text-muted);
-}
-
-.form-textarea {
-    width: 100%;
-    min-height: 100px;
-    resize: vertical;
-}
-
-.submit-btn {
-    padding: 0.5rem 1.5rem;
-    background: transparent;
-    border: 2px solid var(--green-primary);
-    color: var(--green-primary);
-    font-family: var(--font-mono);
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border-radius: 4px;
-}
-
-.submit-btn:hover {
-    background: var(--green-primary);
-    color: var(--bg-primary);
-    box-shadow: var(--shadow-glow);
-}
-
-/* ========================================
-   Footer
-======================================== */
-.footer {
-    padding: 2rem;
-    text-align: center;
-    z-index: 1;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 200px;
-}
-
-#footerCanvas {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
-
-.footer-tagline {
-    color: #00ff00;
-    font-family: 'JetBrains Mono', 'Fira Code', monospace;
-    font-size: 0.875rem;
-    margin-top: 1.5rem;
-    opacity: 0.7;
-    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
-}
-
-.footer-terminal {
-    max-width: 500px;
-    margin: 0 auto;
-}
-
-.footer-line {
-    margin-bottom: 0.5rem;
-}
-
-/* ========================================
-   Responsive - Mobile
-======================================== */
-@media (max-width: 768px) {
-    .terminal-nav {
-        padding: 0.75rem 1rem;
-        flex-direction: column;
-        gap: 0.75rem;
-    }
-    
-    .nav-links {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 0.5rem 1rem;
-    }
-    
-    .nav-link {
-        font-size: 0.8rem;
-    }
-    
-    .section {
-        padding: 4rem 1rem;
-    }
-    
-    .window-content {
-        padding: 1rem;
-    }
-    
-    .code-block,
-    .terminal-body {
-        font-size: 0.8rem;
-    }
-    
-    .project-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-    }
-    
-    .form-line {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    
-    .form-input,
-    .form-textarea {
-        width: 100%;
-        min-width: unset;
-    }
-    
-    .scroll-hint {
-        display: none;
-    }
-    
-    .footer {
-        padding: 2rem 1rem;
-    }
-    
-    .footer-terminal {
-        max-width: 100%;
-    }
-    
-    .footer-terminal .window-content {
-        padding: 1rem;
-    }
-    
-    .footer-terminal .terminal-line {
-        font-size: 0.75rem;
-    }
-}
-
-/* ========================================
-   Glitch Effect (on hover)
-======================================== */
-@keyframes glitch {
-    0% { transform: translate(0); }
-    20% { transform: translate(-2px, 2px); }
-    40% { transform: translate(-2px, -2px); }
-    60% { transform: translate(2px, 2px); }
-    80% { transform: translate(2px, -2px); }
-    100% { transform: translate(0); }
-}
-
-.terminal-window:hover {
-    animation: glitch 0.3s ease;
-}
-
-/* ========================================
-   Typewriter Animation Helper
-======================================== */
-.typewriter {
-    overflow: hidden;
-    white-space: nowrap;
-    animation: typing 2s steps(40, end);
-}
-
-@keyframes typing {
-    from { width: 0; }
-    to { width: 100%; }
-}
-
-/* ========================================
-   Green Text Glow
-======================================== */
-.glow {
-    text-shadow: 0 0 10px currentColor;
-}
-
-/* ========================================
-   Flicker Animation
-======================================== */
-@keyframes flicker {
-    0%, 100% { opacity: 1; }
-    92% { opacity: 1; }
-    93% { opacity: 0.8; }
-    94% { opacity: 1; }
-    95% { opacity: 0.9; }
-    96% { opacity: 1; }
-}
-
-.terminal-window {
-    animation: flicker 4s infinite;
-}
-
-/* ========================================
-   Reduced Motion
-======================================== */
-@media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.01ms !important;
-        transition-duration: 0.01ms !important;
-    }
-    
-    #matrixCanvas {
-        display: none;
-    }
-}
-
-/* ========================================
-   Project Highlight (achievement numbers)
-======================================== */
-.highlight {
-    color: #00ff00;
-    font-weight: bold;
-    text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
-}
-
-.contact-value.keyword {
-    color: #00ff00;
-    font-weight: bold;
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
 }
