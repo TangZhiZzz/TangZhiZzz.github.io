@@ -3,6 +3,13 @@
 // ========================================
 gsap.registerPlugin(ScrollTrigger);
 
+// Mobile Detection
+const isMobile = window.innerWidth <= 1024;
+const isSmallMobile = window.innerWidth <= 640;
+
+// Reduce particle count on mobile
+const PARTICLE_COUNT = isMobile ? 30 : 80;
+
 // Enable ease overrides
 const easeDefaults = {
     power1: 'power1.out',
@@ -15,43 +22,42 @@ const easeDefaults = {
 };
 
 // ========================================
-// Custom Cursor
+// Custom Cursor (Desktop Only)
 // ========================================
-const cursor = document.getElementById('cursor');
-const cursorFollower = document.getElementById('cursorFollower');
+if (!isMobile) {
+    const cursor = document.getElementById('cursor');
+    const cursorFollower = document.getElementById('cursorFollower');
 
-let mouseX = 0, mouseY = 0;
-let cursorX = 0, cursorY = 0;
-let followerX = 0, followerY = 0;
+    let mouseX = 0, mouseY = 0;
+    let cursorX = 0, cursorY = 0;
+    let followerX = 0, followerY = 0;
 
-document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-});
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
 
-// Smooth cursor animation
-function animateCursor() {
-    // Direct cursor follows immediately
-    cursorX = mouseX;
-    cursorY = mouseY;
-    cursor.style.left = cursorX + 'px';
-    cursor.style.top = cursorY + 'px';
+    // Smooth cursor animation
+    function animateCursor() {
+        cursorX = mouseX;
+        cursorY = mouseY;
+        cursor.style.left = cursorX + 'px';
+        cursor.style.top = cursorY + 'px';
 
-    // Follower has delay
-    followerX += (mouseX - followerX) * 0.1;
-    followerY += (mouseY - followerY) * 0.1;
-    cursorFollower.style.left = followerX + 'px';
-    cursorFollower.style.top = followerY + 'px';
+        followerX += (mouseX - followerX) * 0.1;
+        followerY += (mouseY - followerY) * 0.1;
+        cursorFollower.style.left = followerX + 'px';
+        cursorFollower.style.top = followerY + 'px';
 
-    requestAnimationFrame(animateCursor);
+        requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    document.querySelectorAll('a, button, .btn, .nav-link, .project-card, .skill-tag, .contact-link').forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('active'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+    });
 }
-animateCursor();
-
-// Cursor hover states
-document.querySelectorAll('a, button, .btn, .nav-link, .project-card, .skill-tag, .contact-link').forEach(el => {
-    el.addEventListener('mouseenter', () => cursor.classList.add('active'));
-    el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
-});
 
 // ========================================
 // Ripple Effect
@@ -130,7 +136,7 @@ class Particle {
 }
 
 // Create particles
-for (let i = 0; i < 80; i++) {
+for (let i = 0; i < PARTICLE_COUNT; i++) {
     particles.push(new Particle());
 }
 
@@ -407,17 +413,19 @@ skillTags.forEach((tag, index) => {
     });
 });
 
-// SVG path draw animation
-gsap.to('#skillPath', {
-    strokeDashoffset: 0,
-    duration: 3,
-    ease: 'power2.inOut',
-    scrollTrigger: {
-        trigger: '.skills-grid',
-        start: 'top 70%',
-        toggleActions: 'play none none reverse'
-    }
-});
+// SVG path draw animation (skip on mobile)
+if (!isMobile) {
+    gsap.to('#skillPath', {
+        strokeDashoffset: 0,
+        duration: 3,
+        ease: 'power2.inOut',
+        scrollTrigger: {
+            trigger: '.skills-grid',
+            start: 'top 70%',
+            toggleActions: 'play none none reverse'
+        }
+    });
+}
 
 // ========================================
 // Projects Section
@@ -465,17 +473,19 @@ projectCards.forEach(card => {
 // ========================================
 // Timeline Section
 // ========================================
-// SVG line draw animation
-gsap.to('.timeline-svg-line', {
-    strokeDashoffset: 0,
-    duration: 2,
-    ease: 'power2.inOut',
-    scrollTrigger: {
-        trigger: '.timeline-wrapper',
-        start: 'top 70%',
-        toggleActions: 'play none none reverse'
-    }
-});
+// SVG line draw animation (skip on mobile)
+if (!isMobile) {
+    gsap.to('.timeline-svg-line', {
+        strokeDashoffset: 0,
+        duration: 2,
+        ease: 'power2.inOut',
+        scrollTrigger: {
+            trigger: '.timeline-wrapper',
+            start: 'top 70%',
+            toggleActions: 'play none none reverse'
+        }
+    });
+}
 
 // Timeline items
 const timelineItems = document.querySelectorAll('.timeline-item');
