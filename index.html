@@ -3,24 +3,73 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>汤俊飞 | .NET 开发工程师</title>
+  <title>汤俊飞 | .NET Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Hacker Background -->
+  <div class="hacker-bg">
+    <canvas id="matrix-canvas"></canvas>
+  </div>
+  <div class="grid-layer"></div>
+  <div class="scanlines"></div>
+  <div class="glitch-overlay"></div>
+  <div class="vignette"></div>
+
+  <!-- Terminal Window -->
+  <div class="container">
+    <div class="terminal-bar">
+      <div class="dots">
+        <span class="dot dot-red"></span>
+        <span class="dot dot-yellow"></span>
+        <span class="dot dot-green"></span>
+      </div>
+      <div class="title">tangjf@dev:~ — bash</div>
+    </div>
+    <div class="terminal-body" id="terminal-typing">
+      <div>
+        <span class="prompt">$</span>
+        <span class="cmd">whoami</span>
+      </div>
+      <div style="color: var(--accent); margin-bottom: 4px;">Tang Junfei — .NET Developer</div>
+      <div style="margin-bottom: 16px;">
+        <span class="prompt">$</span>
+        <span class="cmd">cat ./skills.txt</span>
+      </div>
+      <div style="color: var(--text-secondary); margin-bottom: 2px;">5+ years C#/.NET · SQL Server · Redis · RabbitMQ</div>
+      <div>
+        <span class="prompt">$</span>
+        <span class="cursor"></span>
+      </div>
+    </div>
+  </div>
 
   <!-- Hero -->
   <header class="hero">
     <div class="container">
+      <div class="ascii-decoration" style="margin-bottom: 32px;">
+<pre>
+  ____    _  _____ _____ _     _____ ____  _   _ ___ ____
+ | __ )  / \|_   _|_   _| |   | ____/ ___|| | | |_ _|  _ \
+ |  _ \ / _ \ | |   | | | |   |  _| \___ \| |_| || || |_) |
+ | |_) / ___ \| |   | | | |___| |___ ___) |  _  || ||  __/
+ |____/_/   \_\_|   |_| |_____|_____|____/|_| |_|___|_|_|
+</pre>
+      </div>
+
       <h1 class="hero-name">汤俊飞</h1>
-      <p class="hero-title">中级 / 高级 .NET 开发工程师（C#方向）</p>
+      <p class="hero-title">// 中级 / 高级 .NET 开发工程师（C#方向）</p>
       <div class="hero-tags">
-        <span>5年经验</span>
-        <span>期望薪资 15-20K</span>
+        <span>5年+经验</span>
+        <span>15-20K</span>
+        <span>北京</span>
       </div>
       <div class="hero-contact">
-        <a href="tel:17631393397">📞 17631393397</a>
-        <a href="mailto:tjfzeishuai@163.com">✉️ tjfzeishuai@163.com</a>
-        <a href="https://github.com/TangZhiZzz" target="_blank">💻 github.com/TangZhiZzz</a>
+        <a href="tel:17631393397">17631393397</a>
+        <a href="mailto:tjfzeishuai@163.com">tjfzeishuai@163.com</a>
+        <a href="https://github.com/TangZhiZzz" target="_blank">github.com/TangZhiZzz</a>
       </div>
     </div>
   </header>
@@ -33,7 +82,7 @@
       <div class="card">
         <div class="card-header">
           <h3 class="card-heading">唐山职业技术学院 · 计算机应用技术</h3>
-          <span class="card-period">2017.09 – 2020.06 · 大专</span>
+          <span class="card-period">2017.09 – 2020.06</span>
         </div>
         <ul class="list">
           <li>核心课程平均分 88+，专业排名前 5%</li>
@@ -183,8 +232,9 @@
   </main>
 
   <footer class="footer">
-    <p>© 2024 汤俊飞 · .NET 开发工程师</p>
+    <p>© 2026 TangJunfei | .NET Developer</p>
   </footer>
 
+  <script src="script.js"></script>
 </body>
 </html>
