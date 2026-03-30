@@ -7,16 +7,48 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 </head>
 <body>
+  <!-- Loader -->
+  <div class="loader" id="loader">
+    <div class="loader-text">INITIALIZING SYSTEM<span class="loader-dots"></span></div>
+    <div class="loader-bar"><div class="loader-progress" id="loader-progress"></div></div>
+  </div>
+
+  <!-- Particle Canvas (cursor trail) -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor" id="cursor-outer"></div>
+  <div class="custom-cursor" id="cursor-inner"></div>
+
   <!-- Hacker Background -->
   <div class="hacker-bg">
     <canvas id="matrix-canvas"></canvas>
   </div>
-  <div class="grid-layer"></div>
+  <div class="grid-layer" id="grid-layer"></div>
   <div class="scanlines"></div>
-  <div class="glitch-overlay"></div>
+  <div class="glitch-overlay" id="glitch-overlay"></div>
   <div class="vignette"></div>
+
+  <!-- Floating decorative elements -->
+  <div class="floating-decor" id="decor-1">
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+      <path d="M20 2L38 20L20 38L2 20L20 2Z" stroke="rgba(0,255,65,0.15)" stroke-width="1"/>
+    </svg>
+  </div>
+  <div class="floating-decor" id="decor-2">
+    <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+      <circle cx="15" cy="15" r="13" stroke="rgba(0,255,65,0.1)" stroke-width="1"/>
+    </svg>
+  </div>
+  <div class="floating-decor" id="decor-3">
+    <svg width="50" height="50" viewBox="0 0 50 50" fill="none">
+      <path d="M25 5L45 25L25 45L5 25L25 5Z" stroke="rgba(0,255,65,0.08)" stroke-width="1"/>
+    </svg>
+  </div>
 
   <!-- Terminal Window -->
   <div class="container">
@@ -59,14 +91,14 @@
 </pre>
       </div>
 
-      <h1 class="hero-name">汤俊飞</h1>
-      <p class="hero-title">// 中级 / 高级 .NET 开发工程师（C#方向）</p>
-      <div class="hero-tags">
+      <h1 class="hero-name" id="hero-name-split">汤俊飞</h1>
+      <p class="hero-title gsap-reveal">// 中级 / 高级 .NET 开发工程师（C#方向）</p>
+      <div class="hero-tags gsap-reveal">
         <span>5年+经验</span>
         <span>15-20K</span>
         <span>北京</span>
       </div>
-      <div class="hero-contact">
+      <div class="hero-contact gsap-reveal">
         <a href="tel:17631393397">17631393397</a>
         <a href="mailto:tjfzeishuai@163.com">tjfzeishuai@163.com</a>
         <a href="https://github.com/TangZhiZzz" target="_blank">github.com/TangZhiZzz</a>
