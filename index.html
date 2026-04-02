@@ -1,272 +1,1502 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>汤俊飞 | .NET Developer</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>汤俊飞 | .NET Developer</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none;
+        }
+
+        :root {
+            --neon-green: #00ff41;
+            --neon-cyan: #00d4ff;
+            --neon-magenta: #ff00ff;
+            --neon-red: #ff3366;
+            --neon-yellow: #ffff00;
+            --dark-bg: #050508;
+            --accent: #00ff41;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: var(--dark-bg);
+            color: #fff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Loading Screen */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 100000;
+            transition: opacity 1s ease, visibility 1s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--neon-green), var(--neon-cyan), var(--neon-magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 100%;
+            animation: gradientFlow 2s linear infinite;
+            margin-bottom: 40px;
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        .loader-ring {
+            width: 120px;
+            height: 120px;
+            border: 3px solid transparent;
+            border-top-color: var(--neon-green);
+            border-right-color: var(--neon-cyan);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            position: relative;
+        }
+
+        .loader-ring::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 3px solid transparent;
+            border-top-color: var(--neon-magenta);
+            border-right-color: var(--neon-yellow);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite reverse;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Three.js Canvas */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Custom Cursor */
+        .cursor-main {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--neon-green);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            transition: transform 0.1s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--neon-cyan);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10001;
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .cursor-ring {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.15s ease-out;
+        }
+
+        .cursor-main.hover {
+            transform: scale(2);
+            background: rgba(0, 255, 65, 0.2);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 25px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(20px);
+            background: linear-gradient(to bottom, rgba(5, 5, 8, 0.9), transparent);
+        }
+
+        .logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--neon-green), var(--neon-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(0, 255, 65, 0.5);
+            animation: logoGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes logoGlow {
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(0, 255, 65, 0.5)); }
+            50% { filter: drop-shadow(0 0 20px rgba(0, 255, 65, 0.8)); }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 50px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            position: relative;
+            padding: 8px 0;
+            transition: all 0.4s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-green), var(--neon-cyan), var(--neon-magenta));
+            transition: width 0.4s ease;
+            box-shadow: 0 0 15px var(--neon-green);
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+            text-shadow: 0 0 30px var(--neon-green);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 120px 40px 100px;
+            position: relative;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 10;
+        }
+
+        /* Terminal Window */
+        .terminal-window {
+            background: rgba(10, 10, 15, 0.9);
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto 60px;
+            box-shadow:
+                0 0 60px rgba(0, 255, 65, 0.2),
+                0 30px 80px rgba(0, 0, 0, 0.6),
+                inset 0 0 60px rgba(0, 255, 65, 0.03);
+            overflow: hidden;
+            position: relative;
+            animation: terminalFloat 6s ease-in-out infinite;
+        }
+
+        @keyframes terminalFloat {
+            0%, 100% { transform: translateY(0) rotateX(0); }
+            50% { transform: translateY(-10px) rotateX(1deg); }
+        }
+
+        .terminal-bar {
+            background: linear-gradient(90deg, rgba(0, 255, 65, 0.15), rgba(0, 212, 255, 0.1));
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid rgba(0, 255, 65, 0.2);
+        }
+
+        .dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .dot:hover {
+            transform: scale(1.2);
+        }
+
+        .dot-red { background: #ff5f56; box-shadow: 0 0 10px #ff5f56; }
+        .dot-yellow { background: #ffbd2e; box-shadow: 0 0 10px #ffbd2e; }
+        .dot-green { background: #27ca40; box-shadow: 0 0 10px #27ca40; }
+
+        .terminal-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-left: auto;
+            letter-spacing: 1px;
+        }
+
+        .terminal-body {
+            padding: 35px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            min-height: 150px;
+            text-align: left;
+        }
+
+        .terminal-body .prompt {
+            color: var(--neon-green);
+            margin-right: 15px;
+            text-shadow: 0 0 10px var(--neon-green);
+        }
+
+        .terminal-body .cmd {
+            color: var(--neon-cyan);
+        }
+
+        .terminal-body .cursor-blink {
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            background: var(--neon-green);
+            margin-left: 5px;
+            animation: blink 1s step-end infinite;
+            box-shadow: 0 0 10px var(--neon-green);
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Hero Name */
+        .hero-name {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(4rem, 15vw, 12rem);
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 15px;
+            margin-bottom: 20px;
+            position: relative;
+            animation: textGlow 4s ease-in-out infinite;
+        }
+
+        .hero-name::before,
+        .hero-name::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .hero-name::before {
+            animation: glitch1 3s infinite;
+            color: var(--neon-cyan);
+            z-index: -1;
+        }
+
+        .hero-name::after {
+            animation: glitch2 2s infinite;
+            color: var(--neon-magenta);
+            z-index: -2;
+        }
+
+        @keyframes textGlow {
+            0%, 100% {
+                text-shadow:
+                    0 0 40px rgba(0, 255, 65, 0.8),
+                    0 0 80px rgba(0, 255, 65, 0.4),
+                    0 0 120px rgba(0, 255, 65, 0.2);
+            }
+            50% {
+                text-shadow:
+                    0 0 60px rgba(0, 255, 65, 1),
+                    0 0 100px rgba(0, 255, 65, 0.6),
+                    0 0 160px rgba(0, 255, 65, 0.3);
+            }
+        }
+
+        @keyframes glitch1 {
+            0%, 95%, 100% { transform: translate(0); opacity: 0; }
+            96% { transform: translate(-5px, 2px); opacity: 0.8; }
+            97% { transform: translate(5px, -2px); opacity: 0; }
+        }
+
+        @keyframes glitch2 {
+            0%, 90%, 100% { transform: translate(0); opacity: 0; }
+            91% { transform: translate(3px, 3px); opacity: 0.6; }
+            92% { transform: translate(-3px, -3px); opacity: 0; }
+        }
+
+        .hero-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 40px;
+            letter-spacing: 5px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.5s;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Tags */
+        .hero-tags {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+            justify-content: center;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.7s;
+        }
+
+        .hero-tag {
+            padding: 10px 25px;
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.15), rgba(0, 212, 255, 0.1));
+            border: 1px solid rgba(0, 255, 65, 0.4);
+            border-radius: 50px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            color: var(--neon-green);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-tag::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 65, 0.3), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+
+        .hero-tag:hover::before {
+            opacity: 1;
+            animation: shine 1s ease;
+        }
+
+        @keyframes shine {
+            from { transform: translateX(-100%) rotate(45deg); }
+            to { transform: translateX(100%) rotate(45deg); }
+        }
+
+        .hero-tag:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 255, 65, 0.3);
+            border-color: var(--neon-green);
+        }
+
+        /* Contact Links */
+        .hero-contact {
+            display: flex;
+            gap: 35px;
+            flex-wrap: wrap;
+            justify-content: center;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.9s;
+        }
+
+        .hero-contact a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            transition: all 0.4s ease;
+            position: relative;
+            padding: 10px 20px;
+        }
+
+        .hero-contact a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-green), var(--neon-cyan));
+            transition: all 0.4s ease;
+            transform: translateX(-50%);
+            box-shadow: 0 0 10px var(--neon-green);
+        }
+
+        .hero-contact a:hover {
+            color: #fff;
+            text-shadow: 0 0 30px var(--neon-green);
+        }
+
+        .hero-contact a:hover::before {
+            width: 80%;
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards 1.2s;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .scroll-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 80px;
+            background: linear-gradient(to bottom, var(--neon-green), transparent);
+            animation: scrollPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollPulse {
+            0%, 100% { transform: scaleY(1); opacity: 1; }
+            50% { transform: scaleY(0.5); opacity: 0.4; }
+        }
+
+        /* Section Styles */
+        section {
+            padding: 120px 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 60px;
+            position: relative;
+            display: inline-block;
+            padding-left: 80px;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-green), var(--neon-cyan));
+            box-shadow: 0 0 20px var(--neon-green);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 80px;
+            width: 200px;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(0, 255, 65, 0.5), transparent);
+        }
+
+        /* Cards */
+        .card {
+            background: linear-gradient(135deg, rgba(15, 15, 20, 0.9), rgba(10, 10, 15, 0.95));
+            border: 1px solid rgba(0, 255, 65, 0.1);
+            border-radius: 20px;
+            padding: 45px;
+            margin-bottom: 35px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            opacity: 0;
+            transform: translateY(60px) scale(0.95);
+        }
+
+        .card.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.05), rgba(0, 212, 255, 0.02));
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--neon-green), var(--neon-cyan), var(--neon-magenta));
+            box-shadow: 0 0 30px var(--neon-green);
+            transition: all 0.5s ease;
+        }
+
+        .card:hover::after {
+            width: 8px;
+            box-shadow: 0 0 50px var(--neon-green);
+        }
+
+        .card:hover {
+            transform: translateX(10px) scale(1.01);
+            border-color: rgba(0, 255, 65, 0.3);
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, 0.5),
+                0 0 60px rgba(0, 255, 65, 0.1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .card-heading {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .card-period {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--neon-cyan);
+            padding: 6px 16px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 30px;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+
+        .card-sub {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            color: var(--neon-green);
+            margin-bottom: 15px;
+            text-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
+        }
+
+        .card-subheading {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            color: var(--neon-magenta);
+            margin: 30px 0 20px;
+            padding-left: 20px;
+            border-left: 4px solid var(--neon-magenta);
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+        }
+
+        .card-text {
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.9;
+            margin-bottom: 25px;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .card-tags span {
+            padding: 6px 16px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--neon-cyan);
+            transition: all 0.3s ease;
+        }
+
+        .card-tags span:hover {
+            background: rgba(0, 212, 255, 0.2);
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+        }
+
+        /* List */
+        .list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .list li {
+            color: rgba(255, 255, 255, 0.75);
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .list li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--neon-green);
+            font-family: 'JetBrains Mono', monospace;
+            text-shadow: 0 0 10px var(--neon-green);
+        }
+
+        .list li:hover {
+            color: #fff;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 60px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background: linear-gradient(180deg,
+                var(--neon-green),
+                var(--neon-cyan),
+                var(--neon-magenta),
+                var(--neon-yellow));
+            box-shadow: 0 0 20px var(--neon-green);
+            animation: timelineGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes timelineGlow {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 50px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -52px;
+            top: 35px;
+            width: 20px;
+            height: 20px;
+            background: var(--dark-bg);
+            border: 3px solid var(--neon-green);
+            border-radius: 50%;
+            box-shadow:
+                0 0 30px var(--neon-green),
+                inset 0 0 10px rgba(0, 255, 65, 0.5);
+            animation: dotPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes dotPulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 30px var(--neon-green), inset 0 0 10px rgba(0, 255, 65, 0.5);
+            }
+            50% {
+                transform: scale(1.15);
+                box-shadow: 0 0 50px var(--neon-green), inset 0 0 15px rgba(0, 255, 65, 0.8);
+            }
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .skill-card {
+            background: linear-gradient(135deg, rgba(15, 15, 20, 0.9), rgba(10, 10, 15, 0.95));
+            border: 1px solid rgba(0, 255, 65, 0.1);
+            border-radius: 20px;
+            padding: 35px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            opacity: 0;
+            transform: translateY(40px) rotateX(10deg);
+        }
+
+        .skill-card.visible {
+            opacity: 1;
+            transform: translateY(0) rotateX(0);
+        }
+
+        .skill-card:hover {
+            border-color: var(--neon-green);
+            box-shadow:
+                0 30px 60px rgba(0, 0, 0, 0.4),
+                0 0 50px rgba(0, 255, 65, 0.2);
+            transform: translateY(-10px);
+        }
+
+        .skill-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.2rem;
+            color: var(--neon-cyan);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .skill-title::before {
+            content: '◆';
+            color: var(--neon-green);
+            text-shadow: 0 0 15px var(--neon-green);
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .skill-tag {
+            padding: 8px 18px;
+            background: rgba(0, 255, 65, 0.08);
+            border: 1px solid rgba(0, 255, 65, 0.2);
+            border-radius: 25px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.85);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-tag::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .skill-tag:hover::before {
+            left: 100%;
+        }
+
+        .skill-tag:hover {
+            background: rgba(0, 255, 65, 0.15);
+            color: var(--neon-green);
+            border-color: var(--neon-green);
+            transform: scale(1.08);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            padding: 80px 60px;
+            text-align: center;
+            border-top: 1px solid rgba(0, 255, 65, 0.1);
+            margin-top: 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
+            box-shadow: 0 0 30px var(--neon-green);
+        }
+
+        .footer-text {
+            font-family: 'JetBrains Mono', monospace;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 1rem;
+            letter-spacing: 3px;
+        }
+
+        .footer-text span {
+            color: var(--neon-green);
+            text-shadow: 0 0 20px var(--neon-green);
+        }
+
+        /* Floating Particles */
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--neon-green);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--neon-green);
+            animation: particleFloat 20s infinite linear;
+            opacity: 0;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) rotate(0deg);
+            }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% {
+                opacity: 0;
+                transform: translateY(-100vh) rotate(720deg);
+            }
+        }
+
+        /* Scanlines */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.1) 0px,
+                rgba(0, 0, 0, 0.1) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            opacity: 0.08;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .nav-links { display: none; }
+            section { padding: 80px 30px; }
+            .card { padding: 30px; }
+            .timeline { padding-left: 40px; }
+            .timeline-dot { left: -38px; }
+            .skills-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 20px 30px; }
+            .hero { padding: 100px 20px 80px; }
+            .hero-name { letter-spacing: 8px; }
+            .hero-contact { flex-direction: column; align-items: center; gap: 20px; }
+            .terminal-window { margin: 0 10px 40px; }
+        }
+
+        /* Magnetic Button Effect */
+        .magnetic-btn {
+            position: relative;
+            padding: 18px 45px;
+            background: transparent;
+            border: 2px solid var(--neon-green);
+            color: var(--neon-green);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: none;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            margin-top: 40px;
+            border-radius: 50px;
+        }
+
+        .magnetic-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.4), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .magnetic-btn:hover::before {
+            left: 100%;
+        }
+
+        .magnetic-btn:hover {
+            background: var(--neon-green);
+            color: #000;
+            box-shadow: 0 0 50px var(--neon-green), 0 20px 40px rgba(0, 255, 65, 0.3);
+            transform: scale(1.05);
+        }
+    </style>
 </head>
 <body>
-  <!-- Loader -->
-  <div class="loader" id="loader">
-    <div class="loader-text">INITIALIZING SYSTEM<span class="loader-dots"></span></div>
-    <div class="loader-bar"><div class="loader-progress" id="loader-progress"></div></div>
-  </div>
-
-  <!-- Particle Canvas (cursor trail) -->
-  <canvas id="particle-canvas"></canvas>
-
-  <!-- Custom Cursor -->
-  <div class="custom-cursor" id="cursor-outer"></div>
-  <div class="custom-cursor" id="cursor-inner"></div>
-
-  <!-- Hacker Background -->
-  <div class="hacker-bg">
-    <canvas id="matrix-canvas"></canvas>
-  </div>
-  <div class="grid-layer" id="grid-layer"></div>
-  <div class="scanlines"></div>
-  <div class="glitch-overlay" id="glitch-overlay"></div>
-  <div class="vignette"></div>
-
-  <!-- Floating decorative elements -->
-  <div class="floating-decor" id="decor-1">
-    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-      <path d="M20 2L38 20L20 38L2 20L20 2Z" stroke="rgba(0,255,65,0.15)" stroke-width="1"/>
-    </svg>
-  </div>
-  <div class="floating-decor" id="decor-2">
-    <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
-      <circle cx="15" cy="15" r="13" stroke="rgba(0,255,65,0.1)" stroke-width="1"/>
-    </svg>
-  </div>
-  <div class="floating-decor" id="decor-3">
-    <svg width="50" height="50" viewBox="0 0 50 50" fill="none">
-      <path d="M25 5L45 25L25 45L5 25L25 5Z" stroke="rgba(0,255,65,0.08)" stroke-width="1"/>
-    </svg>
-  </div>
-
-  <!-- Terminal Window -->
-  <div class="container">
-    <div class="terminal-bar">
-      <div class="dots">
-        <span class="dot dot-red"></span>
-        <span class="dot dot-yellow"></span>
-        <span class="dot dot-green"></span>
-      </div>
-      <div class="title">tangjf@dev:~ — bash</div>
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-text">INITIALIZING</div>
+        <div class="loader-ring"></div>
     </div>
-    <div class="terminal-body" id="terminal-typing">
-      <div>
-        <span class="prompt">$</span>
-        <span class="cmd">whoami</span>
-      </div>
-      <div style="color: var(--accent); margin-bottom: 4px;">Tang Junfei — .NET Developer</div>
-      <div style="margin-bottom: 16px;">
-        <span class="prompt">$</span>
-        <span class="cmd">cat ./skills.txt</span>
-      </div>
-      <div style="color: var(--text-secondary); margin-bottom: 2px;">5+ years C#/.NET · SQL Server · Redis · RabbitMQ</div>
-      <div>
-        <span class="prompt">$</span>
-        <span class="cursor"></span>
-      </div>
-    </div>
-  </div>
 
-  <!-- Hero -->
-  <header class="hero">
-    <div class="container">
-      <div class="ascii-decoration" style="margin-bottom: 32px;">
-<pre>
-  ____    _  _____ _____ _     _____ ____  _   _ ___ ____
- | __ )  / \|_   _|_   _| |   | ____/ ___|| | | |_ _|  _ \
- |  _ \ / _ \ | |   | | | |   |  _| \___ \| |_| || || |_) |
- | |_) / ___ \| |   | | | |___| |___ ___) |  _  || ||  __/
- |____/_/   \_\_|   |_| |_____|_____|____/|_| |_|___|_|_|
-</pre>
-      </div>
+    <!-- Custom Cursor -->
+    <div class="cursor-main" id="cursorMain"></div>
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
 
-      <h1 class="hero-name" id="hero-name-split">汤俊飞</h1>
-      <p class="hero-title gsap-reveal">// 中级 / 高级 .NET 开发工程师（C#方向）</p>
-      <div class="hero-tags gsap-reveal">
-        <span>5年+经验</span>
-        <span>15-20K</span>
-        <span>北京</span>
-      </div>
-      <div class="hero-contact gsap-reveal">
-        <a href="tel:17631393397">17631393397</a>
-        <a href="mailto:tjfzeishuai@163.com">tjfzeishuai@163.com</a>
-        <a href="https://github.com/TangZhiZzz" target="_blank">github.com/TangZhiZzz</a>
-      </div>
-    </div>
-  </header>
+    <!-- Background -->
+    <canvas id="bg-canvas"></canvas>
+    <div class="floating-particles" id="particles"></div>
+    <div class="scanlines"></div>
 
-  <main class="container">
-
-    <!-- 教育背景 -->
-    <section class="section">
-      <h2 class="section-title">教育背景</h2>
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-heading">唐山职业技术学院 · 计算机应用技术</h3>
-          <span class="card-period">2017.09 – 2020.06</span>
-        </div>
-        <ul class="list">
-          <li>核心课程平均分 88+，专业排名前 5%</li>
-          <li>2018年 蓝桥杯全国软件和信息技术专业人才大赛（C#组）省赛二等奖</li>
-          <li>2017-2018学年 国家励志奖学金（全院前 15%）</li>
-          <li>在校成果：主导开发基于 WinForm 的学生信息管理系统（团队3人），获校级"优秀实训项目"</li>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">&lt;TANG/&gt;</div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
         </ul>
-      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="about">
+        <div class="hero-content">
+            <div class="terminal-window">
+                <div class="terminal-bar">
+                    <div class="dots">
+                        <span class="dot dot-red"></span>
+                        <span class="dot dot-yellow"></span>
+                        <span class="dot dot-green"></span>
+                    </div>
+                    <span class="terminal-title">tangjf@dev:~ — bash</span>
+                </div>
+                <div class="terminal-body">
+                    <div>
+                        <span class="prompt">$</span>
+                        <span class="cmd">whoami</span>
+                    </div>
+                    <div style="color: var(--neon-green); margin-bottom: 6px; font-size: 1.1rem;">Tang Junfei — .NET Developer</div>
+                    <div style="margin-bottom: 18px;">
+                        <span class="prompt">$</span>
+                        <span class="cmd">cat ./skills.txt</span>
+                    </div>
+                    <div style="color: rgba(255,255,255,0.6); margin-bottom: 4px;">C# · .NET Core · SQL Server · Redis · RabbitMQ</div>
+                    <div>
+                        <span class="prompt">$</span>
+                        <span class="cursor-blink"></span>
+                    </div>
+                </div>
+            </div>
+
+            <h1 class="hero-name" data-text="汤俊飞">汤俊飞</h1>
+            <p class="hero-title">// 中级 / 高级 .NET 开发工程师（C#方向）</p>
+
+            <div class="hero-tags">
+                <span class="hero-tag">5年+经验</span>
+                <span class="hero-tag">15-20K</span>
+                <span class="hero-tag">北京</span>
+            </div>
+
+            <div class="hero-contact">
+                <a href="tel:17631393397">17631393397</a>
+                <a href="mailto:tjfzeishuai@163.com">tjfzeishuai@163.com</a>
+                <a href="https://github.com/TangZhiZzz" target="_blank">github.com/TangZhiZzz</a>
+            </div>
+
+            <button class="magnetic-btn">Explore My World</button>
+        </div>
+
+        <div class="scroll-indicator">
+            <span class="scroll-text">Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
     </section>
 
-    <!-- 专业技能 -->
-    <section class="section">
-      <h2 class="section-title">专业技能</h2>
-
-      <div class="card">
-        <h3 class="card-heading">编程语言与框架</h3>
-        <ul class="list">
-          <li>精通 C# 编程语言（OOP、泛型、委托、事件、LINQ、异步编程 Async/Await）</li>
-          <li>熟练掌握 .NET Framework / .NET Core / .NET 5+ 框架</li>
-          <li>熟悉设计模式（单例、工厂、观察者、策略等）</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h3 class="card-heading">开发工具与数据库</h3>
-        <ul class="list">
-          <li>熟练使用 Visual Studio 2019/2022、Postman、Git/SVN</li>
-          <li>精通 SQL Server、MySQL（存储过程、触发器、索引优化、读写分离）</li>
-          <li>熟悉 Redis 分布式缓存、RabbitMQ 消息队列</li>
-          <li>熟练使用 WinForm 常用控件及第三方控件库（AntdUI, HZHcontrol）</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h3 class="card-heading">其他能力</h3>
-        <ul class="list">
-          <li>精通 RESTful API 设计规范，Swagger 文档编写</li>
-          <li>具备团队管理与指导经验（带领 3-5 人团队）</li>
-          <li>良好的需求分析与沟通能力</li>
-        </ul>
-      </div>
+    <!-- Education Section -->
+    <section id="education">
+        <h2 class="section-title">教育背景</h2>
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-heading">唐山职业技术学院 · 计算机应用技术</h3>
+                <span class="card-period">2017.09 – 2020.06</span>
+            </div>
+            <ul class="list">
+                <li>核心课程平均分 88+，专业排名前 5%</li>
+                <li>2018年 蓝桥杯全国软件和信息技术专业人才大赛（C#组）省赛二等奖</li>
+                <li>2017-2018学年 国家励志奖学金（全院前 15%）</li>
+                <li>在校成果：主导开发基于 WinForm 的学生信息管理系统（团队3人），获校级"优秀实训项目"</li>
+            </ul>
+        </div>
     </section>
 
-    <!-- 工作经历 -->
-    <section class="section">
-      <h2 class="section-title">工作经历</h2>
-
-      <div class="timeline">
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-body card">
-            <div class="card-header">
-              <h3 class="card-heading">北京厚泽金融信息服务有限公司</h3>
-              <span class="card-period">2021.10 – 至今</span>
+    <!-- Skills Section -->
+    <section id="skills">
+        <h2 class="section-title">专业技能</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <h3 class="skill-title">编程语言与框架</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">C#</span>
+                    <span class="skill-tag">.NET Framework</span>
+                    <span class="skill-tag">.NET Core</span>
+                    <span class="skill-tag">.NET 5+</span>
+                    <span class="skill-tag">ASP.NET</span>
+                    <span class="skill-tag">LINQ</span>
+                    <span class="skill-tag">Async/Await</span>
+                </div>
             </div>
-            <p class="card-sub">.NET 开发工程师</p>
-            <p class="card-text">国内知名助贷服务企业，专注于为金融机构与个人用户提供专业助贷解决方案。</p>
-
-            <h4 class="card-subheading">核心职责</h4>
-            <ul class="list">
-              <li>主导公司核心综合业务系统的后续迭代开发，基于 ASP.NET 技术栈优化系统架构</li>
-              <li>负责内部核房下户 APP 的开发与维护，优化内部工作流程</li>
-              <li>主导贷后催收系统全流程开发，对接短信、电话等第三方服务</li>
-              <li>带领 3-5 人开发团队，制定开发计划、开展技术方案评审与代码审查</li>
-              <li>负责金融级数据库架构设计与性能优化，SQL Server 读写分离与 Redis 缓存</li>
-            </ul>
-
-            <h4 class="card-subheading">工作成果</h4>
-            <ul class="list">
-              <li>综合业务系统 3 次重大版本迭代，贷款申请审核效率提升 50%，用户等待时间从 3 分钟缩短至 30 秒内</li>
-              <li>内部 APP 上线后，核房下户流程耗时缩短 60%，业务审核效率提升 55%</li>
-              <li>贷后催收系统上线，催收响应时效提升 60%，逾期回款率提升 25%</li>
-              <li>团队开发效率提升 40%，线上 bug 发生率降低 55%，获得公司"年度优秀交付团队"称号</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-body card">
-            <div class="card-header">
-              <h3 class="card-heading">北京助力软件有限公司</h3>
-              <span class="card-period">2019.07 – 2021.07</span>
+            <div class="skill-card">
+                <h3 class="skill-title">开发工具与数据库</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Visual Studio</span>
+                    <span class="skill-tag">SQL Server</span>
+                    <span class="skill-tag">MySQL</span>
+                    <span class="skill-tag">Redis</span>
+                    <span class="skill-tag">RabbitMQ</span>
+                    <span class="skill-tag">WinForm</span>
+                    <span class="skill-tag">Git/SVN</span>
+                </div>
             </div>
-            <p class="card-sub">中级 .NET 开发工程师</p>
-            <p class="card-text">专注于快消品行业信息化解决方案的科技公司。</p>
-
-            <h4 class="card-subheading">核心职责</h4>
-            <ul class="list">
-              <li>主导进销存综合营销一体化系统的 WinForm 客户端与 Web API 服务端核心开发</li>
-              <li>负责控价管理系统开发，实现违规价格自动预警、数据统计分析及报表生成</li>
-              <li>基于 .NET Framework 4.8 构建系统核心架构，完成与第三方支付、电商平台接口的对接开发</li>
-              <li>负责数据库架构设计与性能优化</li>
-            </ul>
-          </div>
+            <div class="skill-card">
+                <h3 class="skill-title">其他能力</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">RESTful API</span>
+                    <span class="skill-tag">Swagger</span>
+                    <span class="skill-tag">团队管理</span>
+                    <span class="skill-tag">性能优化</span>
+                    <span class="skill-tag">读写分离</span>
+                    <span class="skill-tag">架构设计</span>
+                </div>
+            </div>
         </div>
-      </div>
     </section>
 
-    <!-- 项目经验 -->
-    <section class="section">
-      <h2 class="section-title">项目经验</h2>
+    <!-- Experience Section -->
+    <section id="experience">
+        <h2 class="section-title">工作经历</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-heading">北京厚泽金融信息服务有限公司</h3>
+                        <span class="card-period">2021.10 – 至今</span>
+                    </div>
+                    <p class="card-sub">.NET 开发工程师</p>
+                    <p class="card-text">国内知名助贷服务企业，专注于为金融机构与个人用户提供专业助贷解决方案。</p>
 
-      <div class="timeline">
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-body card">
-            <div class="card-header">
-              <h3 class="card-heading">助贷业务全链路系统开发与迭代项目</h3>
-              <span class="card-period">2022.01 – 至今</span>
+                    <h4 class="card-subheading">核心职责</h4>
+                    <ul class="list">
+                        <li>主导公司核心综合业务系统的后续迭代开发，基于 ASP.NET 技术栈优化系统架构</li>
+                        <li>负责内部核房下户 APP 的开发与维护，优化内部工作流程</li>
+                        <li>主导贷后催收系统全流程开发，对接短信、电话等第三方服务</li>
+                        <li>带领 3-5 人开发团队，制定开发计划、开展技术方案评审与代码审查</li>
+                        <li>负责金融级数据库架构设计与性能优化，SQL Server 读写分离与 Redis 缓存</li>
+                    </ul>
+
+                    <h4 class="card-subheading">工作成果</h4>
+                    <ul class="list">
+                        <li>综合业务系统 3 次重大版本迭代，贷款申请审核效率提升 50%，用户等待时间从 3 分钟缩短至 30 秒内</li>
+                        <li>内部 APP 上线后，核房下户流程耗时缩短 60%，业务审核效率提升 55%</li>
+                        <li>贷后催收系统上线，催收响应时效提升 60%，逾期回款率提升 25%</li>
+                        <li>团队开发效率提升 40%，线上 bug 发生率降低 55%，获得公司"年度优秀交付团队"称号</li>
+                    </ul>
+                </div>
             </div>
-            <p class="card-sub">技术负责人 / 核心开发工程师</p>
-            <p class="card-tags"><span>C#</span><span>.NET Core 6.0</span><span>Web API</span><span>SQL Server</span><span>Redis</span><span>RabbitMQ</span></p>
 
-            <ul class="list">
-              <li>统筹项目架构设计，采用分层架构与微服务思想</li>
-              <li>完成 .NET Framework 至 .NET Core 6.0 架构迁移，引入规则引擎，审核效率提升 50%</li>
-              <li>内部核房下户 APP：核房信息采集、任务跟踪、线上审核，支持离线缓存</li>
-              <li>贷后催收系统：智能任务分配算法，对接短信/电话外呼</li>
-              <li>SQL Server 读写分离 + Redis 缓存，运行稳定性达 99.9%</li>
-              <li>带领 3-5 人团队，团队开发效率提升 40%，bug 发生率降低 55%</li>
-            </ul>
-          </div>
-        </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-heading">北京助力软件有限公司</h3>
+                        <span class="card-period">2019.07 – 2021.07</span>
+                    </div>
+                    <p class="card-sub">中级 .NET 开发工程师</p>
+                    <p class="card-text">专注于快消品行业信息化解决方案的科技公司。</p>
 
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-body card">
-            <div class="card-header">
-              <h3 class="card-heading">快消品进销存综合营销一体化系统开发项目</h3>
-              <span class="card-period">2019.07 – 2020.11</span>
+                    <h4 class="card-subheading">核心职责</h4>
+                    <ul class="list">
+                        <li>主导进销存综合营销一体化系统的 WinForm 客户端与 Web API 服务端核心开发</li>
+                        <li>负责控价管理系统开发，实现违规价格自动预警、数据统计分析及报表生成</li>
+                        <li>基于 .NET Framework 4.8 构建系统核心架构，完成与第三方支付、电商平台接口的对接开发</li>
+                        <li>负责数据库架构设计与性能优化</li>
+                    </ul>
+                </div>
             </div>
-            <p class="card-sub">核心开发工程师</p>
-            <p class="card-tags"><span>.NET Framework 4.8</span><span>WinForm</span><span>Web API</span></p>
-
-            <ul class="list">
-              <li>为某大型快消品生产企业定制开发</li>
-              <li>覆盖：生产计划、工厂仓储、经销商配送、门店销售、会员管理、积分运营</li>
-              <li>WinForm 客户端 + Web API 服务端</li>
-              <li>控价管理系统：全网电商品牌价格监控</li>
-            </ul>
-          </div>
         </div>
-      </div>
     </section>
 
-  </main>
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2 class="section-title">项目经验</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-heading">助贷业务全链路系统开发与迭代项目</h3>
+                        <span class="card-period">2022.01 – 至今</span>
+                    </div>
+                    <p class="card-sub">技术负责人 / 核心开发工程师</p>
+                    <p class="card-tags">
+                        <span>C#</span>
+                        <span>.NET Core 6.0</span>
+                        <span>Web API</span>
+                        <span>SQL Server</span>
+                        <span>Redis</span>
+                        <span>RabbitMQ</span>
+                    </p>
+                    <ul class="list">
+                        <li>统筹项目架构设计，采用分层架构与微服务思想</li>
+                        <li>完成 .NET Framework 至 .NET Core 6.0 架构迁移，引入规则引擎，审核效率提升 50%</li>
+                        <li>内部核房下户 APP：核房信息采集、任务跟踪、线上审核，支持离线缓存</li>
+                        <li>贷后催收系统：智能任务分配算法，对接短信/电话外呼</li>
+                        <li>SQL Server 读写分离 + Redis 缓存，运行稳定性达 99.9%</li>
+                        <li>带领 3-5 人团队，团队开发效率提升 40%，bug 发生率降低 55%</li>
+                    </ul>
+                </div>
+            </div>
 
-  <footer class="footer">
-    <p>© 2026 TangJunfei | .NET Developer</p>
-  </footer>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-heading">快消品进销存综合营销一体化系统开发项目</h3>
+                        <span class="card-period">2019.07 – 2020.11</span>
+                    </div>
+                    <p class="card-sub">核心开发工程师</p>
+                    <p class="card-tags">
+                        <span>.NET Framework 4.8</span>
+                        <span>WinForm</span>
+                        <span>Web API</span>
+                    </p>
+                    <ul class="list">
+                        <li>为某大型快消品生产企业定制开发</li>
+                        <li>覆盖：生产计划、工厂仓储、经销商配送、门店销售、会员管理、积分运营</li>
+                        <li>WinForm 客户端 + Web API 服务端</li>
+                        <li>控价管理系统：全网电商品牌价格监控</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <script src="script.js"></script>
+    <!-- Footer -->
+    <footer id="contact">
+        <p class="footer-text">© 2026 <span>TangJunfei</span> | .NET Developer</p>
+    </footer>
+
+    <script>
+        // Three.js Background
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+        const particleCount = 80;
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.hue = Math.random() > 0.5 ? 150 : 180;
+                this.alpha = Math.random() * 0.5 + 0.2;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x < 0 || this.x > width) this.speedX *= -1;
+                if (this.y < 0 || this.y > height) this.speedY *= -1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `hsla(${this.hue}, 100%, 50%, ${this.alpha})`;
+                ctx.shadowBlur = 15;
+                ctx.shadowColor = `hsla(${this.hue}, 100%, 50%, ${this.alpha})`;
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        function drawLines() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 150) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(0, 255, 65, ${0.15 * (1 - distance / 150)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            ctx.fillStyle = 'rgba(5, 5, 8, 0.1)';
+            ctx.fillRect(0, 0, width, height);
+
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            drawLines();
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Loading Screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 2500);
+        });
+
+        // Custom Cursor
+        const cursorMain = document.getElementById('cursorMain');
+        const cursorDot = document.getElementById('cursorDot');
+        const cursorRing = document.getElementById('cursorRing');
+        let mouseX = 0, mouseY = 0;
+        let dotX = 0, dotY = 0;
+        let ringX = 0, ringY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function updateCursor() {
+            dotX += (mouseX - dotX) * 0.3;
+            dotY += (mouseY - dotY) * 0.3;
+            ringX += (mouseX - ringX) * 0.1;
+            ringY += (mouseY - ringY) * 0.1;
+
+            cursorMain.style.left = mouseX - 10 + 'px';
+            cursorMain.style.top = mouseY - 10 + 'px';
+            cursorDot.style.left = dotX - 3 + 'px';
+            cursorDot.style.top = dotY - 3 + 'px';
+            cursorRing.style.left = ringX - 20 + 'px';
+            cursorRing.style.top = ringY - 20 + 'px';
+
+            requestAnimationFrame(updateCursor);
+        }
+        updateCursor();
+
+        // Hover effects
+        document.querySelectorAll('a, button, .card, .skill-card, .hero-tag').forEach(el => {
+            el.addEventListener('mouseenter', () => cursorMain.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursorMain.classList.remove('hover'));
+        });
+
+        // Hide cursor on touch devices
+        if ('ontouchstart' in window) {
+            cursorMain.style.display = 'none';
+            cursorDot.style.display = 'none';
+            cursorRing.style.display = 'none';
+        }
+
+        // Floating Particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDuration = (Math.random() * 15 + 15) + 's';
+            particle.style.animationDelay = (Math.random() * 20) + 's';
+            particle.style.width = (Math.random() * 4 + 2) + 'px';
+            particle.style.height = particle.style.width;
+
+            const colors = ['#00ff41', '#00d4ff', '#ff00ff', '#ffff00'];
+            particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+            particle.style.boxShadow = `0 0 10px ${particle.style.background}`;
+
+            particlesContainer.appendChild(particle);
+        }
+
+        // Scroll Animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 100);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.card, .skill-card').forEach((el, i) => {
+            el.style.transitionDelay = (i * 0.08) + 's';
+            observer.observe(el);
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Magnetic Button
+        const magneticBtn = document.querySelector('.magnetic-btn');
+        if (magneticBtn) {
+            magneticBtn.addEventListener('mousemove', (e) => {
+                const rect = magneticBtn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                magneticBtn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px) scale(1.05)`;
+            });
+
+            magneticBtn.addEventListener('mouseleave', () => {
+                magneticBtn.style.transform = 'translate(0, 0) scale(1)';
+            });
+
+            magneticBtn.addEventListener('click', () => {
+                document.getElementById('education').scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+    </script>
 </body>
 </html>
